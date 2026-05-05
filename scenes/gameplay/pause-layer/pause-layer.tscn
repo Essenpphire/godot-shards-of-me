@@ -68,6 +68,7 @@ mouse_filter = 1
 text = "MAIN MENU"
 
 [node name="Label" type="Label" parent="MarginContainer/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -78,7 +79,6 @@ offset_bottom = 28.0
 grow_horizontal = 2
 theme = ExtResource("3")
 theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
-text = "Pause: ESC (keyboard) or START button (joypad)"
 
 [connection signal="pressed" from="MarginContainer/Control/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/VBoxOptions/Resume" to="." method="_on_Resume_pressed"]

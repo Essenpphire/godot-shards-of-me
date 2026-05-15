@@ -34,3 +34,7 @@ signal battle_enemy_exited_combat(enemy: Node)
 signal storage_load_data(data: Dictionary)
 signal storage_save_data(data: Dictionary)
 signal storage_clear_data(data: Dictionary)
+
+#线索信号
+signal clue_item_add(clue:Dictionary)
+signal clue_book_update()

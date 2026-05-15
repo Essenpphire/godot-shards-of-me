@@ -23,6 +23,7 @@ GGT_DebugShortcuts="*res://addons/ggt-debug-shortcuts/autoload/debug_shortcuts.t
 EventBus="*res://scripts/EventBus.gd"
 GameManager="*res://scripts/GameManager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+ClueManager="*res://scripts/ClueManager.gd"
 
 [category]
 
@@ -48,6 +49,10 @@ layout/default_style="res://dialogs/style.tres"
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
+
+[dotnet]
+
+project/assembly_name="godot-game-template"
 
 [editor_plugins]
 

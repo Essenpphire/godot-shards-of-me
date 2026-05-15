@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ua3ve7x4r5oe"]
+
+[node name="ClueBookButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0

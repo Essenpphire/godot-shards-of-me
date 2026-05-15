@@ -24,6 +24,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_y0adv")
 script = ExtResource("2_am271")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_y0adv")

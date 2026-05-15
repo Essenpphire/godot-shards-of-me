@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct4kg7pxbq8yi"]
+
+[ext_resource type="Theme" uid="uid://ducfept6pmkkm" path="res://resources/theme/theme-main.tres" id="1_pe2vl"]
+[ext_resource type="Script" path="res://scenes/ui/key_hint.gd" id="2_8gr2x"]
+[ext_resource type="FontFile" uid="uid://da2t6lyf41wty" path="res://assets/fonts/open-sans/open-sans-bold.ttf" id="2_d6sch"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0adv"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.784314, 0.784314, 0.784314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Hint" type="Panel"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_pe2vl")
+theme_override_styles/panel = SubResource("StyleBoxFlat_y0adv")
+script = ExtResource("2_8gr2x")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_pe2vl")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = ExtResource("2_d6sch")
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[b][shake rate=15 level=5]E[/shake][/b]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1

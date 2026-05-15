@@ -10,6 +10,8 @@ var next_scene : String = ""
 func change_scene() -> void:
 	if can_change_scene == true and Input.is_action_pressed("互动"):
 			GGT.change_scene("res://scenes/gameplay/" + next_scene + ".tscn")
+			# 防止玩家一直按E
+			can_change_scene = false
 
 
 func _ready() -> void:

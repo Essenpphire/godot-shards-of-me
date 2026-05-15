@@ -25,6 +25,10 @@ func changeScene(scene : String) -> void:
 		print("场景切换失败！")
 
 """函数"""
+# 再封装
+func wait(seconds: float) -> Signal:
+	return get_tree().create_timer(seconds).timeout
+
 ## 从池子里抽取场景并返回
 ## @todo 暂存GameManager以后迁移到工具单例里
 func drawFromPool(pool : Array) -> Node2D:
@@ -37,25 +41,6 @@ func cameraShake(cnt : float) -> void:
 func cameraLimit(xs : float, 
 	ys : float, xe : float, ye : float) ->void:
 	EventBus.game_camera_limit.emit(xs, ys, xe, ye)
-
-## 创建tile淡入动画
-## @param pos为全局坐标，而非单元格坐标
-## @param siz为动画覆盖区域大小，一般是填入tileset.tile_size
-## @author 互联网 deepseek
-func tileFadeAnim(pos: Vector2i, siz: Vector2i):
-	# 为这个格子创建一个唯一的CanvasLayer或ColorRect作为遮罩
-	var tween = create_tween()
-	var overlay = ColorRect.new()
-	# 白色
-	overlay.color = Color(1, 1, 1, 1)
-	overlay.size = siz
-	overlay.position = pos - siz / 2
-	overlay.z_index = 1 # 防止特效被tile挡住
-	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	add_child(overlay)
-	tween.tween_property(overlay, "color:a", 0.0, 0.3)
-	tween.tween_callback(overlay.queue_free)
 
 func _init() -> void:
 	# 初始化居中窗口

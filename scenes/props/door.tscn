@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqmfwv43yen7j"]
+
+[ext_resource type="PackedScene" uid="uid://csycuuybc442e" path="res://scenes/props/prop_template.tscn" id="1_5e0ln"]
+[ext_resource type="Script" path="res://scenes/props/door.gd" id="1_yepiq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yepiq"]
+size = Vector2(40, 80)
+
+[node name="Door" instance=ExtResource("1_5e0ln")]
+script = ExtResource("1_yepiq")
+
+[node name="Hint" parent="." index="0"]
+physics_interpolation_mode = 0
+
+[node name="Sprite2D" parent="." index="1"]
+rotation = -0.523599
+scale = Vector2(0.5, 1)
+skew = 0.523599
+
+[node name="CollisionShape2D" parent="." index="2"]
+rotation = -0.523599
+skew = 0.523599
+shape = SubResource("RectangleShape2D_yepiq")

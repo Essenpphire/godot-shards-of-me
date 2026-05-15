@@ -1,0 +1,189 @@
+[gd_scene load_steps=17 format=4 uid="uid://bont8u883w3b7"]
+
+[ext_resource type="Script" uid="uid://bankim6hkyhl3" path="res://scenes/ui/inventory/inventory.gd" id="1_8d5vf"]
+[ext_resource type="PackedScene" uid="uid://cwhohiysdcjqx" path="res://scenes/ui/inventory/slot.tscn" id="1_e5v8k"]
+[ext_resource type="PackedScene" uid="uid://b1d5o0v0ws3f3" path="res://scenes/ui/clue_book/clue_book.tscn" id="1_iucpc"]
+[ext_resource type="TileSet" uid="uid://cfuw6cof4j2d5" path="res://assets/tilesets/left_walls.tres" id="1_w3o6b"]
+[ext_resource type="Script" uid="uid://kyhg4hcyjxff" path="res://scenes/ui/inventory/character.gd" id="2_4xyme"]
+[ext_resource type="Texture2D" uid="uid://brkwb3pw80ss2" path="res://assets/images/tilesets/bg_floors.png" id="2_jy2c1"]
+[ext_resource type="PackedScene" uid="uid://2q8jebnn6vc3" path="res://scenes/ui/inventory/passive_slot.tscn" id="2_k1qje"]
+[ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="2_w3o6b"]
+[ext_resource type="Texture2D" uid="uid://d3m4nyephv25p" path="res://assets/images/tilesets/bg_floor_1.png" id="3_iunvb"]
+[ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/door.tscn" id="4_iunvb"]
+[ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/props/item_prop_template.tscn" id="9_a7aty"]
+[ext_resource type="Texture2D" uid="uid://bor7oxd1135fu" path="res://assets/images/items/key.png" id="10_cka07"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iunvb"]
+texture = ExtResource("2_jy2c1")
+texture_region_size = Vector2i(287, 199)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+3:4/0 = 0
+1:5/0 = 0
+0:5/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e5v8k"]
+texture = ExtResource("3_iunvb")
+texture_region_size = Vector2i(1024, 168)
+0:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_e5v8k"]
+tile_shape = 1
+tile_size = Vector2i(224, 120)
+sources/0 = SubResource("TileSetAtlasSource_iunvb")
+sources/1 = SubResource("TileSetAtlasSource_e5v8k")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cka07"]
+radius = 32.0
+
+[node name="testfield" type="Node2D"]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="UI" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Inventory" type="GridContainer" parent="UILayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = 224.0
+grow_horizontal = 0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 4
+script = ExtResource("1_8d5vf")
+
+[node name="Slot" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot2" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot3" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot4" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot5" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot6" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot7" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot8" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot9" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot10" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot11" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Slot12" parent="UILayer/UI/Inventory" instance=ExtResource("1_e5v8k")]
+layout_mode = 2
+
+[node name="Character" type="VBoxContainer" parent="UILayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 64.0
+offset_bottom = 224.0
+theme_override_constants/separation = 16
+script = ExtResource("2_4xyme")
+
+[node name="PassiveSlot" parent="UILayer/UI/Character" instance=ExtResource("2_k1qje")]
+layout_mode = 2
+slot_type = 1
+
+[node name="PassiveSlot2" parent="UILayer/UI/Character" instance=ExtResource("2_k1qje")]
+layout_mode = 2
+slot_type = 2
+
+[node name="PassiveSlot3" parent="UILayer/UI/Character" instance=ExtResource("2_k1qje")]
+layout_mode = 2
+slot_type = 3
+
+[node name="ATK" type="Label" parent="UILayer/UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 28.0
+text = "ATK: 0"
+
+[node name="ClueBook" parent="." instance=ExtResource("1_iucpc")]
+visible = false
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="LeftWallLayer" type="TileMapLayer" parent="Background"]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAD///3/AQAAAAAAAAD///z/AQAAAAAAAAA=")
+tile_set = ExtResource("1_w3o6b")
+
+[node name="FloorLayer" type="TileMapLayer" parent="Background"]
+visible = false
+position = Vector2(186, 0)
+tile_map_data = PackedByteArray("AAAZA/oBAQAAAAIAAAAhBvcBAQAAAAIAAAAhBvYBAQAAAAIAAAAhBvUBAQAAAAIAAAAAAAAAAAABAAQAAAD//wEAAAABAAQAAAD//wAAAAABAAQAAAD/////AAABAAQAAAAAAP//AAABAAQAAAAAAP7/AAABAAQAAAD//wIAAAABAAQAAAD+/wEAAAABAAQAAAA=")
+tile_set = SubResource("TileSet_e5v8k")
+
+[node name="BgFloor1" type="Sprite2D" parent="Background"]
+position = Vector2(315, -121)
+texture = ExtResource("3_iunvb")
+
+[node name="ItemProp" parent="Background" instance=ExtResource("9_a7aty")]
+position = Vector2(474, 39)
+
+[node name="Sprite2D" parent="Background/ItemProp" index="1"]
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_cka07")
+
+[node name="CollisionShape2D" parent="Background/ItemProp/Detection" index="0"]
+shape = SubResource("CircleShape2D_cka07")
+
+[node name="Door" parent="." instance=ExtResource("4_iunvb")]
+position = Vector2(-28, -9)
+
+[node name="Player" parent="." instance=ExtResource("2_w3o6b")]
+position = Vector2(309, 0)
+
+[editable path="Background/ItemProp"]

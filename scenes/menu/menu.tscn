@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c2gocuhw2o7py"]
 
-[ext_resource type="Texture2D" uid="uid://b8igyqfgd5tn5" path="res://assets/images/classroom.png" id="2_y1o0p"]
+[ext_resource type="Texture2D" uid="uid://b8igyqfgd5tn5" path="res://assets/images/backgrounds/classroom.png" id="2_y1o0p"]
 [ext_resource type="FontFile" uid="uid://da2t6lyf41wty" path="res://assets/fonts/open-sans/open-sans-bold.ttf" id="4"]
 [ext_resource type="Script" uid="uid://dfnwymtygg1to" path="res://scenes/menu/game_version.gd" id="4_3hod2"]
 [ext_resource type="Script" uid="uid://cvc42inud8fxx" path="res://scenes/menu/menu.gd" id="5"]

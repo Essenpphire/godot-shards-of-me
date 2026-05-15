@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://b83omkj4aqsph" path="res://scenes/gameplay/start.gd" id="1_3j2p0"]
 [ext_resource type="PackedScene" uid="uid://barl4q1kugrmm" path="res://scenes/gameplay/pause-layer/pause-layer.tscn" id="2_qmd80"]
 [ext_resource type="Script" uid="uid://pvcyl8rk2ier" path="res://scenes/gameplay/start_ui.gd" id="3_3j2p0"]
-[ext_resource type="PackedScene" uid="uid://4wh1xnoapwdh" path="res://scenes/gameplay/room/wall.tscn" id="4_hv1rg"]
-[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/gameplay/room/floor.tscn" id="5_dusiu"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collider.tscn" id="5_dusiu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(29, 651)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q64rj"]
 size = Vector2(32, 652.5)
@@ -25,8 +27,9 @@ scale = Vector2(0.6, 0.6)
 centered = false
 offset = Vector2(-3346.67, -1763.33)
 
-[node name="Wall" parent="Background" instance=ExtResource("4_hv1rg")]
-position = Vector2(0, 323.25)
+[node name="Wall" parent="Background" instance=ExtResource("5_dusiu")]
+position = Vector2(-0.5, 321.5)
+shape = SubResource("RectangleShape2D_lrrqo")
 
 [node name="Wall2" type="CollisionShape2D" parent="Background"]
 position = Vector2(1152, 323.25)

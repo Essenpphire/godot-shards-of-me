@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://csycuuybc442e"]
+
+[ext_resource type="Script" uid="uid://ctnx2vpyvbkxg" path="res://scenes/props/prop_template.gd" id="1_cvxq6"]
+[ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="2_vo4tf"]
+[ext_resource type="Texture2D" uid="uid://dtwpm3uclaspj" path="res://assets/images/sprites/icon.png" id="3_xkotg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5e0ln"]
+radius = 54.6717
+
+[node name="Prop" type="StaticBody2D"]
+script = ExtResource("1_cvxq6")
+
+[node name="Hint" parent="." instance=ExtResource("2_vo4tf")]
+offset_left = -10.0
+offset_top = -75.0
+offset_right = 30.0
+offset_bottom = -35.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_xkotg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource("CircleShape2D_5e0ln")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]

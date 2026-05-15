@@ -10,6 +10,7 @@ signal transition_covered_screen
 
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var bg : TextureRect = $ColorRect/TextureRect
 @onready var progress: Control = $ColorRect/MarginContainer/Progress
 
 var target_progress: float = 0.0
@@ -17,6 +18,7 @@ var config = preload("res://addons/ggt-core/config.tres")
 
 
 func _ready():
+	bg.hide()
 	set_process(false)
 
 
@@ -33,8 +35,10 @@ func is_transition_in_playing():
 # appear
 func fade_in(params = {}):
 	progress.hide()
+	# 当且仅当有加载进度条时才应用背景
 	if params and params.get("show_progress_bar") == true:
 		progress.show()
+		bg.show()
 	anim.play("transition-in")
 
 

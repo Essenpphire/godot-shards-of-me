@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://barl4q1kugrmm"]
+[gd_scene load_steps=10 format=3 uid="uid://barl4q1kugrmm"]
 
 [ext_resource type="Script" uid="uid://do7kkb4ijqk5p" path="res://scenes/gameplay/pause-layer/pause-layer.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://uwyewuxfvwll" path="res://scenes/ui/layer_mask.tscn" id="2_p6wo1"]
 [ext_resource type="Theme" uid="uid://ducfept6pmkkm" path="res://resources/theme/theme-main.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://byniue2cdd2yv" path="res://scenes/gameplay/pause-layer/pause_button.png" id="4"]
 [ext_resource type="FontFile" uid="uid://gx6101bkasjf" path="res://assets/fonts/LXGWWenKai-Regular.ttf" id="5_cnfont"]
@@ -42,13 +43,7 @@ corner_radius_bottom_left = 8
 process_mode = 3
 script = ExtResource("2")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color(0.08, 0.05, 0.15, 0.65)
+[node name="ColorRect" parent="." instance=ExtResource("2_p6wo1")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

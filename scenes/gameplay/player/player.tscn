@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://byr8pun5xyhsv"]
 
-[ext_resource type="SpriteFrames" uid="uid://ddmxlhrthm30n" path="res://assets/sprites/baka/baka_sprite.tres" id="1_jawt3"]
+[ext_resource type="SpriteFrames" uid="uid://ddmxlhrthm30n" path="res://assets/images/sprites/baka/baka_sprite.tres" id="1_jawt3"]
 [ext_resource type="Script" uid="uid://bq7881nofy2rb" path="res://scenes/gameplay/player/player.gd" id="1_qgw2i"]
 [ext_resource type="Script" uid="uid://3mi2wpja60r7" path="res://scenes/gameplay/player/player_camera.gd" id="3_77456"]
 

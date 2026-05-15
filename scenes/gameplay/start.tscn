@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c33qmydbdmhad"]
+[gd_scene load_steps=11 format=3 uid="uid://c33qmydbdmhad"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_ydj0d"]
 [ext_resource type="PackedScene" uid="uid://dvh23oe1ubat7" path="res://scenes/gameplay/ui/key_hint.tscn" id="2_u07r6"]
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="3_0i5y8"]
-[ext_resource type="Texture2D" uid="uid://bddvp4ybiqv6s" path="res://assets/images/secondary_bedroom.png" id="4_realo"]
-[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/gameplay/room/floor.tscn" id="6_mg068"]
+[ext_resource type="Texture2D" uid="uid://bddvp4ybiqv6s" path="res://assets/images/backgrounds/secondary_bedroom.png" id="4_realo"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collider.tscn" id="6_mg068"]
+[ext_resource type="PackedScene" uid="uid://dftvjrxh2yf7a" path="res://scenes/props/door.tscn" id="6_ydj0d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lja2"]
 size = Vector2(444, 14)
@@ -51,6 +52,10 @@ shape = SubResource("RectangleShape2D_m5wmc")
 [node name="Player" parent="." index="3" instance=ExtResource("3_0i5y8")]
 position = Vector2(564, 568)
 scale = Vector2(2, 2)
+
+[node name="StaticBody2D" parent="." index="4" instance=ExtResource("6_ydj0d")]
+position = Vector2(53, 472)
+scale = Vector2(3, 3)
 
 [connection signal="body_entered" from="Background/Door" to="." method="_on_door_body_entered"]
 [connection signal="body_entered" from="Background/Door" to="UILayer" method="_on_door_body_entered"]

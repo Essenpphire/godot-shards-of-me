@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="godot-game-template"
+config/name="shards-of-me"
 config/version="0.0.1"
 run/main_scene="res://scenes/menu/menu.tscn"
 config/features=PackedStringArray("4.4")
-config/icon="res://assets/sprites/icon.png"
+config/icon="res://assets/images/sprites/icon.png"
 
 [autoload]
 
@@ -23,6 +23,8 @@ GGT_DebugShortcuts="*res://addons/ggt-debug-shortcuts/autoload/debug_shortcuts.t
 EventBus="*res://scripts/EventBus.gd"
 GameManager="*res://scripts/GameManager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+ItemData="*res://scripts/ItemData.gd"
+ClueManager="*res://scripts/ClueManager.gd"
 
 [category]
 
@@ -45,7 +47,7 @@ layout/default_style="res://dialogs/style.tres"
 
 [display]
 
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 
@@ -130,6 +132,11 @@ dialogic_default_action={
 "互动"={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+]
+}
+"打开线索"={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"location":0,"echo":false,"script":null)
 ]
 }
 

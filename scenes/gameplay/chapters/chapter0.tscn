@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3 uid="uid://c8dsm6bgluj20"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_ryq6h"]
-[ext_resource type="Texture2D" uid="uid://c4xt58kjxyid5" path="res://assets/images/secondary_bedroom_in.png" id="2_8djcj"]
+[ext_resource type="Texture2D" uid="uid://c4xt58kjxyid5" path="res://assets/images/backgrounds/secondary_bedroom_in.png" id="2_8djcj"]
 [ext_resource type="Script" uid="uid://dl3bx7ff2043l" path="res://scenes/gameplay/chapters/chapter0.gd" id="2_n0ouh"]
-[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/gameplay/room/floor.tscn" id="3_x65ym"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collider.tscn" id="3_x65ym"]
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="4_e7b5c"]
 [ext_resource type="PackedScene" uid="uid://dvh23oe1ubat7" path="res://scenes/gameplay/ui/key_hint.tscn" id="5_f20ei"]
 [ext_resource type="Texture2D" uid="uid://bq5ktpimfjos8" path="res://assets/images/standing/ouyang_ye.png" id="7_ca0r5"]

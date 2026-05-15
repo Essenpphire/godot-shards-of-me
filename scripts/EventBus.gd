@@ -22,15 +22,11 @@ signal game_camera_limit(xs : float,
 ## 视觉特效播放完成
 signal game_vfx_over(effect_name : String)
 
-# 战斗信号
-signal battle_entity_damaged(entity: Node, source: Node, damage: float, is_critical: bool)
-signal battle_entity_died(entity: Node, killer: Node)
-signal battle_buff_applied(entity: Node, buff_data: Dictionary)
-signal battle_buff_removed(entity: Node, buff_type: String)
-signal battle_enemy_entered_combat(enemy: Node)
-signal battle_enemy_exited_combat(enemy: Node)
-
 # 储存信号
 signal storage_load_data(data: Dictionary)
 signal storage_save_data(data: Dictionary)
 signal storage_clear_data(data: Dictionary)
+
+#线索信号
+signal clue_add_item(clue:Dictionary)
+signal clue_update_book()

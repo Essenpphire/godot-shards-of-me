@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwhohiysdcjqx"]
+
+[ext_resource type="Script" uid="uid://cq8ja2w4n044s" path="res://scenes/ui/inventory/slot.gd" id="1_jkamp"]
+[ext_resource type="Script" uid="uid://bb14ovqnxxffh" path="res://scenes/ui/inventory/stats.gd" id="2_sad2q"]
+
+[node name="Slot" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jkamp")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("2_sad2q")
+
+[node name="debug" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2

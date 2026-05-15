@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1d5o0v0ws3f3"]
+
+[ext_resource type="Texture2D" uid="uid://wka1ccjsle1w" path="res://assets/images/ui/clue_book/UI books & more.png" id="1_kmlqy"]
+[ext_resource type="PackedScene" path="res://scenes/ui/layer_mask.tscn" id="2_0378a"]
+[ext_resource type="Script" uid="uid://citym6h4x84c2" path="res://scenes/ui/clue_book/clue_book.gd" id="2_cx3gq"]
+[ext_resource type="PackedScene" uid="uid://dx51sjxiso1n2" path="res://scenes/ui/clue_book/clue.tscn" id="2_kwn8p"]
+
+[node name="ClueBookLayer" type="CanvasLayer"]
+script = ExtResource("2_cx3gq")
+
+[node name="ColorRect" parent="." instance=ExtResource("2_0378a")]
+
+[node name="ClueBook" type="NinePatchRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -297.0
+offset_top = -184.0
+offset_right = 291.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kmlqy")
+region_rect = Rect2(16, 176.088, 96.1028, 48.2776)
+
+[node name="Clues" type="GridContainer" parent="ClueBook"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -176.5
+offset_right = 255.0
+offset_bottom = 109.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 400
+theme_override_constants/v_separation = 150
+columns = 2
+
+[node name="Clue1" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Clue2" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
+layout_mode = 2
+
+[node name="Clue3" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
+layout_mode = 2
+
+[node name="Clue4" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
+layout_mode = 2
+
+[node name="PrevPageBtn" type="Button" parent="ClueBook"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -76.0
+offset_right = 88.0
+offset_bottom = -40.0
+grow_vertical = 0
+text = "上一页"
+
+[node name="NextPageBtn" type="Button" parent="ClueBook"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -76.0
+offset_right = -20.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "下一页"
+
+[node name="ExitPageBtn" type="Button" parent="ClueBook"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = -30.0
+offset_right = 88.0
+offset_bottom = 6.0
+text = "关闭"
+
+[node name="PageLabel" type="Label" parent="ClueBook"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 28.0
+
+[connection signal="pressed" from="ClueBook/PrevPageBtn" to="." method="_on_prev_page_btn_pressed"]
+[connection signal="pressed" from="ClueBook/NextPageBtn" to="." method="_on_next_page_btn_pressed"]
+[connection signal="pressed" from="ClueBook/ExitPageBtn" to="." method="_on_exit_page_btn_pressed"]

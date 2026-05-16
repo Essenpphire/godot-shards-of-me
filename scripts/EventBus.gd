@@ -14,11 +14,6 @@
 extends Node
 
 # 效果信号
-## 相机抖动
-signal game_camera_shake(amout : float)
-## 限制相机位移
-signal game_camera_limit(xs : float, 
-	ys : float, xe : float, ye : float)
 ## 视觉特效播放完成
 signal game_vfx_over(effect_name : String)
 

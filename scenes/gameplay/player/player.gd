@@ -4,11 +4,18 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -800.0
 
 @onready var Sprite : AnimatedSprite2D = $AnimatedSprite2D
+var can_move: bool = true
 
 func _ready() -> void:
 	add_to_group("Player")
 
 func _physics_process(delta: float) -> void:
+	#用于锁定输入播放动画的状态
+	if not can_move:
+		Sprite.play("idle")
+		velocity = Vector2.ZERO # 确保不滑动
+		move_and_slide()
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		pass
@@ -23,3 +30,4 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, SPEED)
 
 	move_and_slide()
+	

@@ -27,6 +27,7 @@ GameManager="*res://scripts/GameManager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 ItemData="*res://scripts/ItemData.gd"
 ClueManager="*res://scripts/ClueManager.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [category]
 
@@ -59,11 +60,12 @@ project/assembly_name="godot-game-template"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/ggt-core/plugin.cfg", "res://addons/ggt-debug-shortcuts/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/ggt-core/plugin.cfg", "res://addons/ggt-debug-shortcuts/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 
 Persist="Persistent data"
+Pcam="PhantomCamera"
 
 [gui]
 

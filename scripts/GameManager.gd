@@ -38,14 +38,6 @@ func wait(seconds: float) -> Signal:
 func drawFromPool(pool : Array) -> Node2D:
 	return pool[randi() % pool.size()].instantiate()
 
-## 建议数值范围：0.0 ~ 10.0
-func cameraShake(cnt : float) -> void:
-	EventBus.game_camera_shake.emit(cnt)
-	
-func cameraLimit(xs : float, 
-	ys : float, xe : float, ye : float) ->void:
-	EventBus.game_camera_limit.emit(xs, ys, xe, ye)
-
 func _init() -> void:
 	# 初始化居中窗口
 	var screen_size : Vector2 = DisplayServer.screen_get_size()

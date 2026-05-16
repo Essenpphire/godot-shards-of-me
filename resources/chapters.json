@@ -1,0 +1,60 @@
+{
+  "prologue": {
+    "name": "序章",
+    "next": {
+      "expression": "'chapter_1'",
+      "args": []
+    },
+    "data": {
+      "flag": true
+    }
+  },
+  "chapter_1": {
+    "name": "第一章",
+    "next": {
+      "expression": "next(chapter1_passed, 'chapter_2', 'ending_1')",
+      "args": [
+        "chapter1_passed"
+      ]
+    },
+    "data": {
+      "chapter1_passed": true,
+      "flag": true
+    }
+  },
+  "chapter_2": {
+    "name": "第二章",
+    "next": {
+      "expression": "next(chapter2_passed, 'chapter_3', 'ending_2')",
+      "args": [
+        "chapter2_passed"
+      ]
+    },
+    "data": {
+      "chapter2_passed": false,
+      "flag": true
+    }
+  },
+  "chapter_3": {
+    "name": "第三章",
+    "next": {
+      "expression": "'ending_3'",
+      "args": []
+    },
+    "data": {
+      "flag": true
+    }
+  },
+  "ending_bad": {
+    "name": "坏结局"
+  },
+  "ending_1": {
+    "name": "结局1"
+  },
+  "ending_2": {
+    "name": "结局2"
+  },
+  "ending_3": {
+    "name": "普通结局"
+  }
+}

@@ -10,6 +10,10 @@ var fst_spawn : bool = true
 var scene_changing : bool = false
 var scene_curr : String = "world"
 
+const ChapterFilePath : String = "res://resources/chapters.json"
+const PersistentDataPath : String = "user:/" # 少一个/，因为DataManager里会加上
+const PersistentDataFileName : String = "persistent_data.json"
+
 ## 改变当前场景
 func changeScene(scene : String) -> void:
 	print("正在切换场景：" + scene)
@@ -48,4 +52,14 @@ func _init() -> void:
 	var window_size : Vector2 = DisplayServer.window_get_size()
 	
 	DisplayServer.window_set_position(screen_size * 0.5 - window_size * 0.5)
-	
+
+func _ready() -> void:
+	if Data.load_persistent_data(PersistentDataPath, PersistentDataFileName):
+		print("持久化数据加载成功！")
+	else:
+		print("持久化数据加载失败！")
+
+	if Chapter.load_chapter_data(ChapterFilePath):
+		print("章节数据加载成功！")
+	else:
+		print("章节数据加载失败！")

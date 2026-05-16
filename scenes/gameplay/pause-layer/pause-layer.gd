@@ -72,4 +72,5 @@ func _on_PauseButton_pressed():
 
 
 func _on_main_menu_pressed():
+	Data.save_persistent_data()
 	GGT.change_scene("res://scenes/menu/menu.tscn", {"show_progress_bar": false})

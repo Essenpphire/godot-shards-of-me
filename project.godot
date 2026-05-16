@@ -21,6 +21,8 @@ config/icon="res://assets/images/sprites/icon.png"
 GGT="*res://addons/ggt-core/ggt.gd"
 GGT_DebugShortcuts="*res://addons/ggt-debug-shortcuts/autoload/debug_shortcuts.tscn"
 EventBus="*res://scripts/EventBus.gd"
+Data="*res://scripts/DataManager.gd"
+Chapter="*res://scripts/ChapterManager.gd"
 GameManager="*res://scripts/GameManager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 ItemData="*res://scripts/ItemData.gd"
@@ -51,9 +53,17 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 
+[dotnet]
+
+project/assembly_name="godot-game-template"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/ggt-core/plugin.cfg", "res://addons/ggt-debug-shortcuts/plugin.cfg")
+
+[global_group]
+
+Persist="Persistent data"
 
 [gui]
 
@@ -137,6 +147,11 @@ dialogic_default_action={
 "打开线索"={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"location":0,"echo":false,"script":null)
+]
+}
+chapter_debug_next_chapter={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

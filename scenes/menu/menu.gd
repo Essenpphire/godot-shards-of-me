@@ -86,6 +86,7 @@ func _on_PlayButton_pressed() -> void:
 			"val": 15
 		},
 	}
+	Chapter.new_game()
 	GGT.change_scene("res://scenes/gameplay/start.tscn", params)
 
 

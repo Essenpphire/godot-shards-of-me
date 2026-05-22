@@ -26,7 +26,7 @@ duration = 0.0
 transition = 0
 ease = 2
 
-[node name="Gameplay" instance=ExtResource("1_ydj0d")]
+[node name="Gameplay2" instance=ExtResource("1_ydj0d")]
 
 [node name="DoorHint" parent="UILayer" index="0" instance=ExtResource("2_u07r6")]
 offset_left = 1075.0

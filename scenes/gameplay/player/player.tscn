@@ -27,6 +27,10 @@ shape = SubResource("CapsuleShape2D_jawt3")
 [node name="Camera2D" type="Camera2D" parent="."]
 top_level = true
 process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 648
 editor_draw_limits = true
 script = ExtResource("3_77456")
 

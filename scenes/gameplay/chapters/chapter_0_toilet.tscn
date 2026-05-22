@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnri35hdjjolw"]
+
+[ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_tre18"]
+[ext_resource type="Texture2D" uid="uid://dpp4r7wjcpjox" path="res://assets/images/tilesets/bg_floor_1_extend.png" id="2_2tt77"]
+[ext_resource type="Texture2D" uid="uid://uhxgf5jhyvck" path="res://assets/images/backgrounds/20260519-172153.png" id="3_it60s"]
+
+[node name="Gameplay" instance=ExtResource("1_tre18")]
+
+[node name="WallSide" type="Polygon2D" parent="Background" index="4"]
+color = Color(0.729412, 0.721569, 0.772549, 1)
+polygon = PackedVector2Array(3, 649, 228, 452, 228, -40, 228, -181, 0, -54, 0.217407, -3.04785)
+
+[node name="BgFloor1Extend" type="Sprite2D" parent="Background" index="5"]
+position = Vector2(489, 297)
+scale = Vector2(1, 1.47856)
+texture = ExtResource("2_2tt77")
+
+[node name="20260519-172153" type="Sprite2D" parent="Background" index="6"]
+position = Vector2(692.05, 190)
+scale = Vector2(0.344766, 0.344263)
+texture = ExtResource("3_it60s")

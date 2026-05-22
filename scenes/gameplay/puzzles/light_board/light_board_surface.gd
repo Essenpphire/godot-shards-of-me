@@ -1,4 +1,3 @@
-class_name LightBoardSurface
 extends Control
 
 const ASSET_ROOT := "res://assets/images/puzzle/"
@@ -9,6 +8,9 @@ var beam_segments: Array = []
 var sources: Array[LightPortData] = []
 var exits: Array[LightPortData] = []
 var exit_hits: Dictionary = {}
+var board_margin := Rect2(Vector2(0, 0), Vector2(0, 0))
+@export var board_inner_padding: Vector2 = Vector2(21.0, 21.0)
+@export var port_icon_size: float = 48.0
 
 var _board_texture: Texture2D
 var _source_texture: Texture2D
@@ -37,6 +39,7 @@ func configure(
 		LightPuzzleConstants.COLOR_GREEN: _load_texture("exit_green.png"),
 		LightPuzzleConstants.COLOR_BLUE: _load_texture("exit_blue.png"),
 	}
+	_calculate_board_margin()
 	queue_redraw()
 
 
@@ -47,22 +50,24 @@ func set_solution(solution: Dictionary) -> void:
 
 
 func cell_to_local(cell: Vector2i) -> Vector2:
-	return Vector2(cell) * cell_size
+	return board_margin.position + Vector2(cell) * _cell_step()
 
 
 func cell_center(cell: Vector2i) -> Vector2:
-	return (Vector2(cell) + Vector2(0.5, 0.5)) * cell_size
+	return board_margin.position + (Vector2(cell) + Vector2(0.5, 0.5)) * _cell_step()
 
 
 func local_to_cell(local_position: Vector2) -> Vector2i:
+	var local := local_position - board_margin.position
+	var step := _cell_step()
 	return Vector2i(
-		floori(local_position.x / cell_size),
-		floori(local_position.y / cell_size)
+		floori(local.x / step),
+		floori(local.y / step)
 	)
 
 
 func _draw() -> void:
-	var board_rect := Rect2(Vector2.ZERO, Vector2(board_size) * cell_size)
+	var board_rect := Rect2(board_margin.position, Vector2(board_size) * _cell_step())
 	if _board_texture != null:
 		draw_texture_rect(_board_texture, board_rect, false)
 	else:
@@ -73,20 +78,21 @@ func _draw() -> void:
 
 
 func _draw_grid() -> void:
-	var board_pixels := Vector2(board_size) * cell_size
+	var step := _cell_step()
+	var board_pixels := Vector2(board_size) * step
 	for y in range(board_size.y):
 		for x in range(board_size.x):
-			var rect := Rect2(Vector2(x, y) * cell_size, Vector2.ONE * cell_size)
+			var rect := Rect2(board_margin.position + Vector2(x, y) * step, Vector2.ONE * step)
 			draw_rect(rect.grow(-6.0), Color(0.05, 0.08, 0.11, 0.18), true)
 
 	for x in range(board_size.x + 1):
-		var px := x * cell_size
-		draw_line(Vector2(px, 0.0), Vector2(px, board_pixels.y), Color(0.44, 0.52, 0.62, 0.38), 2.0, true)
+		var px := board_margin.position.x + x * step
+		draw_line(Vector2(px, board_margin.position.y), Vector2(px, board_margin.position.y + board_pixels.y), Color(0.44, 0.52, 0.62, 0.38), 2.0, true)
 	for y in range(board_size.y + 1):
-		var py := y * cell_size
-		draw_line(Vector2(0.0, py), Vector2(board_pixels.x, py), Color(0.44, 0.52, 0.62, 0.38), 2.0, true)
+		var py := board_margin.position.y + y * step
+		draw_line(Vector2(board_margin.position.x, py), Vector2(board_margin.position.x + board_pixels.x, py), Color(0.44, 0.52, 0.62, 0.38), 2.0, true)
 
-	draw_rect(Rect2(Vector2.ZERO, board_pixels), Color(0.7, 0.82, 0.95, 0.48), false, 3.0)
+	draw_rect(Rect2(board_margin.position, board_pixels), Color(0.7, 0.82, 0.95, 0.48), false, 3.0)
 
 
 func _draw_beams() -> void:
@@ -107,14 +113,14 @@ func _draw_ports() -> void:
 		if source == null:
 			continue
 		var dir_vec := Vector2(LightPuzzleConstants.direction_vector(source.direction))
-		var center := cell_center(source.cell) - dir_vec * cell_size * 0.48
+		var center := cell_center(source.cell) - dir_vec * _cell_step() * 0.46
 		_draw_port_marker(center, source.color_mask, true, true)
 
 	for exit_port in exits:
 		if exit_port == null:
 			continue
 		var dir_vec := Vector2(LightPuzzleConstants.direction_vector(exit_port.direction))
-		var center := cell_center(exit_port.cell) + dir_vec * cell_size * 0.48
+		var center := cell_center(exit_port.cell) + dir_vec * _cell_step() * 0.46
 		var key := exit_port.port_id if exit_port.port_id != "" else "%d,%d,%d" % [
 			exit_port.cell.x,
 			exit_port.cell.y,
@@ -129,7 +135,7 @@ func _draw_port_marker(center: Vector2, color_mask: int, is_source: bool, active
 		color = color.darkened(0.55)
 	var texture: Texture2D = _source_texture if is_source else _get_exit_texture(color_mask)
 	if texture != null:
-		var port_rect := Rect2(center - Vector2.ONE * 14.0, Vector2.ONE * 28.0)
+		var port_rect := Rect2(center - Vector2.ONE * (port_icon_size * 0.5), Vector2.ONE * port_icon_size)
 		draw_texture_rect(texture, port_rect, false, Color(1.0, 1.0, 1.0, 1.0 if active else 0.45))
 	else:
 		draw_circle(center, 12.0, Color(color.r, color.g, color.b, 0.34))
@@ -154,3 +160,20 @@ func _load_texture(file_name: String) -> Texture2D:
 	var texture := load(ASSET_ROOT + file_name) as Texture2D
 	_texture_cache[file_name] = texture
 	return texture
+
+
+func _cell_step() -> float:
+	var available := Vector2(size.x, size.y) - board_inner_padding * 2.0
+	return min(
+		available.x / float(max(1, board_size.x)),
+		available.y / float(max(1, board_size.y))
+	)
+
+
+func _calculate_board_margin() -> void:
+	var step := _cell_step()
+	var board_pixels := Vector2(board_size) * step
+	var board_size_px := Vector2(size.x, size.y)
+	var available := board_size_px - board_inner_padding * 2.0
+	var offset := board_inner_padding + (available - board_pixels) * 0.5
+	board_margin = Rect2(offset, board_pixels)

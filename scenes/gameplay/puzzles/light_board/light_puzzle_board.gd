@@ -1,6 +1,9 @@
 class_name LightPuzzleBoard
 extends CanvasLayer
 
+const LIGHT_BOARD_SURFACE_SCRIPT := preload("res://scenes/gameplay/puzzles/light_board/light_board_surface.gd")
+const LIGHT_PIECE_VIEW_SCRIPT := preload("res://scenes/gameplay/puzzles/light_board/light_piece_view.gd")
+
 signal puzzle_solved(puzzle_id: String)
 signal puzzle_closed(puzzle_id: String)
 
@@ -13,9 +16,9 @@ var _overlay: Control
 var _frame: PanelContainer
 var _title_label: Label
 var _status_label: Label
-var _board_surface: LightBoardSurface
+var _board_surface: Control
 var _runtime_placements: Array = []
-var _piece_views: Array[LightPieceView] = []
+var _piece_views: Array = []
 var _solution: Dictionary = {}
 var _drag_index: int = -1
 var _drag_origin_cell: Vector2i = Vector2i.ZERO
@@ -81,7 +84,10 @@ func begin_piece_drag(index: int, global_mouse_position: Vector2) -> void:
 		return
 	_drag_index = index
 	_drag_origin_cell = _get_runtime_position(index)
-	_drag_grab_offset = _surface_global_to_local(global_mouse_position) - _board_surface.cell_to_local(_drag_origin_cell)
+	var drag_anchor := Vector2.ZERO
+	if _board_surface.has_method("cell_to_local"):
+		drag_anchor = _board_surface.cell_to_local(_drag_origin_cell)
+	_drag_grab_offset = _surface_global_to_local(global_mouse_position) - drag_anchor
 	_set_piece_selected(index, true)
 
 
@@ -91,10 +97,14 @@ func update_piece_drag(global_mouse_position: Vector2) -> void:
 
 	var mouse_local := _surface_global_to_local(global_mouse_position)
 	var anchor_local := mouse_local - _drag_grab_offset
-	var raw_cell := Vector2i(
-		roundi(anchor_local.x / cell_size),
-		roundi(anchor_local.y / cell_size)
-	)
+	var raw_cell := Vector2i.ZERO
+	if _board_surface.has_method("local_to_cell"):
+		raw_cell = _board_surface.local_to_cell(anchor_local)
+	else:
+		raw_cell = Vector2i(
+			roundi(anchor_local.x / cell_size),
+			roundi(anchor_local.y / cell_size)
+		)
 	var target_cell := _align_drag_target(_drag_index, raw_cell)
 	target_cell = _clamp_anchor_to_board(_drag_index, target_cell)
 	target_cell = _find_farthest_legal_cell(_drag_index, _drag_origin_cell, target_cell)
@@ -201,7 +211,7 @@ func _build_ui() -> void:
 	close_button.pressed.connect(close_puzzle)
 	header.add_child(close_button)
 
-	_board_surface = LightBoardSurface.new()
+	_board_surface = LIGHT_BOARD_SURFACE_SCRIPT.new() as Control
 	_board_surface.name = "BoardSurface"
 	_board_surface.clip_contents = false
 	_board_surface.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -221,7 +231,8 @@ func _apply_frame_style(panel: PanelContainer) -> void:
 
 
 func _configure_surface() -> void:
-	_board_surface.configure(puzzle_data.board_size, cell_size, puzzle_data.sources, puzzle_data.exits)
+	if _board_surface.has_method("configure"):
+		_board_surface.configure(puzzle_data.board_size, cell_size, puzzle_data.sources, puzzle_data.exits)
 	var board_pixels := Vector2(puzzle_data.board_size) * cell_size
 	_frame.custom_minimum_size = board_pixels + Vector2(48.0, 112.0)
 
@@ -233,7 +244,7 @@ func _rebuild_piece_views() -> void:
 	_piece_views.clear()
 
 	for index in range(_runtime_placements.size()):
-		var view := LightPieceView.new()
+		var view: Node = LIGHT_PIECE_VIEW_SCRIPT.new()
 		_board_surface.add_child(view)
 		view.setup(index, _runtime_placements[index], self, cell_size)
 		_piece_views.append(view)
@@ -242,14 +253,15 @@ func _rebuild_piece_views() -> void:
 func _refresh_piece_view(index: int) -> void:
 	if index < 0 or index >= _piece_views.size():
 		return
-	var view := _piece_views[index]
+	var view: Node = _piece_views[index]
 	if is_instance_valid(view):
 		view.refresh(_runtime_placements[index])
 
 
 func _recompute_solution() -> void:
 	_solution = LightBeamSolver.solve(puzzle_data, _runtime_placements)
-	_board_surface.set_solution(_solution)
+	if _board_surface.has_method("set_solution"):
+		_board_surface.set_solution(_solution)
 
 	if _solution.get("solved", false):
 		_status_label.text = "Solved"
@@ -265,6 +277,18 @@ func _recompute_solution() -> void:
 
 func _surface_global_to_local(global_position: Vector2) -> Vector2:
 	return _board_surface.get_global_transform().affine_inverse() * global_position
+
+
+func get_board_offset() -> Vector2:
+	if _board_surface != null and "board_margin" in _board_surface:
+		return _board_surface.board_margin.position
+	return Vector2.ZERO
+
+
+func get_board_step() -> float:
+	if _board_surface != null and _board_surface.has_method("_cell_step"):
+		return _board_surface._cell_step()
+	return cell_size
 
 
 func _align_drag_target(index: int, raw_cell: Vector2i) -> Vector2i:
@@ -390,6 +414,6 @@ func _set_runtime_position(index: int, target_cell: Vector2i) -> void:
 func _set_piece_selected(index: int, value: bool) -> void:
 	if index < 0 or index >= _piece_views.size():
 		return
-	var view := _piece_views[index]
+	var view: Node = _piece_views[index]
 	if is_instance_valid(view):
 		view.set_selected(value)

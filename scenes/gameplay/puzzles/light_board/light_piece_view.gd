@@ -1,4 +1,3 @@
-class_name LightPieceView
 extends Control
 
 const ASSET_ROOT := "res://assets/images/puzzle/"
@@ -37,8 +36,12 @@ func refresh(new_runtime_placement: Dictionary) -> void:
 		piece_size = piece.size
 		_piece_texture = _get_texture_for_piece(piece)
 		_hover_texture = _load_texture("piece_hover_glow.png")
-	position = Vector2(grid_position) * cell_size
-	size = Vector2(piece_size) * cell_size
+	var step := _cell_step()
+	var board_offset := Vector2.ZERO
+	if board != null and board.has_method("get_board_offset"):
+		board_offset = board.get_board_offset()
+	position = board_offset + Vector2(grid_position) * step
+	size = Vector2(piece_size) * step
 	custom_minimum_size = size
 	queue_redraw()
 
@@ -126,3 +129,9 @@ func _load_texture(file_name: String) -> Texture2D:
 	var texture := load(ASSET_ROOT + file_name) as Texture2D
 	_texture_cache[file_name] = texture
 	return texture
+
+
+func _cell_step() -> float:
+	if board != null and board.has_method("get_board_step"):
+		return board.get_board_step()
+	return cell_size

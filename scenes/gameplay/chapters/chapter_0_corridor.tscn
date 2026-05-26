@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bemrhmrqosxbk"]
+
+[ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_pdfhg"]
+[ext_resource type="Texture2D" uid="uid://b0hpeod81y84h" path="res://assets/images/tilesets/bg_floor_1_extend.png" id="2_vtq4d"]
+[ext_resource type="Texture2D" uid="uid://bwuo16hnrfbeb" path="res://assets/images/backgrounds/corridor_03.png" id="3_pdfhg"]
+
+[node name="Gameplay" instance=ExtResource("1_pdfhg")]
+
+[node name="BgFloor1Extend" type="Sprite2D" parent="Background" index="4"]
+position = Vector2(271, 406.75)
+scale = Vector2(1, 1.02242)
+texture = ExtResource("2_vtq4d")
+
+[node name="Corridor03" type="Sprite2D" parent="Background" index="5"]
+position = Vector2(599, 260.05)
+scale = Vector2(0.3, 0.332529)
+texture = ExtResource("3_pdfhg")

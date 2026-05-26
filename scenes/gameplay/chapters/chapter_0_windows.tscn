@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccgveien11sge"]
+
+[ext_resource type="Texture2D" uid="uid://p3cwljiml2n2" path="res://assets/images/backgrounds/windows_02.png" id="3_xiiqh"]
+[ext_resource type="Texture2D" uid="uid://bx7k663v3xqx1" path="res://assets/images/backgrounds/glass_01.png" id="4_yhwot"]
+[ext_resource type="Texture2D" uid="uid://rgf1vusokefh" path="res://assets/images/backgrounds/glass_02.png" id="5_hrrqm"]
+[ext_resource type="Script" path="res://scenes/gameplay/chapters/chapter_0_windows.gd" id="6_hxy4l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gd2aj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="windows" type="Node2D"]
+script = ExtResource("6_hxy4l")
+
+[node name="FlightPath" type="Node2D" parent="."]
+
+[node name="Start" type="Marker2D" parent="FlightPath"]
+position = Vector2(-120, -24)
+
+[node name="Pass" type="Marker2D" parent="FlightPath"]
+position = Vector2(8, -32)
+
+[node name="End" type="Marker2D" parent="FlightPath"]
+position = Vector2(128, -18)
+
+[node name="bird" type="AnimatedSprite2D" parent="."]
+position = Vector2(-107, -39)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_gd2aj")
+frame = 1
+frame_progress = 0.80045
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_xiiqh")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(1, 1, 1, 0.235294)
+position = Vector2(-207, -127)
+texture = ExtResource("4_yhwot")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(1, 1, 1, 0.235294)
+position = Vector2(232, -125)
+texture = ExtResource("5_hrrqm")
+metadata/_edit_lock_ = true

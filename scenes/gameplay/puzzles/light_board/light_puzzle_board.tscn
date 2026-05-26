@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbijdtu740n7"]
+
+[ext_resource type="Script" uid="uid://tlyhpr1ak0ap" path="res://scenes/gameplay/puzzles/light_board/light_puzzle_board.gd" id="1_yoclh"]
+
+[node name="LightPuzzleBoard" type="CanvasLayer"]
+script = ExtResource("1_yoclh")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2u4bkf4fnyc4"]
+
+[ext_resource type="PackedScene" uid="uid://dbijdtu740n7" path="res://scenes/gameplay/puzzles/light_board/light_puzzle_board.tscn" id="1_board"]
+[ext_resource type="Resource" uid="uid://jmjqpw0rgl2x" path="res://resources/puzzles/light_board/blue_prism_z.tres" id="2_puzzle"]
+
+[node name="puzzle_02" instance=ExtResource("1_board")]
+puzzle_data = ExtResource("2_puzzle")
+pause_world_while_open = false
+open_on_ready = true

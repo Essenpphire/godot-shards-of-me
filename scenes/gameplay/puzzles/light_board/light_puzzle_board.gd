@@ -1,0 +1,419 @@
+class_name LightPuzzleBoard
+extends CanvasLayer
+
+const LIGHT_BOARD_SURFACE_SCRIPT := preload("res://scenes/gameplay/puzzles/light_board/light_board_surface.gd")
+const LIGHT_PIECE_VIEW_SCRIPT := preload("res://scenes/gameplay/puzzles/light_board/light_piece_view.gd")
+
+signal puzzle_solved(puzzle_id: String)
+signal puzzle_closed(puzzle_id: String)
+
+@export var puzzle_data: LightPuzzleData
+@export var cell_size: float = 88.0
+@export var pause_world_while_open: bool = true
+@export var open_on_ready: bool = false
+
+var _overlay: Control
+var _frame: PanelContainer
+var _title_label: Label
+var _status_label: Label
+var _board_surface: Control
+var _runtime_placements: Array = []
+var _piece_views: Array = []
+var _solution: Dictionary = {}
+var _drag_index: int = -1
+var _drag_origin_cell: Vector2i = Vector2i.ZERO
+var _drag_grab_offset: Vector2 = Vector2.ZERO
+var _was_paused_before_open: bool = false
+var _solved_emitted: bool = false
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	layer = 20
+	_build_ui()
+	hide()
+	if open_on_ready and puzzle_data != null:
+		open_puzzle(puzzle_data)
+
+
+func open_puzzle(new_puzzle_data: LightPuzzleData = null) -> void:
+	if new_puzzle_data != null:
+		puzzle_data = new_puzzle_data
+	if puzzle_data == null:
+		push_error("LightPuzzleBoard.open_puzzle called without puzzle data.")
+		return
+
+	_runtime_placements = puzzle_data.create_runtime_placements()
+	_solved_emitted = false
+	_title_label.text = puzzle_data.title if puzzle_data.title != "" else puzzle_data.puzzle_id
+	_status_label.text = ""
+	_configure_surface()
+	_rebuild_piece_views()
+	_recompute_solution()
+
+	_was_paused_before_open = get_tree().paused
+	if pause_world_while_open:
+		get_tree().paused = true
+	show()
+
+
+func close_puzzle() -> void:
+	if _drag_index != -1:
+		end_piece_drag()
+	hide()
+	if pause_world_while_open:
+		get_tree().paused = _was_paused_before_open
+	if puzzle_data != null:
+		puzzle_closed.emit(puzzle_data.puzzle_id)
+
+
+func reset_puzzle() -> void:
+	if puzzle_data == null:
+		return
+	_runtime_placements = puzzle_data.create_runtime_placements()
+	_solved_emitted = false
+	_status_label.text = ""
+	_rebuild_piece_views()
+	_recompute_solution()
+
+
+func begin_piece_drag(index: int, global_mouse_position: Vector2) -> void:
+	if index < 0 or index >= _runtime_placements.size():
+		return
+	if not _is_runtime_movable(index):
+		return
+	_drag_index = index
+	_drag_origin_cell = _get_runtime_position(index)
+	var drag_anchor := Vector2.ZERO
+	if _board_surface.has_method("cell_to_local"):
+		drag_anchor = _board_surface.cell_to_local(_drag_origin_cell)
+	_drag_grab_offset = _surface_global_to_local(global_mouse_position) - drag_anchor
+	_set_piece_selected(index, true)
+
+
+func update_piece_drag(global_mouse_position: Vector2) -> void:
+	if _drag_index == -1:
+		return
+
+	var mouse_local := _surface_global_to_local(global_mouse_position)
+	var anchor_local := mouse_local - _drag_grab_offset
+	var raw_cell := Vector2i.ZERO
+	if _board_surface.has_method("local_to_cell"):
+		raw_cell = _board_surface.local_to_cell(anchor_local)
+	else:
+		raw_cell = Vector2i(
+			roundi(anchor_local.x / cell_size),
+			roundi(anchor_local.y / cell_size)
+		)
+	var target_cell := _align_drag_target(_drag_index, raw_cell)
+	target_cell = _clamp_anchor_to_board(_drag_index, target_cell)
+	target_cell = _find_farthest_legal_cell(_drag_index, _drag_origin_cell, target_cell)
+
+	if target_cell != _get_runtime_position(_drag_index):
+		_set_runtime_position(_drag_index, target_cell)
+		_refresh_piece_view(_drag_index)
+		_recompute_solution()
+
+
+func end_piece_drag() -> void:
+	if _drag_index == -1:
+		return
+	_set_piece_selected(_drag_index, false)
+	_drag_index = -1
+
+
+func is_dragging_piece(index: int) -> bool:
+	return _drag_index == index
+
+
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+
+	if event is InputEventKey and event.is_action_pressed("pause"):
+		close_puzzle()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventMouseMotion and _drag_index != -1:
+		update_piece_drag(event.global_position)
+		get_viewport().set_input_as_handled()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		if _drag_index != -1:
+			end_piece_drag()
+			get_viewport().set_input_as_handled()
+
+
+func _build_ui() -> void:
+	_overlay = Control.new()
+	_overlay.name = "Overlay"
+	_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(_overlay)
+
+	var dim := ColorRect.new()
+	dim.name = "Dim"
+	dim.color = Color(0.0, 0.0, 0.0, 0.58)
+	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_overlay.add_child(dim)
+
+	var center := CenterContainer.new()
+	center.name = "Center"
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_overlay.add_child(center)
+
+	_frame = PanelContainer.new()
+	_frame.name = "Frame"
+	_frame.custom_minimum_size = Vector2(520.0, 590.0)
+	_frame.process_mode = Node.PROCESS_MODE_ALWAYS
+	_apply_frame_style(_frame)
+	center.add_child(_frame)
+
+	var margin := MarginContainer.new()
+	margin.name = "Margin"
+	margin.add_theme_constant_override("margin_left", 24)
+	margin.add_theme_constant_override("margin_top", 18)
+	margin.add_theme_constant_override("margin_right", 24)
+	margin.add_theme_constant_override("margin_bottom", 24)
+	_frame.add_child(margin)
+
+	var layout := VBoxContainer.new()
+	layout.name = "Layout"
+	layout.add_theme_constant_override("separation", 14)
+	margin.add_child(layout)
+
+	var header := HBoxContainer.new()
+	header.name = "Header"
+	header.add_theme_constant_override("separation", 12)
+	layout.add_child(header)
+
+	_title_label = Label.new()
+	_title_label.name = "Title"
+	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_title_label.add_theme_font_size_override("font_size", 22)
+	header.add_child(_title_label)
+
+	_status_label = Label.new()
+	_status_label.name = "Status"
+	_status_label.custom_minimum_size = Vector2(100.0, 32.0)
+	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	header.add_child(_status_label)
+
+	var reset_button := Button.new()
+	reset_button.name = "ResetButton"
+	reset_button.text = "Reset"
+	reset_button.focus_mode = Control.FOCUS_ALL
+	reset_button.pressed.connect(reset_puzzle)
+	header.add_child(reset_button)
+
+	var close_button := Button.new()
+	close_button.name = "CloseButton"
+	close_button.text = "Close"
+	close_button.focus_mode = Control.FOCUS_ALL
+	close_button.pressed.connect(close_puzzle)
+	header.add_child(close_button)
+
+	_board_surface = LIGHT_BOARD_SURFACE_SCRIPT.new() as Control
+	_board_surface.name = "BoardSurface"
+	_board_surface.clip_contents = false
+	_board_surface.mouse_filter = Control.MOUSE_FILTER_PASS
+	layout.add_child(_board_surface)
+
+
+func _apply_frame_style(panel: PanelContainer) -> void:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.075, 0.082, 0.1, 0.96)
+	style.border_color = Color(0.38, 0.48, 0.58, 0.72)
+	style.set_border_width_all(2)
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_right = 8
+	style.corner_radius_bottom_left = 8
+	panel.add_theme_stylebox_override("panel", style)
+
+
+func _configure_surface() -> void:
+	if _board_surface.has_method("configure"):
+		_board_surface.configure(puzzle_data.board_size, cell_size, puzzle_data.sources, puzzle_data.exits)
+	var board_pixels := Vector2(puzzle_data.board_size) * cell_size
+	_frame.custom_minimum_size = board_pixels + Vector2(48.0, 112.0)
+
+
+func _rebuild_piece_views() -> void:
+	for child in _board_surface.get_children():
+		_board_surface.remove_child(child)
+		child.queue_free()
+	_piece_views.clear()
+
+	for index in range(_runtime_placements.size()):
+		var view: Node = LIGHT_PIECE_VIEW_SCRIPT.new()
+		_board_surface.add_child(view)
+		view.setup(index, _runtime_placements[index], self, cell_size)
+		_piece_views.append(view)
+
+
+func _refresh_piece_view(index: int) -> void:
+	if index < 0 or index >= _piece_views.size():
+		return
+	var view: Node = _piece_views[index]
+	if is_instance_valid(view):
+		view.refresh(_runtime_placements[index])
+
+
+func _recompute_solution() -> void:
+	_solution = LightBeamSolver.solve(puzzle_data, _runtime_placements)
+	if _board_surface.has_method("set_solution"):
+		_board_surface.set_solution(_solution)
+
+	if _solution.get("solved", false):
+		_status_label.text = "Solved"
+		_status_label.add_theme_color_override("font_color", Color(0.5, 1.0, 0.58))
+		if not _solved_emitted:
+			_solved_emitted = true
+			puzzle_solved.emit(puzzle_data.puzzle_id)
+			EventBus.puzzle_light_solved.emit(puzzle_data.puzzle_id)
+	else:
+		_status_label.text = "Tracing"
+		_status_label.add_theme_color_override("font_color", Color(0.88, 0.9, 0.96))
+
+
+func _surface_global_to_local(global_position: Vector2) -> Vector2:
+	return _board_surface.get_global_transform().affine_inverse() * global_position
+
+
+func get_board_offset() -> Vector2:
+	if _board_surface != null and "board_margin" in _board_surface:
+		return _board_surface.board_margin.position
+	return Vector2.ZERO
+
+
+func get_board_step() -> float:
+	if _board_surface != null and _board_surface.has_method("_cell_step"):
+		return _board_surface._cell_step()
+	return cell_size
+
+
+func _align_drag_target(index: int, raw_cell: Vector2i) -> Vector2i:
+	var piece := _get_runtime_piece(index)
+	if piece == null:
+		return _drag_origin_cell
+
+	var delta := raw_cell - _drag_origin_cell
+	match piece.move_axis:
+		LightPuzzleConstants.MoveAxis.HORIZONTAL:
+			return Vector2i(raw_cell.x, _drag_origin_cell.y)
+		LightPuzzleConstants.MoveAxis.VERTICAL:
+			return Vector2i(_drag_origin_cell.x, raw_cell.y)
+		LightPuzzleConstants.MoveAxis.LOCKED:
+			return _drag_origin_cell
+
+	if abs(delta.x) >= abs(delta.y):
+		return Vector2i(raw_cell.x, _drag_origin_cell.y)
+	return Vector2i(_drag_origin_cell.x, raw_cell.y)
+
+
+func _clamp_anchor_to_board(index: int, cell: Vector2i) -> Vector2i:
+	var piece := _get_runtime_piece(index)
+	if piece == null:
+		return cell
+	return Vector2i(
+		clampi(cell.x, 0, puzzle_data.board_size.x - piece.size.x),
+		clampi(cell.y, 0, puzzle_data.board_size.y - piece.size.y)
+	)
+
+
+func _find_farthest_legal_cell(index: int, start_cell: Vector2i, target_cell: Vector2i) -> Vector2i:
+	if target_cell == start_cell:
+		return start_cell
+	if target_cell.x != start_cell.x and target_cell.y != start_cell.y:
+		return start_cell
+
+	var step := Vector2i(_axis_sign(target_cell.x - start_cell.x), _axis_sign(target_cell.y - start_cell.y))
+	var current := start_cell
+	while current != target_cell:
+		var next_cell := current + step
+		if not _position_is_valid(index, next_cell):
+			break
+		current = next_cell
+	return current
+
+
+func _position_is_valid(index: int, target_cell: Vector2i) -> bool:
+	var piece := _get_runtime_piece(index)
+	if piece == null:
+		return false
+	if target_cell.x < 0 or target_cell.y < 0:
+		return false
+	if target_cell.x + piece.size.x > puzzle_data.board_size.x:
+		return false
+	if target_cell.y + piece.size.y > puzzle_data.board_size.y:
+		return false
+
+	var placement: Dictionary = _runtime_placements[index]
+	var allowed_cells: Array = placement.get("allowed_cells", [])
+	if not allowed_cells.is_empty() and not allowed_cells.has(target_cell):
+		return false
+
+	for other_index in range(_runtime_placements.size()):
+		if other_index == index:
+			continue
+		var other_piece := _get_runtime_piece(other_index)
+		if other_piece == null:
+			continue
+		if _rects_overlap(
+			target_cell,
+			piece.size,
+			_get_runtime_position(other_index),
+			other_piece.size
+		):
+			return false
+	return true
+
+
+func _rects_overlap(a_pos: Vector2i, a_size: Vector2i, b_pos: Vector2i, b_size: Vector2i) -> bool:
+	return (
+		a_pos.x < b_pos.x + b_size.x
+		and a_pos.x + a_size.x > b_pos.x
+		and a_pos.y < b_pos.y + b_size.y
+		and a_pos.y + a_size.y > b_pos.y
+	)
+
+
+func _axis_sign(value: int) -> int:
+	if value > 0:
+		return 1
+	if value < 0:
+		return -1
+	return 0
+
+
+func _is_runtime_movable(index: int) -> bool:
+	var placement: Dictionary = _runtime_placements[index]
+	var piece := _get_runtime_piece(index)
+	if piece == null:
+		return false
+	return piece.is_draggable and not placement.get("locked", false) and piece.move_axis != LightPuzzleConstants.MoveAxis.LOCKED
+
+
+func _get_runtime_piece(index: int) -> LightPieceData:
+	if index < 0 or index >= _runtime_placements.size():
+		return null
+	return _runtime_placements[index].get("piece", null)
+
+
+func _get_runtime_position(index: int) -> Vector2i:
+	if index < 0 or index >= _runtime_placements.size():
+		return Vector2i.ZERO
+	return _runtime_placements[index].get("grid_position", Vector2i.ZERO)
+
+
+func _set_runtime_position(index: int, target_cell: Vector2i) -> void:
+	var placement: Dictionary = _runtime_placements[index]
+	placement["grid_position"] = target_cell
+	_runtime_placements[index] = placement
+
+
+func _set_piece_selected(index: int, value: bool) -> void:
+	if index < 0 or index >= _piece_views.size():
+		return
+	var view: Node = _piece_views[index]
+	if is_instance_valid(view):
+		view.set_selected(value)

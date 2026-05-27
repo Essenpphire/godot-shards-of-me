@@ -1,26 +1,62 @@
 {
 	"0": {
-		"texture": "key.png",
-		"name": "钥匙",
-		"type": 0,
-		"description": "一把平平无奇的钥匙"
+		"texture": "note_0.png",
+		"name": "一张纸条",
+		"type": 1,
+		"description": "一张写着奇怪符号的纸条，看起来像是某种密码"
 	},
 	"1": {
-		"texture": "tip.png",
-		"name": "提示",
+		"texture": "lockedbox.png",
+		"name": "带锁的小盒子",
 		"type": 0,
-		"description": "哈基米哦南北路多"
+		"description": "一个精致的小木盒，上面挂着一把三位数密码锁"
 	},
 	"2": {
-		"texture": "mirror.png",
-		"name": "镜子",
-		"type": 1,
-		"description": "这么强"
+		"texture": "mirror_shard.png",
+		"name": "镜子碎片",
+		"type": 0,
+		"description": "破碎的镜子碎片，似乎能映照出不同的景象"
 	},
 	"3": {
-		"texture": "pill.png",
-		"name": "药",
-		"type": 2,
-		"description": "好想欧弟"
+		"texture": "note_1.png",
+		"name": "床头柜纸条",
+		"type": 1,
+		"description": "上面写着一句不知何人留下的话"
+	},
+	"4": {
+		"texture": "pill_bottle.png",
+		"name": "药瓶",
+		"type": 1,
+		"description": "一瓶名为阿立哌唑的药物"
+	},
+	"5": {
+		"texture": "pill_instruction.png",
+		"name": "药品说明书",
+		"type": 1,
+		"description": "大部分文字模糊不清，直觉告诉我这是药的说明书"
+	},
+	"6": {
+		"texture": "study_word.png",
+		"name": "书房墙上的文字",
+		"type": 1,
+		"description": "经过棱镜折射后显示的模糊文字：“在██房██壁██里”"
+	},
+	"7": {
+		"texture": "shower_traces.png",
+		"name": "浴室墙上的痕迹",
+		"type": 1,
+		"description": "从镜子里看到的痕迹，组合后显示：“厨██的██橱”"
+	},
+	"8": {
+		"texture": "gearedbox.png",
+		"name": "机关小盒",
+		"type": 0,
+		"description": "壁橱里的小盒子，上面有个机关锁"
+	},
+	"9": {
+		"texture": "home_key.png",
+		"name": "家门钥匙",
+		"type": 0,
+		"description": "一把普通的门钥匙，可以打开家的大门"
 	}
 }

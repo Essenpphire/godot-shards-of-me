@@ -66,6 +66,16 @@ func local_to_cell(local_position: Vector2) -> Vector2i:
 	)
 
 
+func local_to_cell_centered(local_position: Vector2, piece_size: Vector2i = Vector2i.ONE) -> Vector2i:
+	var local := local_position - board_margin.position
+	var step := _cell_step()
+	var half_size := Vector2(piece_size) * 0.5
+	return Vector2i(
+		roundi(local.x / step - half_size.x),
+		roundi(local.y / step - half_size.y)
+	)
+
+
 func _draw() -> void:
 	var board_rect := Rect2(board_margin.position, Vector2(board_size) * _cell_step())
 	if _board_texture != null:

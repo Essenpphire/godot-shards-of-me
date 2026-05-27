@@ -95,30 +95,59 @@ func update_piece_drag(global_mouse_position: Vector2) -> void:
 	if _drag_index == -1:
 		return
 
+	var piece := _get_runtime_piece(_drag_index)
+	if piece == null:
+		return
+
 	var mouse_local := _surface_global_to_local(global_mouse_position)
 	var anchor_local := mouse_local - _drag_grab_offset
-	var raw_cell := Vector2i.ZERO
-	if _board_surface.has_method("local_to_cell"):
-		raw_cell = _board_surface.local_to_cell(anchor_local)
-	else:
-		raw_cell = Vector2i(
-			roundi(anchor_local.x / cell_size),
-			roundi(anchor_local.y / cell_size)
-		)
-	var target_cell := _align_drag_target(_drag_index, raw_cell)
-	target_cell = _clamp_anchor_to_board(_drag_index, target_cell)
-	target_cell = _find_farthest_legal_cell(_drag_index, _drag_origin_cell, target_cell)
+	var current_cell := _get_runtime_position(_drag_index)
+	var raw_cell := _cell_from_drag_anchor(anchor_local, piece.size)
+	var target_cell := _resolve_drag_target(_drag_index, current_cell, raw_cell)
 
-	if target_cell != _get_runtime_position(_drag_index):
+	if target_cell != current_cell:
 		_set_runtime_position(_drag_index, target_cell)
 		_refresh_piece_view(_drag_index)
 		_recompute_solution()
+
+	var visual_pos := _clamp_drag_visual(_drag_index, target_cell, anchor_local)
+	var view: Node = _piece_views[_drag_index] if _drag_index < _piece_views.size() else null
+	if is_instance_valid(view) and view.has_method("set_drag_position"):
+		view.set_drag_position(visual_pos)
+
+
+func _clamp_drag_visual(index: int, cell: Vector2i, anchor_local: Vector2) -> Vector2:
+	var step := get_board_step()
+	var cell_topleft: Vector2 = _board_surface.cell_to_local(cell)
+	var piece := _get_runtime_piece(index)
+	var half_step := step * 0.5
+	var visual_pos := Vector2(
+		clampf(anchor_local.x, cell_topleft.x - half_step, cell_topleft.x + half_step),
+		clampf(anchor_local.y, cell_topleft.y - half_step, cell_topleft.y + half_step)
+	)
+
+	if piece == null:
+		return visual_pos
+
+	match piece.move_axis:
+		LightPuzzleConstants.MoveAxis.HORIZONTAL:
+			visual_pos.y = cell_topleft.y
+		LightPuzzleConstants.MoveAxis.VERTICAL:
+			visual_pos.x = cell_topleft.x
+		LightPuzzleConstants.MoveAxis.LOCKED:
+			visual_pos = cell_topleft
+
+	return visual_pos
 
 
 func end_piece_drag() -> void:
 	if _drag_index == -1:
 		return
 	_set_piece_selected(_drag_index, false)
+	var view: Node = _piece_views[_drag_index] if _drag_index < _piece_views.size() else null
+	if is_instance_valid(view) and view.has_method("clear_drag_position"):
+		view.clear_drag_position()
+	_refresh_piece_view(_drag_index)
 	_drag_index = -1
 
 
@@ -291,23 +320,57 @@ func get_board_step() -> float:
 	return cell_size
 
 
-func _align_drag_target(index: int, raw_cell: Vector2i) -> Vector2i:
+func _cell_from_drag_anchor(anchor_local: Vector2, piece_size: Vector2i) -> Vector2i:
+	var step := get_board_step()
+	var piece_center := anchor_local + Vector2(piece_size) * step * 0.5
+	if _board_surface != null and _board_surface.has_method("local_to_cell_centered"):
+		return _board_surface.local_to_cell_centered(piece_center, piece_size)
+
+	var centered_local := piece_center - get_board_offset()
+	var half_size := Vector2(piece_size) * 0.5
+	return Vector2i(
+		roundi(centered_local.x / step - half_size.x),
+		roundi(centered_local.y / step - half_size.y)
+	)
+
+
+func _resolve_drag_target(index: int, start_cell: Vector2i, raw_cell: Vector2i) -> Vector2i:
 	var piece := _get_runtime_piece(index)
 	if piece == null:
-		return _drag_origin_cell
+		return start_cell
 
-	var delta := raw_cell - _drag_origin_cell
 	match piece.move_axis:
 		LightPuzzleConstants.MoveAxis.HORIZONTAL:
-			return Vector2i(raw_cell.x, _drag_origin_cell.y)
+			var horizontal_target := _clamp_anchor_to_board(index, Vector2i(raw_cell.x, start_cell.y))
+			return _find_farthest_legal_cell(index, start_cell, horizontal_target)
 		LightPuzzleConstants.MoveAxis.VERTICAL:
-			return Vector2i(_drag_origin_cell.x, raw_cell.y)
+			var vertical_target := _clamp_anchor_to_board(index, Vector2i(start_cell.x, raw_cell.y))
+			return _find_farthest_legal_cell(index, start_cell, vertical_target)
 		LightPuzzleConstants.MoveAxis.LOCKED:
-			return _drag_origin_cell
+			return start_cell
 
-	if abs(delta.x) >= abs(delta.y):
-		return Vector2i(raw_cell.x, _drag_origin_cell.y)
-	return Vector2i(_drag_origin_cell.x, raw_cell.y)
+	var clamped_raw := _clamp_anchor_to_board(index, raw_cell)
+	if clamped_raw == start_cell:
+		return start_cell
+	if clamped_raw.x == start_cell.x or clamped_raw.y == start_cell.y:
+		return _find_farthest_legal_cell(index, start_cell, clamped_raw)
+
+	var horizontal_candidate := Vector2i(clamped_raw.x, start_cell.y)
+	var vertical_candidate := Vector2i(start_cell.x, clamped_raw.y)
+	var candidates := [horizontal_candidate, vertical_candidate]
+	if abs(clamped_raw.y - start_cell.y) > abs(clamped_raw.x - start_cell.x):
+		candidates = [vertical_candidate, horizontal_candidate]
+
+	var best_cell := start_cell
+	var best_distance := INF
+	for candidate in candidates:
+		var resolved := _find_farthest_legal_cell(index, start_cell, candidate)
+		var distance : float = abs(clamped_raw.x - resolved.x) + abs(clamped_raw.y - resolved.y)
+		if distance < best_distance:
+			best_distance = distance
+			best_cell = resolved
+
+	return best_cell
 
 
 func _clamp_anchor_to_board(index: int, cell: Vector2i) -> Vector2i:

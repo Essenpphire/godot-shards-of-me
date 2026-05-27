@@ -9,6 +9,7 @@ var cell_size: float = 88.0
 var selected: bool = false
 var _piece_texture: Texture2D
 var _hover_texture: Texture2D
+var _drag_raw_position: Variant = null
 
 
 static var _texture_cache: Dictionary = {}
@@ -40,10 +41,22 @@ func refresh(new_runtime_placement: Dictionary) -> void:
 	var board_offset := Vector2.ZERO
 	if board != null and board.has_method("get_board_offset"):
 		board_offset = board.get_board_offset()
-	position = board_offset + Vector2(grid_position) * step
+	if _drag_raw_position != null:
+		position = _drag_raw_position as Vector2
+	else:
+		position = board_offset + Vector2(grid_position) * step
 	size = Vector2(piece_size) * step
 	custom_minimum_size = size
 	queue_redraw()
+
+
+func set_drag_position(raw_position: Vector2) -> void:
+	_drag_raw_position = raw_position
+	position = _drag_raw_position
+
+
+func clear_drag_position() -> void:
+	_drag_raw_position = null
 
 
 func get_piece() -> LightPieceData:

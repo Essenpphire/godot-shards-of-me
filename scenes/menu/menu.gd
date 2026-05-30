@@ -25,9 +25,14 @@ func _ready():
 	_set_alpha(button_container, 0.0)
 	_set_alpha(version_container, 0.0)
 	_set_alpha(credits_container, 0.0)
+	
+	# 隐藏Layer
+	UiLayer.hide()
+	PuzzleLayer.hide()
 
 	var tween = create_tween()
 	tween.set_parallel(false)
+
 
 	# 背景层淡入
 	tween.tween_callback(func(): _fade_in(texture_rect, 0.8))
@@ -77,11 +82,15 @@ func _fade_in(node: CanvasItem, duration: float) -> void:
 
 
 func _on_PlayButton_pressed() -> void:
+	UiLayer.show()
+	PuzzleLayer.show()
 	Audio.stop_music()
 	Chapter.new_game()
 	# Data 内部会等待 Dialogic 就绪，所有持久化数据统一存放在 Dialogic 的 "process" slot
 
 func _on_continue_button_pressed() -> void:
+	UiLayer.show()
+	PuzzleLayer.show()
 	Audio.stop_music()
 	Chapter.continue_game()
 
@@ -94,3 +103,8 @@ func _on_ExitButton_pressed() -> void:
 		await transitions.anim.animation_finished
 		await get_tree().create_timer(0.3).timeout
 	get_tree().quit()
+
+
+func _on_clear_save_btn_pressed() -> void:
+	Data.delete_save()
+	btn_continue.disabled = true

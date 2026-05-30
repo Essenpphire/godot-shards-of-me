@@ -15,7 +15,7 @@
 		"texture": "mirror_shard.png",
 		"name": "镜子碎片",
 		"type": 0,
-		"description": "破碎的镜子碎片，似乎能映照出不同的景象"
+		"description": "破碎的镜子碎片，似乎能映照出不同的景象。"
 	},
 	"3": {
 		"texture": "note_1.png",

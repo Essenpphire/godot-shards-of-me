@@ -52,9 +52,22 @@ func _gui_input(event: InputEvent) -> void:
 
 func _on_inspect_btn_pressed() -> void:
 	print("仔细查看: ", item_id)
-	action_menu.hide()
-	info.show()
-	EventBus.clue_inspect_item.emit(item_id)
+	UiLayer.get_node("ClueBook").hide()
+	UiLayer.get_node("ItemLayer").show()
+	match item_id:
+		"0":
+			UiLayer.get_node("ItemLayer/Content").hide()
+			UiLayer.get_node("ItemLayer/ContentFull").show()
+			EventBus.clue_inspect_item.emit(item_id)
+		"1":
+			UiLayer.get_node("ItemLayer").hide()
+			PuzzleLayer.get_node("PasswordLock").show()
+		_:	
+			UiLayer.get_node("ItemLayer/ContentFull").hide()
+			UiLayer.get_node("ItemLayer/Content").show()
+			action_menu.hide()
+			info.show()
+			EventBus.clue_inspect_item.emit(item_id)
 
 ## "拿到手上"：把线索转移到物品栏
 func _on_slot_btn_pressed() -> void:

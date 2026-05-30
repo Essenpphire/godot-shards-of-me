@@ -29,6 +29,8 @@ ItemData="*res://scripts/ItemData.gd"
 ClueManager="*res://scripts/ClueManager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Audio="*res://scripts/AudioManager.gd"
+UiLayer="*res://scenes/ui/ui_layer.tscn"
+PuzzleLayer="*res://scenes/ui/puzzle_layer.tscn"
 
 [category]
 
@@ -41,7 +43,8 @@ directories/dch_directory={
 "ye_li": "res://dialogs/ye_li.dch"
 }
 directories/dtl_directory={
-"chapter0": "res://dialogs/chapter0.dtl"
+"chapter0": "res://dialogs/chapter0.dtl",
+"system": "res://dialogs/system.dtl"
 }
 layout/style_directory={
 "": "res://dialogs/style.tres",

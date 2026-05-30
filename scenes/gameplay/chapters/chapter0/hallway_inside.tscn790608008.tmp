@@ -79,9 +79,8 @@ texture = null
 
 [node name="ItemNote" parent="Sortables" index="0" instance=ExtResource("6_hh1b6")]
 position = Vector2(1260, 307)
-oneshot = true
-interact_dialog_chapter = "chapter0"
-interact_dialog_label = "find_note_a"
+interact_callback_func = Callable()
+can_interact = false
 
 [node name="Sprite2D" parent="Sortables/ItemNote" index="1"]
 position = Vector2(0, 20)

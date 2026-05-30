@@ -51,6 +51,7 @@ var _saved_limits: Dictionary = {}
 # 进入 Dialogic 后必须关闭这个开关，否则 Dialogic 的 [wait_input] 也会被拦掉。
 var _is_camera_animation_input_blocked := false
 
+var _played
 
 func _ready() -> void:
 	# 等待 PhantomCameraHost 和 PhantomCamera2D 完成初始化。
@@ -58,16 +59,23 @@ func _ready() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	if Chapter.get_data("is_intro_played", false):
+	_played = Chapter.get_data("is_intro_played", false)
+	if _played:
+		npc_group.hide()
+		## 第二次回来欧阳夜出来对话
+		Dialogic.start("chapter0", "diag1")
+	else:
+		play_intro_to_windows()
 		Chapter.set_data("is_intro_played", true)
-		await play_intro_to_windows()
 
 
 func play_intro_to_windows() -> void:
+	GameManager.wait(2.0)
 	# 这里先锁住玩家移动，并在镜头动画阶段拦截键盘/鼠标事件。
 	# 玩家不能移动，也不能通过暂停、背包、交互等事件式输入打断演出。
 	_lock_player_control(true)
 	_set_camera_animation_input_blocked(true)
+	
 	_prepare_npc_group_for_fade()
 
 	# 平移开始前先放开 PhantomCamera 和真实 Camera2D 的限制。

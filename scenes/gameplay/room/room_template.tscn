@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://bt8a1pyy0anck"]
 
 [ext_resource type="Script" uid="uid://b83omkj4aqsph" path="res://scenes/gameplay/start.gd" id="1_3j2p0"]
-[ext_resource type="PackedScene" uid="uid://cqeutlmjsnb1y" path="res://scenes/ui/ui_layer.tscn" id="2_ta6fi"]
+[ext_resource type="PackedScene" uid="uid://barl4q1kugrmm" path="res://scenes/ui/pause-layer/pause_layer.tscn" id="2_dusiu"]
 [ext_resource type="Texture2D" uid="uid://dsv4wpr4uj3ac" path="res://assets/images/backgrounds/bg_toilet.png" id="3_0dbcj"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="4_lrrqo"]
 [ext_resource type="Texture2D" uid="uid://ce0dgmgs6dgrv" path="res://assets/images/backgrounds/wall_toilet_1.png" id="4_qmd80"]
@@ -19,8 +19,8 @@ size = Vector2(29, 651)
 [node name="Gameplay" type="Node"]
 script = ExtResource("1_3j2p0")
 
-[node name="UILayer" parent="." instance=ExtResource("2_ta6fi")]
-visible = false
+[node name="PauseLayer" parent="." instance=ExtResource("2_dusiu")]
+layer = 128
 
 [node name="Background" type="StaticBody2D" parent="."]
 

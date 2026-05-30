@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bva0mwi4mpjrf"
-path="res://.godot/imported/带锁的盒子.png-bfb454028fffeae3a4227b27c16d2b58.ctex"
+uid="uid://dadlc02ed6uuc"
+path="res://.godot/imported/note_0_old.png-fc892cb5a6d82c1192c511a87a1153ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/items/带锁的盒子.png"
-dest_files=["res://.godot/imported/带锁的盒子.png-bfb454028fffeae3a4227b27c16d2b58.ctex"]
+source_file="res://assets/images/items/note_0_old.png"
+dest_files=["res://.godot/imported/note_0_old.png-fc892cb5a6d82c1192c511a87a1153ea.ctex"]
 
 [params]
 

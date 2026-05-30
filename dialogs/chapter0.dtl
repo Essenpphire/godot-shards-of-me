@@ -21,17 +21,43 @@ label cut_in
 [background arg="res://assets/images/cg/cg_bird_1.png" fade="1.0" wait="true"]
 …………
 [background arg="res://assets/images/cg/bg_bird_4.png" fade="1.0"]
-[wait time="0.8"]
+[wait time="0.5"]
 audio "res://assets/audios/mirror_shattered.mp3"
-do GameManager.lock_player_control(false)
+[wait time="1.0"]
 do Chapter.change_scene("chapter0/classroom_inside")
+[clear time="0.0"]
+join ouyang_ye center
+ouyang_ye: 夜：又来……
+ouyang_ye: 找找镜子在哪里吧……
+leave ouyang_ye
+do GameManager.lock_player_control(false)
+[end_timeline]
+label find_box
+ouyang_ye: 啊，找到了……得记在线索书里。
+（提示：按下C打开线索书，游戏中所有搜集到的线索皆记录于此。点击线索可进行更多操作。）
+[end_timeline]
+label find_note_a
+if Chapter.get_data("collected_clues", []).has("1"):
+	# 拿到纸条前持有小盒子
+	ouyang_ye: 纸条在这……要赶紧打开锁。
+else:
+	ouyang_ye: 一张纸条？……
+[end_timeline]
+label code_error
+ouyang_ye: 密码不对……
+[end_timeline]
+label code_succ
+咔哒——
+ouyang_ye: 打开了。
+do ClueManager.add_clue("2")
+（提示：将镜子碎片放在手上，点击快捷栏即可使用。）
 [end_timeline]
 
 
 label diag1
-join ouyang_ye left [animation="Bounce In"]
+join ouyang_ye left [animation="Zoom In"]
 ouyang_ye: 还好么？
-join ye_li right [animation="Bounce In"]
+join ye_li right
 ye_li: *叹气*
 ye_li: 有点想吐
 ouyang_ye: 缓缓
@@ -46,6 +72,7 @@ ye_li: 操
 ye_li: （使劲摇头）又来……
 ye_li: （抬头看向镜子）（停顿）【注意此时镜子里的形象是模糊的，实际上里面是 san 值对应的里世界差分】
 ye_li: 洗个脸吧
+[end_timeline]
 
 label exit_toilet
 ouyang_ye: 是不是忘了什么

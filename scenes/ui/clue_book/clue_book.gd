@@ -84,4 +84,5 @@ func _on_button_pressed() -> void:
 	ClueManager.add_clue("3")
 
 func _on_debug_pressed() -> void:
+	Chapter.set_data("collected_clues", [])
 	ClueManager.clear_clues()

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2iremvlh342a"]
+
+[ext_resource type="PackedScene" uid="uid://csycuuybc442e" path="res://scenes/props/prop_template.tscn" id="1_nnpbk"]
+[ext_resource type="Script" uid="uid://c7u1l03repde4" path="res://scenes/props/prop_backpack.gd" id="2_nrxg4"]
+[ext_resource type="Texture2D" uid="uid://dgtw1y5kgekq5" path="res://assets/images/items/backpack.png" id="3_1v3mf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1v3mf"]
+size = Vector2(42, 21)
+
+[node name="BackoackProp" instance=ExtResource("1_nnpbk")]
+script = ExtResource("2_nrxg4")
+can_interact = true
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_1v3mf")
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_1v3mf")

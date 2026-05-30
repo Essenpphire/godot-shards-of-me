@@ -49,12 +49,11 @@ shape = SubResource("RectangleShape2D_m1d20")
 
 [node name="DoorHw" parent="." index="3"]
 next_scene = "chapter0/hallway_inside"
-next_pos = Vector2(657, 439)
+next_pos = Vector2(1889, 456)
 
 [node name="Camera2D" parent="." index="6"]
 unique_name_in_owner = false
 position = Vector2(320, 378)
-zoom = Vector2(1.2, 1.2)
 
 [editable path="DoorHw"]
 [editable path="Sortables/Item"]

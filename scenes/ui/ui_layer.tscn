@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqeutlmjsnb1y"]
+[gd_scene load_steps=7 format=3 uid="uid://cqeutlmjsnb1y"]
 
-[ext_resource type="PackedScene" uid="uid://barl4q1kugrmm" path="res://scenes/ui/pause-layer/pause_layer.tscn" id="1_d4ycy"]
 [ext_resource type="Script" uid="uid://cylibocnf58n3" path="res://scenes/ui/ui_layer.gd" id="1_jqcis"]
 [ext_resource type="PackedScene" uid="uid://baeum3fhwwyt" path="res://scenes/ui/item_layer/item_layer.tscn" id="2_jqcis"]
 [ext_resource type="PackedScene" uid="uid://b2ev5qny3udrg" path="res://scenes/ui/screen_crack/mirror_shattered.tscn" id="4_3s0y6"]
@@ -12,9 +11,6 @@ bg_color = Color(0.284861, 0.602192, 1, 1)
 
 [node name="UILayer" type="CanvasLayer"]
 script = ExtResource("1_jqcis")
-
-[node name="PauseLayer" parent="." instance=ExtResource("1_d4ycy")]
-layer = 128
 
 [node name="mirror_shattered" parent="." instance=ExtResource("4_3s0y6")]
 
@@ -28,9 +24,7 @@ text = "SAN: 100"
 
 [node name="Inventory" parent="." instance=ExtResource("4_jqcis")]
 
-[node name="ClueBook" parent="." instance=ExtResource("5_42r3o")]
-
 [node name="ItemLayer" parent="." instance=ExtResource("2_jqcis")]
 visible = false
 
-[editable path="mirror_shattered"]
+[node name="ClueBook" parent="." instance=ExtResource("5_42r3o")]

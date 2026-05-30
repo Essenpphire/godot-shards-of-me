@@ -32,6 +32,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("互动") and can_interact:
 		if not _in_range:
 			return
+		if _interacted:
+			return
 		_interacted = true
 		handle_interact()
 

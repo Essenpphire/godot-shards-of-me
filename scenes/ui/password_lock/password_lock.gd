@@ -1,7 +1,5 @@
 extends Control
 
-signal unlocked
-
 const PASSWORD := "795"
 const CODE_LENGTH := 3
 
@@ -27,11 +25,13 @@ func _check_code() -> void:
 	for i in CODE_LENGTH:
 		current_code += str(digits[i])
 	if current_code == PASSWORD:
-		emit_signal("unlocked")
+		Dialogic.start("chapter0", "code_succ")
 		# hide self
 		queue_free()
 	else:
 		# status_label.text = "密码错误"
+		Dialogic.start("chapter0", "code_error")
+		hide()
 		pass
 
 

@@ -7,15 +7,17 @@ extends Node
 @export var bgm : AudioStream
 
 func _ready() -> void:
-	## @todo 以后存fullpath得了，别用太直观的思路写场景控制。。。
-	var cur_scene : String = scene_file_path
-	cur_scene = cur_scene.trim_prefix("res://scenes/gameplay/chapters/").trim_suffix(".tscn")
-	Chapter.cur_scene = cur_scene
+	## 传送玩家
 	var params = GGT.get_current_scene_data().params
 	var _pos : Vector2 = params.get("player_pos", Vector2.ZERO)
 	if _pos != Vector2.ZERO:
 		GameManager.change_player_pos(_pos)
-		%Camera2D.position = _pos
+		$Camera2D.position = _pos
+	
+	## @todo 以后存fullpath得了，别用太直观的思路写场景控制。。。
+	var cur_scene : String = scene_file_path
+	cur_scene = cur_scene.trim_prefix("res://scenes/gameplay/chapters/").trim_suffix(".tscn")
+	Chapter.cur_scene = cur_scene
 
 	if GGT.is_changing_scene():
 		await GGT.scene_transition_finished

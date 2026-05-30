@@ -3,9 +3,16 @@
 [ext_resource type="Script" uid="uid://ctmd6egy1dcw4" path="res://scenes/ui/screen_crack/screen_crack_image_effect.gd" id="1_meutv"]
 [ext_resource type="AudioStream" uid="uid://bbcestklk1k0q" path="res://assets/audios/mirror_shattered.mp3" id="2_3vc4w"]
 
-[node name="mirror_shattered" type="CanvasLayer"]
+[node name="mirror_shattered" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="mirror_shattered" type="TextureRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,6 +24,7 @@ mirror_shattered_sfx = ExtResource("2_3vc4w")
 darkness_overlay_path = NodePath("../darkness_overlay")
 
 [node name="darkness_overlay" type="ColorRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

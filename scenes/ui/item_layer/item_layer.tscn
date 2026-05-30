@@ -34,6 +34,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("2_1d30m")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="Info" type="VBoxContainer" parent="Content"]
@@ -62,6 +63,33 @@ theme_override_font_sizes/font_size = 24
 text = "这里是物品的详细描述文字，会自动换行展示。这里是物品的详细描述文字，会自动换行展示。这里是物品的详细描述文字，会自动换行展示。这里是物品的详细描述文字，会自动换行展示。这里是物品的详细描述文字，会自动换行展示。这里是物品的详细描述文字，会自动换行展示。这里是物品的详细描述文字，会自动换行展示。这里是物品的详细描述文字，会自动换行展示。"
 autowrap_mode = 3
 text_overrun_behavior = 3
+
+[node name="ContentFull" type="HBoxContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -275.0
+offset_right = 450.0
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Image" type="TextureRect" parent="ContentFull"]
+custom_minimum_size = Vector2(800, 550)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_1d30m")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ExitBtn" type="Button" parent="."]
 anchors_preset = 1

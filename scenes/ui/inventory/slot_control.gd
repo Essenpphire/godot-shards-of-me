@@ -24,7 +24,17 @@ func _on_slot_gui_input(event: InputEvent) -> void:
 
 func _on_use_btn_pressed() -> void:
 	action_menu.hide()
-	# TODO: 消耗品/工具的"使用"逻辑
+	match slot.item_id:
+		## 镜子碎片
+		"2":
+			var s: String = Chapter.cur_scene
+			if s.contains("_inside"):
+				s = "chapter0/classroom"
+			Chapter.change_scene(s, 10)
+			## 第一次回到表世界
+			#Chapter.set_data("first_back", true)
+		"_":
+			Dialogic.start("system", "no_use")
 
 ## "放回书中"：把当前 slot 的 id 从物品栏转回线索书
 func _on_clue_book_btn_pressed() -> void:

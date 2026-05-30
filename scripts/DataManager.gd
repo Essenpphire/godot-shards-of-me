@@ -106,5 +106,8 @@ func delete_save() -> Error:
 	if not Dialogic.is_node_ready():
 		await Dialogic.ready
 	if not Dialogic.Save.has_slot(SLOT_NAME):
+		Chapter.chapter_data.clear()
+		ClueManager.clear_clues()
+		ClueManager.clear_inventory()
 		return OK
 	return Dialogic.Save.delete_slot(SLOT_NAME)

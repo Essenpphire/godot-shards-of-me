@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://b1il2v3a1shf5"]
+[gd_scene load_steps=12 format=4 uid="uid://b1il2v3a1shf5"]
 
 [ext_resource type="PackedScene" uid="uid://bsrx313k0d3uf" path="res://scenes/gameplay/chapters/chapter0/hallway.tscn" id="1_oe8q4"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_epe8v"]
@@ -16,6 +16,13 @@ size = Vector2(29, 651)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tvm1"]
 size = Vector2(41.5, 369)
+
+[sub_resource type="GDScript" id="GDScript_nwd2v"]
+script/source = "extends \"res://scenes/items/item_template.gd\"
+
+func handle_interact() -> void:
+	Dialogic.start()
+"
 
 [node name="Gameplay" instance=ExtResource("1_oe8q4")]
 
@@ -79,9 +86,9 @@ texture = null
 
 [node name="ItemNote" parent="Sortables" index="0" instance=ExtResource("6_hh1b6")]
 position = Vector2(1260, 307)
+script = SubResource("GDScript_nwd2v")
 oneshot = true
-interact_dialog_chapter = "chapter0"
-interact_dialog_label = "find_note_a"
+interact_callback_func = Callable()
 
 [node name="Sprite2D" parent="Sortables/ItemNote" index="1"]
 position = Vector2(0, 20)

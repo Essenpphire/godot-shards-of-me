@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c25ynwilgsaoi"
-path="res://.godot/imported/药瓶.png-48b6a7d364a594b583b8fc2b625b259f.ctex"
+uid="uid://dgtw1y5kgekq5"
+path="res://.godot/imported/backpack.png-ceba1d2f845b24e17a2fc27f9068723a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/items/药瓶.png"
-dest_files=["res://.godot/imported/药瓶.png-48b6a7d364a594b583b8fc2b625b259f.ctex"]
+source_file="res://assets/images/items/backpack.png"
+dest_files=["res://.godot/imported/backpack.png-ceba1d2f845b24e17a2fc27f9068723a.ctex"]
 
 [params]
 

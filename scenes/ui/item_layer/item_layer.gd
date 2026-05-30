@@ -2,6 +2,7 @@
 extends CanvasLayer
 
 @onready var image: TextureRect = $Content/Image
+@onready var image_full : TextureRect = $ContentFull/Image
 @onready var info : VBoxContainer = $Content/Info
 @onready var title_label: Label = $Content/Info/Title
 @onready var desc_label: Label = $Content/Info/Description
@@ -40,11 +41,14 @@ func show_item(id: String) -> void:
 	var texture_path: String = item_info.get("texture_path", "")
 	if texture_path != "" and ResourceLoader.exists(texture_path):
 		image.texture = load(texture_path)
+		image_full.texture = load(texture_path)
 	else:
 		image.texture = null
+		image_full.texture = null
 	show()
 
 func _close() -> void:
+	UiLayer.get_node("ClueBook").show()
 	curr_id = ""
 	hide()
 

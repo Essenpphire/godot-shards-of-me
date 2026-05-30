@@ -42,6 +42,7 @@ position = Vector2(1288, 276)
 position = Vector2(21, 438)
 
 [node name="DoorClassroom" parent="." index="2" instance=ExtResource("4_7q1g6")]
+z_index = 0
 position = Vector2(654, 205)
 next_scene = "chapter0/classroom"
 next_pos = Vector2(1079, 551)
@@ -59,6 +60,7 @@ scale = Vector2(0.4, 0.3)
 shape = SubResource("RectangleShape2D_chln8")
 
 [node name="DoorWC" parent="." index="3" instance=ExtResource("4_7q1g6")]
+z_index = 0
 position = Vector2(1781, 156)
 next_scene = "chapter0/toilet"
 next_pos = Vector2(0, 0)
@@ -74,6 +76,9 @@ skew = 0.0
 
 [node name="CollisionShape2D" parent="DoorWC/Detection" index="0"]
 shape = SubResource("RectangleShape2D_ljmjk")
+
+[node name="Camera2D" parent="." index="6"]
+position = Vector2(320, 378)
 
 [editable path="DoorClassroom"]
 [editable path="DoorWC"]

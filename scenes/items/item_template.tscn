@@ -8,6 +8,8 @@ script = ExtResource("2_jvfsw")
 item_id = "0"
 detection_range = 64
 oneshot = false
+interact_dialog_chapter = ""
+interact_dialog_label = ""
 can_interact = true
 
 [node name="Hint" parent="." index="0"]

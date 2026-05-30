@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 	if GameManager.is_player_control_locked():
 		return
 
-	if Input.is_action_pressed("互动") and can_interact:
+	if Input.is_action_just_pressed("互动") and can_interact:
 		if not _in_range:
 			return
 		if _interacted:

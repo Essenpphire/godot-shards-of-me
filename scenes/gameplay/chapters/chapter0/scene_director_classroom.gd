@@ -54,12 +54,17 @@ var _is_camera_animation_input_blocked := false
 var _played
 
 func _ready() -> void:
+	_played = Chapter.get_data("is_intro_played", false)
+	if _played:
+		cutscene_camera.priority = 0
+	else:
+		cutscene_camera.priority = CUTSCENE_PRIORITY
+
 	# 等待 PhantomCameraHost 和 PhantomCamera2D 完成初始化。
 	# 这样后续 priority、teleport_position、limit 修改会更稳定。
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	_played = Chapter.get_data("is_intro_played", false)
 	if _played:
 		npc_group.hide()
 		## 第二次回来欧阳夜出来对话

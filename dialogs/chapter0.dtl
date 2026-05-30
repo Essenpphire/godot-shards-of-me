@@ -65,8 +65,9 @@ ye_li: 嗯……
 [wait time="1.0"]
 ye_li: ……去趟厕所
 ouyang_ye: 好，等你
+[end_timeline]
 
-label diag2
+label toilet1
 ye_li: *呼*
 ye_li: 操
 ye_li: （使劲摇头）又来……
@@ -78,9 +79,12 @@ label exit_toilet
 ouyang_ye: 是不是忘了什么
 ouyang_ye: 想起来了，我该先洗个脸
 ouyang_ye: ……
+[end_timeline]
 
 label wash_face
+ouyang_ye: （洗脸）【san值回复到最大值】
 ouyang_ye: 拿东西回家吧
+[end_timeline]
 # 解锁：和镜子互动
 
 label mirror
@@ -89,3 +93,4 @@ label mirror
 ouyang_ye: 没必要再来一次
 ouyang_ye: 该走了
 ouyang_ye: ……
+[end_timeline]

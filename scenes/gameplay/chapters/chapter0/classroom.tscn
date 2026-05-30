@@ -89,7 +89,7 @@ position = Vector2(404, 294)
 top_level = true
 position = Vector2(1000, 450)
 script = ExtResource("14_djc3a")
-priority = 1
+priority = 20
 follow_mode = 2
 follow_target = NodePath("../../CameraTargets/Intro")
 zoom = Vector2(1.7, 1.7)
@@ -220,4 +220,6 @@ position = Vector2(1330, 455)
 environment = SubResource("Environment_umphd")
 
 [node name="Camera2D" parent="." index="8"]
-position = Vector2(320, 378)
+physics_interpolation_mode = 0
+position = Vector2(1000, 450)
+zoom = Vector2(1.7, 1.7)

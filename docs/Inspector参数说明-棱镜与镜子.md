@@ -40,6 +40,17 @@
 - `revealed_texture`
   - 棱镜中被映照/显现出来的 2D 图。
   - 不填时会继续使用场景里的临时演示图。
+- `revealed_clue_id`
+  - 显现文字对应的线索 ID。
+- `collect_revealed_clue_with_interact`
+  - 是否在玩家进入范围、文字足够清晰时显示 E 提示。
+  - 按 E 后会把 `revealed_clue_id` 收入线索书。
+- `auto_collect_revealed_clue`
+  - 是否在文字足够清晰时自动加入线索书。
+  - 默认关闭；需要无按键收集时再打开。
+- `clue_collect_alpha_threshold`
+  - 允许按 E 收集/自动收集所需的显现透明度阈值。
+  - 值越高，必须越接近最佳角度才会收入线索书。
 - `best_reveal_angle_deg`
   - 棱镜转到哪个角度时，隐藏物最清晰。
 - `reveal_tolerance_deg`

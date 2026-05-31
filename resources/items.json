@@ -36,7 +36,7 @@
 		"description": "大部分文字模糊不清，直觉告诉我这是药的说明书"
 	},
 	"6": {
-		"texture": "study_word.png",
+		"texture": "res://assets/images/backgrounds/书房/phrase1.png",
 		"name": "书房墙上的文字",
 		"type": 1,
 		"description": "经过棱镜折射后显示的模糊文字：“在██房██壁██里”"

@@ -36,15 +36,19 @@ static func get_item_info(id: String = "0") -> Dictionary:
 		# "type_name": type_name,
 		"description": data.get("description", ""),
 		"texture": data.get("texture", ""),
-		"texture_path": GameManager.ItemTexurePath + data.get("texture", "")
+		"texture_path": _resolve_texture_path(data.get("texture", ""))
 	}
 
 static func get_texture(id: String = "0") -> String:
 	var res : String = content.get(id, {}).get("texture", "")
-	if res.is_empty():
+	return _resolve_texture_path(res)
+
+static func _resolve_texture_path(texture: String) -> String:
+	if texture.is_empty():
 		return ""
-	else:
-		return GameManager.ItemTexurePath + res
+	if texture.begins_with("res://") or texture.begins_with("user://"):
+		return texture
+	return GameManager.ItemTexurePath + texture
 
 static func get_item_name(id: String = "0") -> String:
 	return content.get(id, {}).get("name", "")

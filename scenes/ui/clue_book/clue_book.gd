@@ -3,7 +3,7 @@ extends Control
 const CLUES_PER_PAGE: int = 4
 var cur_page: int = 0
 
-@onready var slots: Array[Panel] = [
+@onready var slots: Array = [
 		$ClueBook/Clues/Clue1,
 		$ClueBook/Clues/Clue2,
 		$ClueBook/Clues/Clue3,

@@ -64,6 +64,23 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "测试答案"
 
+[node name="SolveButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "求解"
+
+[node name="ApplyFirstSolutionButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "应用首解"
+
+[node name="WriteSolutionButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "写入答案"
+
 [node name="GenerateSceneButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
 unique_name_in_owner = true
 layout_mode = 2

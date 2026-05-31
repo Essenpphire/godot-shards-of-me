@@ -1,0 +1,9 @@
+﻿Create a transparent-ready 2D sofa asset for a side-scrolling Godot living room scene.
+
+Subject: a simple fabric sofa in a three-quarter oblique side view, facing right. Low, cozy, clean shape, muted beige or pale gray-green fabric, simple cushions, no patterns or text.
+
+Style: pixel-art inspired hand-painted 2D illustration, low-saturation colors, thin dark gray outlines, slightly pixel-stepped edges, soft ambient lighting, simple readable silhouette. Match the visual language of the provided chapter 1 school interior references.
+
+Place the sofa on a perfectly flat solid #00ff00 chroma-key background for background removal. The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Keep the subject fully separated from the background with crisp edges and generous padding. Do not use #00ff00 anywhere in the subject.
+
+Constraints: no photorealism, no 3D render, no text, no watermark, no floor, no wall background, no people, no extra objects.

@@ -26,6 +26,9 @@ const MOVE_AXIS_MAX: int = 3
 @onready var _save_as_button: Button = %SaveAsButton
 @onready var _validate_button: Button = %ValidateButton
 @onready var _test_solution_button: Button = %TestSolutionButton
+@onready var _solve_button: Button = %SolveButton
+@onready var _apply_first_solution_button: Button = %ApplyFirstSolutionButton
+@onready var _write_solution_button: Button = %WriteSolutionButton
 @onready var _generate_scene_button: Button = %GenerateSceneButton
 @onready var _load_path_edit: LineEdit = %LoadPathEdit
 @onready var _palette: AuthorPalette = %Palette
@@ -42,15 +45,25 @@ var selection_kind: int = SELECTION_PUZZLE
 var selection_index: int = -1
 var solution: Dictionary = {}
 var validation_cells: Array[Vector2i] = []
+var solver_result: Dictionary = {}
+var solver_preview_positions: Array = []
+var solver_preview_solution: Dictionary = {}
+var _suppressed_ui_layer: CanvasLayer
+var _ui_layer_was_visible: bool = false
+var _ui_layer_process_mode: int = Node.PROCESS_MODE_INHERIT
 
 
 func _ready() -> void:
+	_suppress_global_ui_layer()
 	_new_button.pressed.connect(new_puzzle)
 	_load_button.pressed.connect(_load_from_path_field)
 	_save_button.pressed.connect(save_puzzle)
 	_save_as_button.pressed.connect(_save_as_from_path_field)
 	_validate_button.pressed.connect(validate_puzzle)
 	_test_solution_button.pressed.connect(test_solution_positions)
+	_solve_button.pressed.connect(solve_current_puzzle)
+	_apply_first_solution_button.pressed.connect(apply_first_solution)
+	_write_solution_button.pressed.connect(write_first_solution_positions)
 	_generate_scene_button.pressed.connect(generate_test_scene)
 	_palette.tool_selected.connect(_on_tool_selected)
 	_palette.select_puzzle_requested.connect(_select_puzzle)
@@ -66,6 +79,29 @@ func _ready() -> void:
 	new_puzzle()
 
 
+func _exit_tree() -> void:
+	_restore_global_ui_layer()
+
+
+func _suppress_global_ui_layer() -> void:
+	var ui_layer := get_node_or_null("/root/UiLayer") as CanvasLayer
+	if ui_layer == null:
+		return
+	_suppressed_ui_layer = ui_layer
+	_ui_layer_was_visible = ui_layer.visible
+	_ui_layer_process_mode = ui_layer.process_mode
+	ui_layer.hide()
+	ui_layer.process_mode = Node.PROCESS_MODE_DISABLED
+
+
+func _restore_global_ui_layer() -> void:
+	if _suppressed_ui_layer == null or not is_instance_valid(_suppressed_ui_layer):
+		return
+	_suppressed_ui_layer.process_mode = _ui_layer_process_mode
+	_suppressed_ui_layer.visible = _ui_layer_was_visible
+	_suppressed_ui_layer = null
+
+
 func new_puzzle() -> void:
 	draft_puzzle = LightPuzzleData.new()
 	draft_puzzle.puzzle_id = "new_light_puzzle"
@@ -76,6 +112,7 @@ func new_puzzle() -> void:
 	_load_path_edit.text = save_path
 	current_mode = MODE_SELECT
 	current_payload.clear()
+	_clear_solver_result()
 	_palette.set_active_tool(current_mode, current_payload)
 	_set_selection(SELECTION_PUZZLE, -1)
 	_refresh_all("已创建新的谜题草稿。")
@@ -92,6 +129,7 @@ func load_puzzle(path: String) -> void:
 	_load_path_edit.text = save_path
 	current_mode = MODE_SELECT
 	current_payload.clear()
+	_clear_solver_result()
 	_palette.set_active_tool(current_mode, current_payload)
 	_set_selection(SELECTION_PUZZLE, -1)
 	_refresh_all("已从 %s 载入草稿副本。" % save_path)
@@ -141,6 +179,53 @@ func test_solution_positions() -> void:
 		_set_status("答案位置可以解开这个谜题。")
 	else:
 		_set_status("答案位置还不能解开这个谜题。", true)
+
+
+func solve_current_puzzle() -> void:
+	if draft_puzzle == null:
+		return
+	var validation := _validate()
+	validation_cells = _cells_from_validation(validation)
+	if not validation["ok"]:
+		_refresh_canvas()
+		_set_status("求解被阻止：%s" % _errors_from_validation(validation), true)
+		return
+
+	_set_status("正在求解...")
+	solver_result = LightPuzzleVisualSolver.solve_visual(draft_puzzle, 1, 5.0)
+	if int(solver_result.get("layout_solution_count", 0)) == 0 and not bool(solver_result.get("truncated", false)):
+		var visual_result := solver_result
+		solver_result = LightPuzzleStateSolver.solve_reachable(draft_puzzle, 1, 250000, 10.0)
+		solver_result["visual_solver_result"] = visual_result
+	solver_preview_positions = solver_result.get("first_solution_positions", [])
+	solver_preview_solution = _solution_for_positions(solver_preview_positions)
+	_refresh_canvas()
+	_refresh_properties()
+	_update_solver_buttons()
+	_set_status(_solver_status_text(), bool(solver_result.get("truncated", false)))
+
+
+func apply_first_solution() -> void:
+	if draft_puzzle == null or solver_preview_positions.is_empty():
+		_set_status("没有可应用的求解结果。", true)
+		return
+	for index in range(mini(draft_puzzle.placements.size(), solver_preview_positions.size())):
+		var placement := draft_puzzle.placements[index]
+		if placement != null and placement.is_movable() and solver_preview_positions[index] is Vector2i:
+			placement.grid_position = solver_preview_positions[index]
+	_clear_solver_result()
+	_refresh_all("已将首个求解结果应用到当前棋盘。")
+
+
+func write_first_solution_positions() -> void:
+	if draft_puzzle == null or solver_preview_positions.is_empty():
+		_set_status("没有可写入的求解结果。", true)
+		return
+	for index in range(mini(draft_puzzle.placements.size(), solver_preview_positions.size())):
+		var placement := draft_puzzle.placements[index]
+		if placement != null and placement.is_movable() and solver_preview_positions[index] is Vector2i:
+			placement.solution_position = solver_preview_positions[index]
+	_refresh_all("已将首个求解结果写入答案位置。")
 
 
 func generate_test_scene() -> void:
@@ -203,6 +288,7 @@ func _set_selection(kind: int, index: int) -> void:
 
 
 func _on_board_cell_action_requested(cell: Vector2i) -> void:
+	_clear_solver_result()
 	match current_mode:
 		MODE_PLACE_PIECE, MODE_PLACE_BLOCK:
 			_add_placement(cell, int(current_payload.get("piece_type", LightPuzzleConstants.PieceType.MIRROR_SLASH)))
@@ -210,6 +296,7 @@ func _on_board_cell_action_requested(cell: Vector2i) -> void:
 
 
 func _on_board_port_action_requested(cell: Vector2i, direction: int) -> void:
+	_clear_solver_result()
 	match current_mode:
 		MODE_PLACE_SOURCE:
 			_add_port(cell, true, int(current_payload.get("color_mask", LightPuzzleConstants.COLOR_WHITE)), direction)
@@ -219,10 +306,12 @@ func _on_board_port_action_requested(cell: Vector2i, direction: int) -> void:
 
 
 func _on_placement_move_requested(placement_index: int, target_cell: Vector2i) -> void:
+	_clear_solver_result()
 	_move_placement(placement_index, target_cell, false)
 
 
 func _on_placement_move_finished(placement_index: int, target_cell: Vector2i) -> void:
+	_clear_solver_result()
 	_move_placement(placement_index, target_cell, false)
 	_set_selection(SELECTION_PLACEMENT, placement_index)
 
@@ -238,6 +327,7 @@ func _on_allowed_cell_toggled(cell: Vector2i) -> void:
 		placement.allowed_cells.erase(cell)
 	else:
 		placement.allowed_cells.append(cell)
+	_clear_solver_result()
 	_refresh_all()
 
 
@@ -254,6 +344,7 @@ func _on_property_changed(field: String, value: Variant) -> void:
 		SELECTION_PLACEMENT:
 			_apply_placement_property(_get_selected_placement(), field, value)
 	validation_cells.clear()
+	_clear_solver_result()
 	_refresh_all()
 
 
@@ -265,6 +356,7 @@ func _on_property_action_requested(action: String) -> void:
 			var placement := _get_selected_placement()
 			if placement != null:
 				placement.allowed_cells.clear()
+	_clear_solver_result()
 	_refresh_all()
 
 
@@ -420,12 +512,14 @@ func _delete_selected() -> void:
 				draft_puzzle.placements.remove_at(selection_index)
 	selection_kind = SELECTION_PUZZLE
 	selection_index = -1
+	_clear_solver_result()
 
 
 func _refresh_all(status_text: String = "") -> void:
 	_recompute_solution()
 	_refresh_properties()
 	_refresh_canvas()
+	_update_solver_buttons()
 	if status_text != "":
 		_set_status(status_text)
 	else:
@@ -433,7 +527,15 @@ func _refresh_all(status_text: String = "") -> void:
 
 
 func _refresh_canvas() -> void:
-	_board_canvas.set_author_state(draft_puzzle, solution, current_mode, selection_kind, selection_index, validation_cells)
+	_board_canvas.set_author_state(
+		draft_puzzle,
+		_solution_for_canvas(),
+		current_mode,
+		selection_kind,
+		selection_index,
+		validation_cells,
+		solver_preview_positions
+	)
 
 
 func _refresh_properties() -> void:
@@ -447,12 +549,32 @@ func _recompute_solution() -> void:
 	solution = LightBeamSolver.solve(draft_puzzle, draft_puzzle.create_runtime_placements())
 
 
+func _solution_for_canvas() -> Dictionary:
+	if not solver_preview_solution.is_empty():
+		return solver_preview_solution
+	return solution
+
+
+func _solution_for_positions(positions: Array) -> Dictionary:
+	if draft_puzzle == null or positions.is_empty():
+		return {}
+	var runtime := draft_puzzle.create_runtime_placements()
+	for index in range(mini(runtime.size(), positions.size())):
+		if not (positions[index] is Vector2i):
+			continue
+		var placement: Dictionary = runtime[index]
+		placement["grid_position"] = positions[index]
+		runtime[index] = placement
+	return LightBeamSolver.solve(draft_puzzle, runtime)
+
+
 func _update_solution_label() -> void:
-	var state := "已解开" if solution.get("solved", false) else "追踪中"
+	var preview_solved := bool(solver_preview_solution.get("solved", false))
+	var state := "首解预览" if preview_solved else ("已解开" if solution.get("solved", false) else "追踪中")
 	_solution_label.text = state
 	_solution_label.add_theme_color_override(
 		"font_color",
-		Color(0.55, 1.0, 0.62) if solution.get("solved", false) else Color(0.86, 0.89, 0.95)
+		Color(0.55, 1.0, 0.62) if preview_solved or solution.get("solved", false) else Color(0.86, 0.89, 0.95)
 	)
 
 
@@ -460,6 +582,61 @@ func _set_status(message: String, is_error: bool = false) -> void:
 	_status_label.text = message
 	_status_label.add_theme_color_override("font_color", Color(1.0, 0.45, 0.38) if is_error else Color(0.78, 0.88, 1.0))
 	_update_solution_label()
+
+
+func _clear_solver_result() -> void:
+	solver_result = {}
+	solver_preview_positions.clear()
+	solver_preview_solution = {}
+	_update_solver_buttons()
+
+
+func _update_solver_buttons() -> void:
+	if not is_inside_tree():
+		return
+	var has_solution_preview := not solver_preview_positions.is_empty()
+	_apply_first_solution_button.disabled = not has_solution_preview
+	_write_solution_button.disabled = not has_solution_preview
+
+
+func _solver_status_text() -> String:
+	if solver_result.is_empty():
+		return ""
+	if solver_result.has("visited_routes"):
+		return _visual_solver_status_text()
+	var visited := int(solver_result.get("visited_states", 0))
+	var labelled := int(solver_result.get("labelled_solution_count", 0))
+	var visual := int(solver_result.get("visual_solution_count", 0))
+	if bool(solver_result.get("truncated", false)):
+		return "求解未完成：%s，已搜索 %d 个状态，当前 %d 个视觉解 / %d 个标号解" % [
+			str(solver_result.get("truncated_reason", "")),
+			visited,
+			visual,
+			labelled,
+		]
+	if visual == 0:
+		return "求解完成：无解，已搜索 %d 个状态" % visited
+	if visual == 1:
+		return "求解完成：唯一解，%d 个标号解，已搜索 %d 个状态" % [labelled, visited]
+	return "求解完成：非唯一，%d 个视觉解 / %d 个标号解，已搜索 %d 个状态" % [visual, labelled, visited]
+
+
+func _visual_solver_status_text() -> String:
+	var visited := int(solver_result.get("visited_routes", 0))
+	var optical := int(solver_result.get("optical_solution_count", 0))
+	var layouts := int(solver_result.get("layout_solution_count", 0))
+	if bool(solver_result.get("truncated", false)):
+		return "视觉求解未完成：%s，已搜索 %d 条视觉路线，当前 %d 个光学解 / %d 个完整摆法" % [
+			str(solver_result.get("truncated_reason", "")),
+			visited,
+			optical,
+			layouts,
+		]
+	if layouts == 0:
+		return "视觉求解完成：无完整摆法，找到 %d 个光学路线，已搜索 %d 条视觉路线" % [optical, visited]
+	if optical == 1:
+		return "视觉求解完成：唯一视觉解，%d 个完整摆法，已搜索 %d 条视觉路线" % [layouts, visited]
+	return "视觉求解完成：非唯一，%d 个光学解 / %d 个完整摆法，已搜索 %d 条视觉路线" % [optical, layouts, visited]
 
 
 func _validate() -> Dictionary:

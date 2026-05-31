@@ -114,6 +114,7 @@ limit_right = 2260
 
 [node name="Camera2D" parent="." index="8"]
 unique_name_in_owner = false
+top_level = true
 position = Vector2(653, 378)
 
 [editable path="DoorClassroom"]

@@ -1,0 +1,9 @@
+﻿Create a transparent-ready 2D living room potted plant asset for a side-scrolling Godot game.
+
+Subject: one simple indoor potted green plant in a muted terracotta or warm ivory pot. It should fit naturally in front of the living room wall background.
+
+Style: pixel-art inspired hand-painted 2D illustration, low-saturation colors, thin dark gray outlines, slightly pixel-stepped edges, soft ambient lighting, simple readable silhouette. Match the visual language of the provided chapter 1 school interior references.
+
+Place the plant on a perfectly flat solid #ff00ff chroma-key background for background removal. The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Keep the subject fully separated from the background with crisp edges and generous padding. Do not use #ff00ff anywhere in the subject.
+
+Constraints: no photorealism, no 3D render, no text, no watermark, no floor, no room background, no extra objects.

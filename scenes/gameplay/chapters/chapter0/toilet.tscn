@@ -62,7 +62,7 @@ hold_on_focus_duration = 0.35
 restore_duration = 0.8
 dialog_chapter = "chapter0"
 wash_dialog_label = "wash_face"
-san_restore = 30
+san_restore = 100
 can_interact = true
 
 [node name="Sprite2D" parent="mirror" index="1"]

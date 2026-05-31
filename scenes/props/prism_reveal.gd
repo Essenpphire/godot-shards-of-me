@@ -173,7 +173,6 @@ func _angular_distance_deg(a: float, b: float) -> float:
 
 
 func _on_prism_hit_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	print("Prism hit area input: ", event)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		_dragging = event.pressed
 		if _dragging:

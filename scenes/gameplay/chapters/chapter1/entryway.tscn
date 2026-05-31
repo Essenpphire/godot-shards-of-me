@@ -59,7 +59,8 @@ region_enabled = true
 region_rect = Rect2(648.699, 235.711, 259.374, 381.988)
 
 [node name="ExitDoor" parent="Sortables" index="1" instance=ExtResource("4_skf4g")]
-position = Vector2(897, 477)
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(897, 550)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("6_gxttn")
 room_name = "出门"
@@ -75,7 +76,7 @@ room_name = "客厅"
 modulate = Color(1, 1, 1, 0)
 
 [node name="Camera2D" parent="." index="4"]
-limit_right = 2260
+position = Vector2(320, 378)
 
 [editable path="Sortables/ExitDoor"]
 [editable path="Sortables/LivingRoomDOor"]

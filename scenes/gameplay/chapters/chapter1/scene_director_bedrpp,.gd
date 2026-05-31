@@ -5,6 +5,8 @@ const INTRO_DURATION: float = 2.6
 const PLAYER_PCAM_PRIORITY: int = 10
 const GET_UP_CHAPTER: String = "chapter1"
 const GET_UP_LABEL: String = "get_up"
+const INTRO_PLAYED_KEY: String = "chapter1_bedroom_intro_played"
+const DIALOGIC_INTRO_PLAYED_KEY: String = "chapter1.intro_played"
 
 @onready var intro_camera: PhantomCamera2D = $"../Cameras/IntroPanPcam"
 @onready var player_camera: PhantomCamera2D = $"../Sortables/Player/PlayerPhantomCamera2D"
@@ -17,16 +19,29 @@ var _block_intro_input: bool = false
 
 
 func _ready() -> void:
-	# 第二次回到卧室时，get_up 自己会根据 Dialogic 变量跳过内容。
-	if Dialogic.VAR.get_variable("chapter1.intro_played", false, true):
-		await _wait_for_camera_ready()
-		_activate_player_camera()
-		black.hide()
-		_play_get_up_dialogue()
+	if not Dialogic.is_node_ready():
+		await Dialogic.ready
+
+	# 第二次回到卧室时不再接管镜头或启动起床对白。
+	if _is_room_reentry() or _has_intro_played():
+		Chapter.set_data(INTRO_PLAYED_KEY, true)
 		return
 
 	await _play_intro_camera()
+	Chapter.set_data(INTRO_PLAYED_KEY, true)
 	_play_get_up_dialogue()
+
+
+func _has_intro_played() -> bool:
+	return (
+		Chapter.get_data(INTRO_PLAYED_KEY, false)
+		or Dialogic.VAR.get_variable(DIALOGIC_INTRO_PLAYED_KEY, false, true)
+	)
+
+
+func _is_room_reentry() -> bool:
+	var params = GGT.get_current_scene_data().params
+	return params is Dictionary and params.get("player_pos", Vector2.ZERO) != Vector2.ZERO
 
 
 func _play_intro_camera() -> void:

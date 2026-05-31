@@ -94,20 +94,23 @@ layout_mode = 1
 anchors_preset = 15
 
 [node name="EntryWayDoor" parent="Sortables" index="1" instance=ExtResource("2_64y6m")]
-position = Vector2(1551, 475)
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(1551, 550)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/entryway"
 room_name = "玄关"
 
 [node name="KitchenDoor" parent="Sortables" index="2" instance=ExtResource("2_64y6m")]
-position = Vector2(412, 474)
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(412, 550)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/kitchen"
 next_pos = Vector2(185, 471)
 room_name = "厨房"
 
 [node name="BathroomDorr" parent="Sortables" index="3" instance=ExtResource("2_64y6m")]
-position = Vector2(966, 471)
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(966, 550)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/bathroom"
 next_pos = Vector2(185, 471)
@@ -140,6 +143,5 @@ texture = ExtResource("6_4r8g2")
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)
-limit_right = 2260
 
 [editable path="Sortables/BedRoomDoor"]

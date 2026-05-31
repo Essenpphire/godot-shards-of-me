@@ -20,7 +20,7 @@ size = Vector2(256, 400)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljmjk"]
 size = Vector2(256, 512)
 
-[node name="Gameplay" instance=ExtResource("1_f0ptu")]
+[node name="Gameplay3" instance=ExtResource("1_f0ptu")]
 
 [node name="WallBg3" type="Sprite2D" parent="Background" index="0"]
 position = Vector2(-37, -133)
@@ -100,7 +100,6 @@ skew = 0.0
 shape = SubResource("RectangleShape2D_ljmjk")
 
 [node name="Camera2D" parent="." index="6"]
-position = Vector2(320, 378)
 limit_right = 2260
 
 [editable path="DoorClassroom"]

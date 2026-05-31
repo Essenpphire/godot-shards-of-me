@@ -75,7 +75,6 @@ room_name = "客厅"
 modulate = Color(1, 1, 1, 0)
 
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(320, 378)
 limit_right = 2260
 
 [editable path="Sortables/ExitDoor"]

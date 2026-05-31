@@ -3,10 +3,12 @@
 
 label start
 do GameManager.lock_player_control(true)
-胖: 离，你咋了
-夜: ……
-夜: 老毛病了……
-胖: 药呢
+join ye_li left
+join pang right
+pang: 离，你咋了
+ye_li: ……
+ye_li: 老毛病了……
+pang: 药呢
 夜: 吃着呢
 夜: 哎……
 胖: 走

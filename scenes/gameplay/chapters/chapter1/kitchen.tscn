@@ -108,7 +108,7 @@ region_rect = Rect2(671.272, 317.126, 247.585, 183.92)
 position = Vector2(71, 332)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/livingroom"
-next_pos = Vector2(830, 575)
+next_pos = Vector2(337, 575)
 room_name = "客厅"
 
 [node name="Sprite2D" parent="Sortables/LivingRoomDoor" index="1"]

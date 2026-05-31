@@ -17,7 +17,7 @@ size = Vector2(29, 651)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tvm1"]
 size = Vector2(41.5, 369)
 
-[node name="Gameplay" instance=ExtResource("1_oe8q4")]
+[node name="Gameplay3" instance=ExtResource("1_oe8q4")]
 
 [node name="Background" parent="." index="1"]
 visible = false
@@ -115,7 +115,6 @@ limit_right = 2260
 [node name="Camera2D" parent="." index="7"]
 unique_name_in_owner = false
 position = Vector2(653, 378)
-limit_right = 2260
 
 [editable path="DoorClassroom"]
 [editable path="DoorWC"]

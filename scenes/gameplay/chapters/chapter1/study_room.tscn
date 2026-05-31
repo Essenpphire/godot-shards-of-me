@@ -14,7 +14,7 @@ size = Vector2(36.5486, 712.072)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hja1m"]
 size = Vector2(36.5486, 712.072)
 
-[node name="Gameplay2" instance=ExtResource("1_g1ev2")]
+[node name="Gameplay3" instance=ExtResource("1_g1ev2")]
 
 [node name="StudyRoomFlatBackgroundV3" type="Sprite2D" parent="Background" index="0"]
 position = Vector2(1829.61, 137.04)

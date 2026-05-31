@@ -1,5 +1,69 @@
-[gd_scene load_steps=2 format=3 uid="uid://24e46mfeslsf"]
+[gd_scene load_steps=7 format=4 uid="uid://24e46mfeslsf"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_4tmrp"]
+[ext_resource type="Texture2D" uid="uid://m6pck2j3rueq" path="res://assets/images/backgrounds/玄关/ED5F91270EC84600DD29DA43128A6CE9.png" id="2_dp170"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="3_2x381"]
+[ext_resource type="Texture2D" uid="uid://cvlbfmcthnr7j" path="res://assets/images/backgrounds/浴室/wall_bathroom.png" id="4_2x381"]
+[ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="4_skf4g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
 
 [node name="Gameplay" instance=ExtResource("1_4tmrp")]
+
+[node name="WallBg2" type="Sprite2D" parent="Background" index="0"]
+position = Vector2(1596.35, 144.45)
+scale = Vector2(1.51271, 0.53951)
+texture = ExtResource("2_dp170")
+region_enabled = true
+region_rect = Rect2(515.993, 1.52692, 535.254, 858.293)
+
+[node name="FloorTile" parent="Background" index="1"]
+tile_map_data = PackedByteArray("AAAEAA4AAwAAAAQAAAADAA0AAwAAAAQAAAACAAwAAwAAAAQAAAABAAsAAwAAAAQAAAAAAAoAAwAAAAQAAAD//wkAAwAAAAQAAAD+/wgAAwAAAAQAAAD9/wcAAwAAAAQAAAD8/wcAAwAAAAQAAAD9/wgAAwAAAAQAAAD+/wkAAwAAAAQAAAD//woAAwAAAAQAAAAAAAsAAwAAAAQAAAABAAwAAwAAAAQAAAACAA0AAwAAAAQAAAADAA4AAwAAAAQAAAACAA4AAwAAAAQAAAABAA0AAwAAAAQAAAAAAAwAAwAAAAQAAAD//wsAAwAAAAQAAAD+/woAAwAAAAQAAAD9/wkAAwAAAAQAAAD8/wgAAwAAAAQAAAD7/wcAAwAAAAQAAAD6/wcAAwAAAAQAAAD7/wgAAwAAAAQAAAD8/wkAAwAAAAQAAAD9/woAAwAAAAQAAAD+/wsAAwAAAAQAAAD//wwAAwAAAAQAAAAAAA0AAwAAAAQAAAABAA4AAwAAAAQAAAAAAA4AAwAAAAQAAAD//w0AAwAAAAQAAAD+/wwAAwAAAAQAAAD9/wsAAwAAAAQAAAD8/woAAwAAAAQAAAD7/wkAAwAAAAQAAAD6/wgAAwAAAAQAAAD5/wcAAwAAAAQAAAD4/wcAAwAAAAQAAAD5/wgAAwAAAAQAAAD6/wkAAwAAAAQAAAD7/woAAwAAAAQAAAD8/wsAAwAAAAQAAAD9/wwAAwAAAAQAAAD+/w0AAwAAAAQAAAD//w4AAwAAAAQAAAD+/w4AAwAAAAQAAAD9/w0AAwAAAAQAAAD8/wwAAwAAAAQAAAD7/wsAAwAAAAQAAAD6/woAAwAAAAQAAAD5/wkAAwAAAAQAAAD4/wgAAwAAAAQAAAD3/wcAAwAAAAQAAAD//w8AAwAAAAQAAAAAAA8AAwAAAAQAAAABAA8AAwAAAAQAAAACAA8AAwAAAAQAAAADAA8AAwAAAAQAAAAEAA8AAwAAAAQAAAAFAA8AAwAAAAQAAAAGABAAAwAAAAQAAAAFABAAAwAAAAQAAAAEABAAAwAAAAQAAAADABAAAwAAAAQAAAACABAAAwAAAAQAAAABABAAAwAAAAQAAAAAABAAAwAAAAQAAAAAAAkAAwAAAAQAAAAGABEAAwAAAAQAAAAFABEAAwAAAAQAAAAEABEAAwAAAAQAAAADABEAAwAAAAQAAAACABEAAwAAAAQAAAABABEAAwAAAAQAAAAHABEAAwAAAAQAAAAHABIAAwAAAAQAAAAGABIAAwAAAAQAAAAFABIAAwAAAAQAAAAEABIAAwAAAAQAAAAEABMAAwAAAAQAAAADABIAAwAAAAQAAAADABMAAwAAAAQAAAACABIAAwAAAAQAAAAIABIAAwAAAAQAAAAHABMAAwAAAAQAAAAGABMAAwAAAAQAAAAFABMAAwAAAAQAAAAEABQAAwAAAAQAAAAFABQAAwAAAAQAAAAGABQAAwAAAAQAAAAHABQAAwAAAAQAAAAIABMAAwAAAAQAAAAJABMAAwAAAAQAAAAIABQAAwAAAAQAAAAGABUAAwAAAAQAAAAJABQAAwAAAAQAAAAKABQAAwAAAAQAAAAIABUAAwAAAAQAAAAHABUAAwAAAAQAAAAFABUAAwAAAAQAAAAJABUAAwAAAAQAAAAKABUAAwAAAAQAAAALABUAAwAAAAQAAAA=")
+
+[node name="WallBg" parent="Background" index="2"]
+position = Vector2(749, 144.5)
+scale = Vector2(0.576823, 0.533565)
+texture = ExtResource("2_dp170")
+
+[node name="WallLeft" parent="Background" index="3"]
+visible = false
+
+[node name="WallLeftCollidor2" parent="Background" index="7" instance=ExtResource("3_2x381")]
+position = Vector2(1371, 471)
+rotation = 1.02974
+shape = SubResource("RectangleShape2D_lrrqo")
+
+[node name="WallLeft2" type="Sprite2D" parent="Background" index="8"]
+z_index = -2
+position = Vector2(91, 88)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_2x381")
+offset = Vector2(-43.3333, 318.333)
+
+[node name="WallLeft4" type="Sprite2D" parent="Background" index="9"]
+z_index = -2
+position = Vector2(-107.117, -392.975)
+rotation = -0.523599
+scale = Vector2(2.5047, 0.933797)
+texture = ExtResource("4_2x381")
+offset = Vector2(-43.3333, 318.333)
+region_enabled = true
+region_rect = Rect2(648.699, 235.711, 259.374, 381.988)
+
+[node name="DoorProp" parent="Sortables" index="1" instance=ExtResource("4_skf4g")]
+position = Vector2(897, 477)
+scale = Vector2(1.5, 1.5)
+
+[node name="DoorProp2" parent="Sortables" index="2" instance=ExtResource("4_skf4g")]
+position = Vector2(84, 342)
+scale = Vector2(1.5, 1.5)
+next_scene = "chapter1/livingroom"
+
+[node name="Sprite2D" parent="Sortables/DoorProp2" index="1"]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Camera2D" parent="." index="4"]
+position = Vector2(320, 378)
+
+[editable path="Sortables/DoorProp2"]

@@ -35,10 +35,12 @@ texture = null
 
 [node name="CollisionShape2D" parent="Sortables/LivingRoomDoor/Detection" index="0"]
 position = Vector2(-13.4286, 0)
-scale = Vector2(1, 1)
 
 [node name="Label" parent="Sortables/LivingRoomDoor/RoomHint" index="0"]
 layout_mode = 1
 anchors_preset = 15
+
+[node name="Camera2D" parent="." index="4"]
+position = Vector2(320, 378)
 
 [editable path="Sortables/LivingRoomDoor"]

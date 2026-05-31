@@ -1,7 +1,8 @@
 class_name PrismReveal
 extends Node2D
 
-const SAN_LOSS_PER_ROTATION: int = 5
+@export_group("Chapter")
+@export var san_loss_per_rotation: int = 5
 
 @export_group("Rotation")
 @export_range(0.0, 360.0, 0.1, "radians_as_degrees") var prism_rotation_deg: float = 0.0:
@@ -172,10 +173,11 @@ func _angular_distance_deg(a: float, b: float) -> float:
 
 
 func _on_prism_hit_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	print("Prism hit area input: ", event)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		_dragging = event.pressed
 		if _dragging:
-			Chapter.san -= SAN_LOSS_PER_ROTATION # 旋转棱镜降低SAN
+			Chapter.san -= san_loss_per_rotation # 旋转棱镜降低SAN
 			get_viewport().set_input_as_handled()
 		return
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://biblf1qcyg0nw"]
+[gd_scene load_steps=3 format=3 uid="uid://biblf1qcyg0nw"]
 
-[ext_resource type="PackedScene" path="res://scenes/props/prism_reveal.tscn" id="1_4v02m"]
+[ext_resource type="PackedScene" uid="uid://bulewp0xprism" path="res://scenes/props/prism_reveal.tscn" id="1_4v02m"]
+[ext_resource type="Texture2D" uid="uid://dgtw1y5kgekq5" path="res://assets/images/items/backpack.png" id="2_4oaci"]
 
 [node name="PrismRevealPreview" type="Node2D"]
 
@@ -15,5 +16,7 @@ polygon = PackedVector2Array(-320, -28, 320, -28, 420, 120, -420, 120)
 
 [node name="PrismReveal" parent="." instance=ExtResource("1_4v02m")]
 position = Vector2(0, -8)
+san_loss_per_rotation = 1
+revealed_texture = ExtResource("2_4oaci")
 
 [node name="Camera2D" type="Camera2D" parent="."]

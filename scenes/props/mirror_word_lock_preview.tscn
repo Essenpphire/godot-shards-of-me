@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="1_q4b76"]
 [ext_resource type="PackedScene" uid="uid://bilwq8el1gch" path="res://scenes/props/mirror_word_lock.tscn" id="2_0sow4"]
-[ext_resource type="Texture2D" uid="uid://m0cnktkfij1u" path="res://assets/images/backgrounds/旧资产/mirtest2.png" id="2_1xsea"]
-[ext_resource type="Texture2D" uid="uid://bp0ft1a7kj2ux" path="res://assets/images/backgrounds/旧资产/mirtest1.png" id="3_0lgy7"]
+[ext_resource type="Texture2D" uid="uid://cfe3nsr65jdol" path="res://assets/images/backgrounds/旧资产/demoin.png" id="2_1xsea"]
+[ext_resource type="Texture2D" uid="uid://cny2kvecg4pl0" path="res://assets/images/backgrounds/旧资产/demo.png" id="3_0lgy7"]
 
 [node name="MirrorWordLockPreview" type="Node2D"]
 

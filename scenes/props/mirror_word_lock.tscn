@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bilwq8el1gch"]
 
-[ext_resource type="Script" uid="uid://dlirb7jh2hs2g" path="res://scenes/props/mirror_word_lock.gd" id="1_fvtf6"]
+[ext_resource type="Script" uid="uid://b8imxvi226738" path="res://scenes/props/mirror_word_lock.gd" id="1_fvtf6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n8pmq"]
 line_spacing = -18.0

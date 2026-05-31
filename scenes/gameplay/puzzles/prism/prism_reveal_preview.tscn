@@ -16,7 +16,7 @@ polygon = PackedVector2Array(-320, -28, 320, -28, 420, 120, -420, 120)
 
 [node name="PrismReveal" parent="." instance=ExtResource("1_4v02m")]
 position = Vector2(0, -8)
-san_loss_per_rotation = 1
+san_loss_per_turn = 1
 revealed_texture = ExtResource("2_4oaci")
 
 [node name="Camera2D" type="Camera2D" parent="."]

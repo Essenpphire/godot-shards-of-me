@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://ckjelnlepu7js"]
+[gd_scene load_steps=9 format=4 uid="uid://ckjelnlepu7js"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_g1ev2"]
 [ext_resource type="Texture2D" uid="uid://cgykmpwyctdbt" path="res://assets/images/backgrounds/书房/study_room_flat_background_v2.png" id="2_1q3eu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="3_x4ua1"]
 [ext_resource type="Texture2D" uid="uid://cvlbfmcthnr7j" path="res://assets/images/backgrounds/浴室/wall_bathroom.png" id="4_x4ua1"]
 [ext_resource type="PackedScene" uid="uid://bulewp0xprism" path="res://scenes/gameplay/puzzles/prism/prism_reveal.tscn" id="5_lfnu8"]
+[ext_resource type="Texture2D" uid="uid://dna58ulvc15n1" path="res://assets/images/backgrounds/书房/phrase1.png" id="6_hja1m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
@@ -59,8 +60,15 @@ region_enabled = true
 region_rect = Rect2(648.699, 235.711, 259.374, 381.988)
 
 [node name="PrismReveal" parent="Background" index="11" instance=ExtResource("5_lfnu8")]
-position = Vector2(1379, 218)
+position = Vector2(1383, 199)
 scale = Vector2(0.4, 0.4)
+san_loss_per_turn = 1
+turn_speed_deg_per_sec = 30.0
+interaction_mode = 1
+revealed_texture = ExtResource("6_hja1m")
+best_reveal_angle_deg = 150.0
+reveal_tolerance_deg = 20.0
+render_topdown_ratio = 0.12
 
 [node name="BedRoomDoor" parent="Sortables" index="0" instance=ExtResource("2_nqaxo")]
 position = Vector2(74, 310)
@@ -80,6 +88,6 @@ layout_mode = 1
 anchors_preset = 15
 
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(176, 207.9)
+position = Vector2(320, 378)
 
 [editable path="Sortables/BedRoomDoor"]

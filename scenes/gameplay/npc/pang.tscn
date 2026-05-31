@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://du4m0sm073id5"]
+
+[ext_resource type="Texture2D" uid="uid://dkodm5i1hx6w8" path="res://assets/images/sprites/pang/pang_idle.png" id="1_uefaq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qvdq6"]
+radius = 23.0
+height = 62.0
+
+[node name="Pang" type="CharacterBody2D"]
+
+[node name="PangIdle" type="Sprite2D" parent="."]
+texture = ExtResource("1_uefaq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 29)
+shape = SubResource("CapsuleShape2D_qvdq6")

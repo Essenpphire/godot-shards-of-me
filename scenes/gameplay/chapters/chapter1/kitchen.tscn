@@ -1,14 +1,18 @@
-[gd_scene load_steps=5 format=4 uid="uid://jjbythngm52s"]
+[gd_scene load_steps=7 format=4 uid="uid://jjbythngm52s"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_4lpny"]
 [ext_resource type="Texture2D" uid="uid://6q4ngkdatymm" path="res://assets/images/backgrounds/厨房/e9eb4746-ce07-489a-883b-7ee3497ffa52.png" id="2_oe0xi"]
 [ext_resource type="Texture2D" uid="uid://wgyl5jr02dpv" path="res://assets/images/backgrounds/厨房/ca14e4c9-c2e7-467f-8623-f91ff2d24595.png" id="3_a1182"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="4_a1182"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="4_be8jl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
 
 [node name="Gameplay" instance=ExtResource("1_4lpny")]
 
 [node name="FloorTile" parent="Background" index="0"]
-tile_map_data = PackedByteArray("AAAEAA4AAwAAAAIAAAADAA0AAwAAAAIAAAACAAwAAwAAAAIAAAABAAsAAwAAAAIAAAAAAAoAAwAAAAIAAAD//wkAAwAAAAIAAAD+/wgAAwAAAAIAAAD9/wcAAwAAAAIAAAD8/wcAAwAAAAIAAAD9/wgAAwAAAAIAAAD+/wkAAwAAAAIAAAD//woAAwAAAAIAAAAAAAsAAwAAAAIAAAABAAwAAwAAAAIAAAACAA0AAwAAAAIAAAADAA4AAwAAAAIAAAACAA4AAwAAAAIAAAABAA0AAwAAAAIAAAAAAAwAAwAAAAIAAAD//wsAAwAAAAIAAAD+/woAAwAAAAIAAAD9/wkAAwAAAAIAAAD8/wgAAwAAAAIAAAD7/wcAAwAAAAIAAAD6/wcAAwAAAAIAAAD7/wgAAwAAAAIAAAD8/wkAAwAAAAIAAAD9/woAAwAAAAIAAAD+/wsAAwAAAAIAAAD//wwAAwAAAAIAAAAAAA0AAwAAAAIAAAABAA4AAwAAAAIAAAAAAA4AAwAAAAIAAAD//w0AAwAAAAIAAAD+/wwAAwAAAAIAAAD9/wsAAwAAAAIAAAD8/woAAwAAAAIAAAD7/wkAAwAAAAIAAAD6/wgAAwAAAAIAAAD5/wcAAwAAAAIAAAD4/wcAAwAAAAIAAAD5/wgAAwAAAAIAAAD6/wkAAwAAAAIAAAD7/woAAwAAAAIAAAD8/wsAAwAAAAIAAAD9/wwAAwAAAAIAAAD+/w0AAwAAAAIAAAD//w4AAwAAAAIAAAD+/w4AAwAAAAIAAAD9/w0AAwAAAAIAAAD8/wwAAwAAAAIAAAD7/wsAAwAAAAIAAAD6/woAAwAAAAIAAAD5/wkAAwAAAAIAAAD4/wgAAwAAAAIAAAD3/wcAAwAAAAIAAAD//w8AAwAAAAIAAAAAAA8AAwAAAAIAAAABAA8AAwAAAAIAAAACAA8AAwAAAAIAAAADAA8AAwAAAAIAAAAEAA8AAwAAAAIAAAAFAA8AAwAAAAIAAAAGABAAAwAAAAIAAAAFABAAAwAAAAIAAAAEABAAAwAAAAIAAAADABAAAwAAAAIAAAACABAAAwAAAAIAAAABABAAAwAAAAIAAAAAABAAAwAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAAEAA4AAwAAAAIAAAADAA0AAwAAAAIAAAACAAwAAwAAAAIAAAABAAsAAwAAAAIAAAAAAAoAAwAAAAIAAAD//wkAAwAAAAIAAAD+/wgAAwAAAAIAAAD9/wcAAwAAAAIAAAD8/wcAAwAAAAIAAAD9/wgAAwAAAAIAAAD+/wkAAwAAAAIAAAD//woAAwAAAAIAAAAAAAsAAwAAAAIAAAABAAwAAwAAAAIAAAACAA0AAwAAAAIAAAADAA4AAwAAAAIAAAACAA4AAwAAAAIAAAABAA0AAwAAAAIAAAAAAAwAAwAAAAIAAAD//wsAAwAAAAIAAAD+/woAAwAAAAIAAAD9/wkAAwAAAAIAAAD8/wgAAwAAAAIAAAD7/wcAAwAAAAIAAAD6/wcAAwAAAAIAAAD7/wgAAwAAAAIAAAD8/wkAAwAAAAIAAAD9/woAAwAAAAIAAAD+/wsAAwAAAAIAAAD//wwAAwAAAAIAAAAAAA0AAwAAAAIAAAABAA4AAwAAAAIAAAAAAA4AAwAAAAIAAAD//w0AAwAAAAIAAAD+/wwAAwAAAAIAAAD9/wsAAwAAAAIAAAD8/woAAwAAAAIAAAD7/wkAAwAAAAIAAAD6/wgAAwAAAAIAAAD5/wcAAwAAAAIAAAD4/wcAAwAAAAIAAAD5/wgAAwAAAAIAAAD6/wkAAwAAAAIAAAD7/woAAwAAAAIAAAD8/wsAAwAAAAIAAAD9/wwAAwAAAAIAAAD+/w0AAwAAAAIAAAD//w4AAwAAAAIAAAD+/w4AAwAAAAIAAAD9/w0AAwAAAAIAAAD8/wwAAwAAAAIAAAD7/wsAAwAAAAIAAAD6/woAAwAAAAIAAAD5/wkAAwAAAAIAAAD4/wgAAwAAAAIAAAD3/wcAAwAAAAIAAAD//w8AAwAAAAIAAAAAAA8AAwAAAAIAAAABAA8AAwAAAAIAAAACAA8AAwAAAAIAAAADAA8AAwAAAAIAAAAEAA8AAwAAAAIAAAAFAA8AAwAAAAIAAAAGABAAAwAAAAIAAAAFABAAAwAAAAIAAAAEABAAAwAAAAIAAAADABAAAwAAAAIAAAACABAAAwAAAAIAAAABABAAAwAAAAIAAAAAABAAAwAAAAIAAAABABEAAwAAAAIAAAACABEAAwAAAAIAAAADABEAAwAAAAIAAAAEABEAAwAAAAIAAAAFABEAAwAAAAIAAAAGABEAAwAAAAIAAAAHABEAAwAAAAIAAAACABIAAwAAAAIAAAADABIAAwAAAAIAAAAEABIAAwAAAAIAAAAFABIAAwAAAAIAAAAGABIAAwAAAAIAAAAHABIAAwAAAAIAAAAIABIAAwAAAAIAAAADABMAAwAAAAIAAAAEABMAAwAAAAIAAAAFABMAAwAAAAIAAAAGABMAAwAAAAIAAAAHABMAAwAAAAIAAAAIABMAAwAAAAIAAAAJABMAAwAAAAIAAAAJABQAAwAAAAIAAAAIABQAAwAAAAIAAAAHABQAAwAAAAIAAAAGABQAAwAAAAIAAAAFABQAAwAAAAIAAAAFABUAAwAAAAIAAAAEABQAAwAAAAIAAAAKABQAAwAAAAIAAAAJABUAAwAAAAIAAAAIABUAAwAAAAIAAAAHABUAAwAAAAIAAAAGABUAAwAAAAIAAAA=")
 
 [node name="WallBg" parent="Background" index="1"]
 z_index = -1
@@ -23,6 +27,76 @@ rotation = 0.0174533
 scale = Vector2(0.476795, 0.476795)
 texture = ExtResource("3_a1182")
 
+[node name="WallLeftCollidor2" parent="Background" index="6" instance=ExtResource("4_be8jl")]
+position = Vector2(1034, 464)
+rotation = 1.02974
+shape = SubResource("RectangleShape2D_lrrqo")
+
+[node name="WallBg2" type="Sprite2D" parent="Background" index="7"]
+z_index = -1
+position = Vector2(1314, 122)
+scale = Vector2(0.455339, 0.602133)
+texture = ExtResource("2_oe0xi")
+region_enabled = true
+region_rect = Rect2(1.86032, 2.41044, 103.75, 844.145)
+
+[node name="WallBg4" type="Sprite2D" parent="Background" index="8"]
+z_index = -1
+position = Vector2(1362, 122)
+scale = Vector2(0.455339, 0.602133)
+texture = ExtResource("2_oe0xi")
+region_enabled = true
+region_rect = Rect2(1.86032, 2.41044, 103.75, 844.145)
+
+[node name="WallBg5" type="Sprite2D" parent="Background" index="9"]
+z_index = -1
+position = Vector2(1409, 122)
+scale = Vector2(0.455339, 0.602133)
+texture = ExtResource("2_oe0xi")
+region_enabled = true
+region_rect = Rect2(1.86032, 2.41044, 103.75, 844.145)
+
+[node name="WallBg6" type="Sprite2D" parent="Background" index="10"]
+z_index = -1
+position = Vector2(1453, 122)
+scale = Vector2(0.455339, 0.602133)
+texture = ExtResource("2_oe0xi")
+region_enabled = true
+region_rect = Rect2(1.86032, 2.41044, 103.75, 844.145)
+
+[node name="WallBg7" type="Sprite2D" parent="Background" index="11"]
+z_index = -1
+position = Vector2(1501, 122)
+scale = Vector2(0.455339, 0.602133)
+texture = ExtResource("2_oe0xi")
+region_enabled = true
+region_rect = Rect2(1.86032, 2.41044, 103.75, 844.145)
+
+[node name="WallBg8" type="Sprite2D" parent="Background" index="12"]
+z_index = -1
+position = Vector2(1548, 122)
+scale = Vector2(0.455339, 0.602133)
+texture = ExtResource("2_oe0xi")
+region_enabled = true
+region_rect = Rect2(1.86032, 2.41044, 103.75, 844.145)
+
+[node name="WallBg9" type="Sprite2D" parent="Background" index="13"]
+z_index = -1
+position = Vector2(1594, 122)
+scale = Vector2(0.455339, 0.602133)
+texture = ExtResource("2_oe0xi")
+region_enabled = true
+region_rect = Rect2(1.86032, 2.41044, 103.75, 844.145)
+
+[node name="WallLeft2" type="Sprite2D" parent="Background" index="14"]
+z_index = -1
+position = Vector2(-4.18304, -48.5798)
+rotation = -0.523599
+scale = Vector2(2.18862, 1.59531)
+texture = ExtResource("3_a1182")
+region_enabled = true
+region_rect = Rect2(671.272, 317.126, 247.585, 183.92)
+
 [node name="LivingRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_a1182")]
 position = Vector2(71, 332)
 scale = Vector2(1.4, 1.4)
@@ -35,10 +109,12 @@ texture = null
 
 [node name="CollisionShape2D" parent="Sortables/LivingRoomDoor/Detection" index="0"]
 position = Vector2(-13.4286, 0)
-scale = Vector2(1, 1)
 
 [node name="Label" parent="Sortables/LivingRoomDoor/RoomHint" index="0"]
 layout_mode = 1
 anchors_preset = 15
+
+[node name="Camera2D" parent="." index="4"]
+position = Vector2(320, 378)
 
 [editable path="Sortables/LivingRoomDoor"]

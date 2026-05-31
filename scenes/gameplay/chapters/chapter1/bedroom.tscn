@@ -50,6 +50,9 @@ required_key_id = "6"
 next_scene = "chapter1/livingroom"
 next_pos = Vector2(0, 0)
 room_name = "测试"
+required_clue_id = "3"
+required_clue_dialog_chapter = "chapter1"
+required_clue_dialog_label = "start"
 
 [node name="LivingRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_f7fd0")]
 position = Vector2(446, 500)
@@ -57,6 +60,9 @@ scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/livingroom"
 next_pos = Vector2(185, 471)
 room_name = "客厅"
+required_clue_id = "3"
+required_clue_dialog_chapter = "chapter1"
+required_clue_dialog_label = "start"
 
 [node name="Sprite2D" parent="Sortables/LivingRoomDoor" index="1"]
 texture = ExtResource("5_sy1jl")
@@ -71,6 +77,9 @@ scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/study_room"
 next_pos = Vector2(185, 471)
 room_name = "书房"
+required_clue_id = "3"
+required_clue_dialog_chapter = "chapter1"
+required_clue_dialog_label = "start"
 
 [node name="Player" parent="Sortables" index="3"]
 position = Vector2(999, 384)
@@ -90,6 +99,11 @@ texture = ExtResource("7_04lje")
 position = Vector2(653, 355)
 item_id = "4"
 oneshot = true
+interact_dialog_chapter = "chapter1"
+interact_dialog_label = "get_medicine"
+required_clue_id = "3"
+required_clue_dialog_chapter = "chapter1"
+required_clue_dialog_label = "start"
 
 [node name="Hint" parent="Sortables/PillItem" index="0"]
 visible = true
@@ -109,7 +123,10 @@ position = Vector2(157, 520)
 item_id = "5"
 oneshot = true
 interact_dialog_chapter = "chapter1"
-interact_dialog_label = "get_medicine"
+interact_dialog_label = "read_instruction"
+required_clue_id = "4"
+required_clue_dialog_chapter = "chapter1"
+required_clue_dialog_label = "get_medicine"
 
 [node name="Sprite2D" parent="Sortables/PillInstructionItem" index="1"]
 scale = Vector2(0.01, 0.01)

@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=4 uid="uid://wc0gudrok6fs"]
+
+[ext_resource type="Texture2D" uid="uid://bxe6l41mtwhpd" path="res://assets/images/backgrounds/bg_hallway_1.png" id="1_xbcr7"]
+[ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_k8pcc"]
+[ext_resource type="Texture2D" uid="uid://nk6168nayrp8" path="res://assets/images/backgrounds/wall_hallway_1.png" id="3_ppuvr"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="4_swmww"]
+[ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="5_f4wli"]
+[ext_resource type="PackedScene" uid="uid://du4m0sm073id5" path="res://scenes/gameplay/npc/pang.tscn" id="6_hoex0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07san"]
+atlas = ExtResource("1_xbcr7")
+region = Rect2(300, 0, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm7vr"]
+size = Vector2(2000, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ktvq"]
+size = Vector2(36.5486, 712.072)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdupy"]
+size = Vector2(36.5486, 712.072)
+
+[node name="Hallway" type="Node2D"]
+
+[node name="Background" type="StaticBody2D" parent="."]
+
+[node name="WallBg3" type="Sprite2D" parent="Background"]
+position = Vector2(-37, -133)
+rotation = -0.523599
+scale = Vector2(2.7451, 2.12606)
+texture = ExtResource("1_xbcr7")
+region_enabled = true
+region_rect = Rect2(1218.16, 437.595, 199.718, 228.249)
+
+[node name="FloorTile" type="TileMapLayer" parent="Background"]
+position = Vector2(1, -1)
+tile_map_data = PackedByteArray("AAAEAA4AAwAAAAIAAAADAA0AAwAAAAIAAAACAAwAAwAAAAIAAAABAAsAAwAAAAIAAAAAAAoAAwAAAAIAAAD//wkAAwAAAAIAAAD+/wgAAwAAAAIAAAD9/wcAAwAAAAIAAAD8/wcAAwAAAAIAAAD9/wgAAwAAAAIAAAD+/wkAAwAAAAIAAAD//woAAwAAAAIAAAAAAAsAAwAAAAIAAAABAAwAAwAAAAIAAAACAA0AAwAAAAIAAAADAA4AAwAAAAIAAAACAA4AAwAAAAIAAAABAA0AAwAAAAIAAAAAAAwAAwAAAAIAAAD//wsAAwAAAAIAAAD+/woAAwAAAAIAAAD9/wkAAwAAAAIAAAD8/wgAAwAAAAIAAAD7/wcAAwAAAAIAAAD6/wcAAwAAAAIAAAD7/wgAAwAAAAIAAAD8/wkAAwAAAAIAAAD9/woAAwAAAAIAAAD+/wsAAwAAAAIAAAD//wwAAwAAAAIAAAAAAA0AAwAAAAIAAAABAA4AAwAAAAIAAAAAAA4AAwAAAAIAAAD//w0AAwAAAAIAAAD+/wwAAwAAAAIAAAD9/wsAAwAAAAIAAAD8/woAAwAAAAIAAAD7/wkAAwAAAAIAAAD6/wgAAwAAAAIAAAD5/wcAAwAAAAIAAAD4/wcAAwAAAAIAAAD5/wgAAwAAAAIAAAD6/wkAAwAAAAIAAAD7/woAAwAAAAIAAAD8/wsAAwAAAAIAAAD9/wwAAwAAAAIAAAD+/w0AAwAAAAIAAAD//w4AAwAAAAIAAAD+/w4AAwAAAAIAAAD9/w0AAwAAAAIAAAD8/wwAAwAAAAIAAAD7/wsAAwAAAAIAAAD6/woAAwAAAAIAAAD5/wkAAwAAAAIAAAD4/wgAAwAAAAIAAAD3/wcAAwAAAAIAAAD//w8AAwAAAAIAAAAAAA8AAwAAAAIAAAABAA8AAwAAAAIAAAACAA8AAwAAAAIAAAADAA8AAwAAAAIAAAAEAA8AAwAAAAIAAAAFAA8AAwAAAAIAAAAGABAAAwAAAAIAAAAFABAAAwAAAAIAAAAEABAAAwAAAAIAAAADABAAAwAAAAIAAAACABAAAwAAAAIAAAABABAAAwAAAAIAAAAAABAAAwAAAAIAAAABABEAAwAAAAIAAAACABEAAwAAAAIAAAADABEAAwAAAAIAAAAEABEAAwAAAAIAAAAFABEAAwAAAAIAAAAGABEAAwAAAAIAAAAHABEAAwAAAAIAAAAEABIAAwAAAAIAAAADABIAAwAAAAIAAAACABIAAwAAAAIAAAADABMAAwAAAAIAAAAEABMAAwAAAAIAAAAFABIAAwAAAAIAAAAGABIAAwAAAAIAAAAHABIAAwAAAAIAAAAIABIAAwAAAAIAAAAJABMAAwAAAAIAAAAIABMAAwAAAAIAAAAHABMAAwAAAAIAAAAGABMAAwAAAAIAAAAFABMAAwAAAAIAAAAFABQAAwAAAAIAAAAEABQAAwAAAAIAAAAGABQAAwAAAAIAAAAHABUAAwAAAAIAAAAHABQAAwAAAAIAAAAIABQAAwAAAAIAAAAJABQAAwAAAAIAAAAGABUAAwAAAAIAAAAFABUAAwAAAAIAAAAIABUAAwAAAAIAAAAKABQAAwAAAAIAAAAKABUAAwAAAAIAAAALABUAAwAAAAIAAAAHABYAAwAAAAIAAAAGABYAAwAAAAIAAAAIABYAAwAAAAIAAAAJABYAAwAAAAIAAAAJABUAAwAAAAIAAAAKABYAAwAAAAIAAAALABYAAwAAAAIAAAAMABYAAwAAAAIAAAAHABcAAwAAAAIAAAAIABcAAwAAAAIAAAAJABcAAwAAAAIAAAAKABcAAwAAAAIAAAALABcAAwAAAAIAAAAMABcAAwAAAAIAAAANABcAAwAAAAIAAAAOABgAAwAAAAIAAAANABgAAwAAAAIAAAAMABgAAwAAAAIAAAALABgAAwAAAAIAAAAKABgAAwAAAAIAAAAJABgAAwAAAAIAAAAIABgAAwAAAAIAAAAJABkAAwAAAAIAAAAKABkAAwAAAAIAAAALABkAAwAAAAIAAAAMABkAAwAAAAIAAAANABkAAwAAAAIAAAAOABkAAwAAAAIAAAAPABkAAwAAAAIAAAAPABoAAwAAAAIAAAAOABoAAwAAAAIAAAANABoAAwAAAAIAAAAMABoAAwAAAAIAAAALABoAAwAAAAIAAAAKABoAAwAAAAIAAAAQABoAAwAAAAIAAAARABsAAwAAAAIAAAAQABsAAwAAAAIAAAAPABsAAwAAAAIAAAAOABsAAwAAAAIAAAANABsAAwAAAAIAAAAMABsAAwAAAAIAAAALABsAAwAAAAIAAAAMABwAAwAAAAIAAAANABwAAwAAAAIAAAAOAB0AAwAAAAIAAAAOABwAAwAAAAIAAAAPABwAAwAAAAIAAAAQABwAAwAAAAIAAAARABwAAwAAAAIAAAASABwAAwAAAAIAAAASAB0AAwAAAAIAAAARAB0AAwAAAAIAAAAQAB0AAwAAAAIAAAAPAB0AAwAAAAIAAAANAB0AAwAAAAIAAAATAB0AAwAAAAIAAAATAB4AAwAAAAIAAAASAB4AAwAAAAIAAAARAB4AAwAAAAIAAAAQAB4AAwAAAAIAAAAPAB4AAwAAAAIAAAAOAB4AAwAAAAIAAAAUAB4AAwAAAAIAAAA=")
+tile_set = ExtResource("2_k8pcc")
+
+[node name="WallBg" type="Sprite2D" parent="Background"]
+position = Vector2(841.55, 142)
+scale = Vector2(0.392716, 0.296969)
+texture = ExtResource("1_xbcr7")
+
+[node name="WallBg2" type="Sprite2D" parent="Background"]
+position = Vector2(1720, 142)
+scale = Vector2(0.392716, 0.296969)
+texture = SubResource("AtlasTexture_07san")
+
+[node name="WallLeft" type="Sprite2D" parent="Background"]
+position = Vector2(71, 281)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_ppuvr")
+
+[node name="WallBgCollidor" parent="Background" instance=ExtResource("4_swmww")]
+position = Vector2(1288, 276)
+shape = SubResource("RectangleShape2D_pm7vr")
+
+[node name="WallLeftCollidor" parent="Background" instance=ExtResource("4_swmww")]
+position = Vector2(21, 438)
+rotation = 1.02974
+shape = SubResource("RectangleShape2D_6ktvq")
+
+[node name="FloorCollidor" parent="Background" instance=ExtResource("4_swmww")]
+position = Vector2(849, 658)
+shape = SubResource("RectangleShape2D_pm7vr")
+
+[node name="WallBg4" type="Sprite2D" parent="Background"]
+position = Vector2(2792, 140)
+scale = Vector2(0.392716, 0.296969)
+texture = SubResource("AtlasTexture_07san")
+
+[node name="WallLeftCollidor2" parent="Background" instance=ExtResource("4_swmww")]
+position = Vector2(2000, 466)
+rotation = 1.02974
+shape = SubResource("RectangleShape2D_wdupy")
+
+[node name="Sortables" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Sortables" instance=ExtResource("5_f4wli")]
+position = Vector2(185, 471)
+scale = Vector2(2, 2)
+
+[node name="Pang" parent="." instance=ExtResource("6_hoex0")]
+position = Vector2(684, 497)
+scale = Vector2(2, 2)

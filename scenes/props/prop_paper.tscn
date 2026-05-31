@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://caikehdgduskc"]
+[gd_scene load_steps=4 format=3 uid="uid://caikehdgduskc"]
 
 [ext_resource type="PackedScene" uid="uid://csycuuybc442e" path="res://scenes/props/prop_template.tscn" id="1_ikqqc"]
 [ext_resource type="Texture2D" uid="uid://wbbmxiwivj56" path="res://assets/images/items/paper.png" id="2_1k0sw"]
+[ext_resource type="Script" uid="uid://ctnx2vpyvbkxg" path="res://scenes/props/prop_template.gd" id="3_base"]
 
 [node name="PaperProp" instance=ExtResource("1_ikqqc")]
-oneshot = false
+script = ExtResource("3_base")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_1k0sw")

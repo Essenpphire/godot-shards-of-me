@@ -24,10 +24,6 @@ corner_radius_bottom_left = 6
 [node name="DoorProp" instance=ExtResource("1_5e0ln")]
 z_index = 1
 script = ExtResource("1_yepiq")
-next_scene = ""
-san_cost = 0
-next_pos = Vector2(627, 497)
-room_name = ""
 can_interact = true
 
 [node name="Hint" parent="." index="0"]

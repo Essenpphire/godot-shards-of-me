@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://c0t1ykhh1p1ir" path="res://scenes/props/prop_desk.tscn" id="9_afu07"]
 [ext_resource type="PackedScene" uid="uid://b2iremvlh342a" path="res://scenes/props/prop_backpack.tscn" id="9_it5ba"]
 [ext_resource type="PackedScene" uid="uid://caikehdgduskc" path="res://scenes/props/prop_paper.tscn" id="11_v3bl4"]
-[ext_resource type="Script" uid="uid://ctnx2vpyvbkxg" path="res://scenes/props/prop_template.gd" id="12_it5ba"]
 [ext_resource type="Texture2D" uid="uid://6w7a6mfm880v" path="res://assets/images/sprites/fullbody_man.png" id="14_s0prt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
@@ -164,15 +163,12 @@ position = Vector2(950, 500)
 
 [node name="PaperProp" parent="Sortables/Papers" index="0" instance=ExtResource("11_v3bl4")]
 position = Vector2(561, 421)
-script = ExtResource("12_it5ba")
 
 [node name="PaperProp2" parent="Sortables/Papers" index="1" instance=ExtResource("11_v3bl4")]
 position = Vector2(178, 575)
-script = ExtResource("12_it5ba")
 
 [node name="PaperProp3" parent="Sortables/Papers" index="2" instance=ExtResource("11_v3bl4")]
 position = Vector2(1330, 455)
-script = ExtResource("12_it5ba")
 
 [node name="npc_group" type="Node2D" parent="Sortables" index="4"]
 visible = false

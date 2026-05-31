@@ -72,6 +72,7 @@ san_loss_per_turn = 1
 turn_speed_deg_per_sec = 30.0
 interaction_mode = 1
 revealed_texture = ExtResource("6_hja1m")
+revealed_clue_id = "6"
 best_reveal_angle_deg = 150.0
 reveal_tolerance_deg = 20.0
 render_topdown_ratio = 0.12

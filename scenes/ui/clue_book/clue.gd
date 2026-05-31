@@ -1,8 +1,8 @@
 # clue.gd
 # 线索书里单个线索槽位 — 纯渲染层：拿到 id → 用 ItemData 查信息显示。
-extends Panel
+extends HBoxContainer
 
-@onready var clue_image: TextureRect = $ClueImage
+@onready var clue_image: TextureRect = $Card/ClueImage
 @onready var info: Control = $Info
 @onready var title_label: Label = $Info/Title
 @onready var desc_label: Label = $Info/Description

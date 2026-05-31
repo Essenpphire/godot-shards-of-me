@@ -23,6 +23,10 @@ enum InteractionMode {
 
 @export_group("Reveal")
 @export var revealed_texture: Texture2D
+@export var revealed_clue_id: String = ""
+@export var collect_revealed_clue_with_interact: bool = true
+@export var auto_collect_revealed_clue: bool = false
+@export_range(0.0, 1.0, 0.01) var clue_collect_alpha_threshold: float = 0.85
 @export_range(0.0, 360.0, 0.1) var best_reveal_angle_deg: float = 32.0:
 	set(value):
 		best_reveal_angle_deg = wrapf(value, 0.0, 360.0)
@@ -52,6 +56,7 @@ enum InteractionMode {
 @onready var prism_sprite: Sprite2D = $Composition/PrismSprite
 @onready var prism_hit_area: Area2D = $Composition/PrismHitArea
 @onready var prism_hit_collision: CollisionShape2D = $Composition/PrismHitArea/CollisionShape2D
+@onready var collect_hint: Panel = get_node_or_null("Hint")
 @onready var viewport: SubViewport = $SubViewport
 @onready var camera: Camera3D = $SubViewport/PrismRoot/Camera3D
 @onready var presentation_pivot: Node3D = $SubViewport/PrismRoot/PresentationPivot
@@ -63,6 +68,10 @@ enum InteractionMode {
 
 var _dragging: bool = false
 var _display_rotation_deg: float = 0.0
+var _revealed_clue_collected: bool = false
+var _player_in_collect_range: bool = false
+var _last_reveal_alpha: float = 0.0
+var _collect_hint_active: bool = false
 
 
 func _ready() -> void:
@@ -72,6 +81,8 @@ func _ready() -> void:
 	prism_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	if revealed_texture != null:
 		revealed_sprite.texture = revealed_texture
+	if collect_hint != null:
+		collect_hint.hide()
 	_display_rotation_deg = target_rotation_deg
 	_apply_prism_rotation(_display_rotation_deg)
 	_update_reveal_alpha()
@@ -198,6 +209,10 @@ func _update_reveal_alpha() -> void:
 	color.a = alpha
 	revealed_sprite.modulate = color
 	revealed_sprite.visible = alpha > 0.01
+	_last_reveal_alpha = alpha
+	_update_collect_hint()
+	if auto_collect_revealed_clue:
+		_try_collect_revealed_clue()
 
 
 func _angular_distance_deg(a: float, b: float) -> float:
@@ -208,7 +223,52 @@ func _signed_angular_delta_deg(from_deg: float, to_deg: float) -> float:
 	return wrapf(to_deg - from_deg + 180.0, 0.0, 360.0) - 180.0
 
 
+func _try_collect_revealed_clue() -> void:
+	if _revealed_clue_collected or not _can_collect_revealed_clue():
+		return
+
+	var clue_manager := get_node_or_null("/root/ClueManager")
+	if clue_manager == null:
+		return
+	if clue_manager.get_clues().has(revealed_clue_id):
+		_revealed_clue_collected = true
+		_update_collect_hint()
+		return
+
+	clue_manager.add_clue(revealed_clue_id)
+	_revealed_clue_collected = true
+	_update_collect_hint()
+
+
+func _can_collect_revealed_clue() -> bool:
+	return not revealed_clue_id.is_empty() and _last_reveal_alpha >= clue_collect_alpha_threshold
+
+
+func _update_collect_hint() -> void:
+	if collect_hint == null:
+		return
+	var should_show := (
+		collect_revealed_clue_with_interact
+		and _player_in_collect_range
+		and not _revealed_clue_collected
+		and _can_collect_revealed_clue()
+	)
+	if should_show and not _collect_hint_active:
+		collect_hint.show()
+		collect_hint.fade_in()
+		_collect_hint_active = true
+	elif not should_show and _collect_hint_active:
+		collect_hint.fade_out()
+		_collect_hint_active = false
+
+
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("互动"):
+		if collect_revealed_clue_with_interact and _player_in_collect_range and _can_collect_revealed_clue():
+			_try_collect_revealed_clue()
+			get_viewport().set_input_as_handled()
+			return
+
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if not _is_pointer_over_prism():
@@ -231,14 +291,21 @@ func _input(event: InputEvent) -> void:
 
 func _begin_drag() -> void:
 	_dragging = true
-	if not Engine.is_editor_hint():
-		Chapter.san -= san_loss_per_turn
+	_reduce_san_for_turn()
 
 
 func _apply_click_step() -> void:
 	target_rotation_deg += click_step_deg
-	if not Engine.is_editor_hint():
-		Chapter.san -= san_loss_per_turn
+	_reduce_san_for_turn()
+
+
+func _reduce_san_for_turn() -> void:
+	if Engine.is_editor_hint():
+		return
+	var chapter := get_node_or_null("/root/Chapter")
+	if chapter == null:
+		return
+	chapter.san -= san_loss_per_turn
 
 
 func _is_pointer_over_prism() -> bool:
@@ -258,3 +325,15 @@ func _is_pointer_over_prism() -> bool:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		_dragging = false
+
+
+func _on_collect_detection_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		_player_in_collect_range = true
+		_update_collect_hint()
+
+
+func _on_collect_detection_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		_player_in_collect_range = false
+		_update_collect_hint()

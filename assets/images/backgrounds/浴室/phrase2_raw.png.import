@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwrfrn5w1w4cn"
-path="res://.godot/imported/phrase2.png-c8ce496e48e8692f850b1d4a20e27be7.ctex"
+uid="uid://bj8h8c17mnxux"
+path="res://.godot/imported/phrase2_raw.png-d6544b883e9f21612cf2845c5379310d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/backgrounds/phrase2.png"
-dest_files=["res://.godot/imported/phrase2.png-c8ce496e48e8692f850b1d4a20e27be7.ctex"]
+source_file="res://assets/images/backgrounds/浴室/phrase2_raw.png"
+dest_files=["res://.godot/imported/phrase2_raw.png-d6544b883e9f21612cf2845c5379310d.ctex"]
 
 [params]
 

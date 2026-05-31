@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjyyg07w7mjtd"]
+[gd_scene load_steps=4 format=3 uid="uid://bjyyg07w7mjtd"]
 
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="1_q4b76"]
 [ext_resource type="PackedScene" uid="uid://bilwq8el1gch" path="res://scenes/gameplay/puzzles/mirror_word/mirror_word_lock.tscn" id="2_0sow4"]
 [ext_resource type="Texture2D" uid="uid://cfe3nsr65jdol" path="res://assets/images/backgrounds/旧资产/demoin.png" id="2_1xsea"]
-[ext_resource type="Texture2D" uid="uid://cny2kvecg4pl0" path="res://assets/images/backgrounds/旧资产/demo.png" id="3_0lgy7"]
 
 [node name="MirrorWordLockPreview" type="Node2D"]
 
@@ -24,12 +23,11 @@ polygon = PackedVector2Array(-420, -160, 420, -160, 420, 120, -420, 120)
 
 [node name="MirrorWordLock" parent="." instance=ExtResource("2_0sow4")]
 position = Vector2(331, 299)
-lock_player_world_x = 667.0
-lock_window_width = 24.0
-reflection_move_range_px = 220.0
+reveal_world_point = Vector2(667, 453)
+full_alpha_distance = 18.0
 mirror_view_size = Vector2(300, 180)
 mirror_texture = ExtResource("2_1xsea")
-outside_texture = ExtResource("3_0lgy7")
+revealed_clue_id = "7"
 
 [node name="Player" parent="." instance=ExtResource("1_q4b76")]
 position = Vector2(333, 453)

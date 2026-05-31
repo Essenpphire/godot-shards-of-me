@@ -36,13 +36,13 @@
 		"description": "大部分文字模糊不清，直觉告诉我这是药的说明书"
 	},
 	"6": {
-		"texture": "study_word.png",
+		"texture": "res://assets/images/backgrounds/书房/phrase1.png",
 		"name": "书房墙上的文字",
 		"type": 1,
 		"description": "经过棱镜折射后显示的模糊文字：“在██房██壁██里”"
 	},
 	"7": {
-		"texture": "shower_traces.png",
+		"texture": "res://assets/images/backgrounds/浴室/phrase2.png",
 		"name": "浴室墙上的痕迹",
 		"type": 1,
 		"description": "从镜子里看到的痕迹，组合后显示：“厨██的██橱”"

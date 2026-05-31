@@ -1,11 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://0dofuqx88eef"]
+[gd_scene load_steps=13 format=4 uid="uid://0dofuqx88eef"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_avv4q"]
 [ext_resource type="Texture2D" uid="uid://qdrkdqengp66" path="res://assets/images/backgrounds/bg_toilet_2.png" id="2_my34f"]
+[ext_resource type="PackedScene" uid="uid://csycuuybc442e" path="res://scenes/props/prop_template.tscn" id="3_31mqc"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="3_w56c3"]
+[ext_resource type="Script" uid="uid://cx33m7ncjr8fu" path="res://scenes/props/prop_mirror.gd" id="4_ram7m"]
 [ext_resource type="Texture2D" uid="uid://cgnwrkllt1gsu" path="res://assets/images/items/note_0.png" id="5_80haw"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="5_di770"]
 [ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="5_ekcvj"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_ekcvj"]
+[ext_resource type="Script" uid="uid://cj0gqx7trpqn2" path="res://scenes/gameplay/chapters/chapter0/toilet_scene_director.gd" id="9_ram7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
 
 [sub_resource type="Resource" id="Resource_80haw"]
 script = ExtResource("6_ekcvj")
@@ -15,18 +22,56 @@ ease = 2
 
 [node name="Gameplay" instance=ExtResource("1_avv4q")]
 
+[node name="FloorTile" parent="Background" index="0"]
+tile_map_data = PackedByteArray("AAAEAA4AAwAAAAMAAAADAA0AAwAAAAMAAAACAAwAAwAAAAMAAAABAAsAAwAAAAMAAAAAAAoAAwAAAAMAAAD//wkAAwAAAAMAAAD+/wgAAwAAAAMAAAD9/wcAAwAAAAMAAAD8/wcAAwAAAAMAAAD9/wgAAwAAAAMAAAD+/wkAAwAAAAMAAAD//woAAwAAAAMAAAAAAAsAAwAAAAMAAAABAAwAAwAAAAMAAAACAA0AAwAAAAMAAAADAA4AAwAAAAMAAAACAA4AAwAAAAMAAAABAA0AAwAAAAMAAAAAAAwAAwAAAAMAAAD//wsAAwAAAAMAAAD+/woAAwAAAAMAAAD9/wkAAwAAAAMAAAD8/wgAAwAAAAMAAAD7/wcAAwAAAAMAAAD6/wcAAwAAAAMAAAD7/wgAAwAAAAMAAAD8/wkAAwAAAAMAAAD9/woAAwAAAAMAAAD+/wsAAwAAAAMAAAD//wwAAwAAAAMAAAAAAA0AAwAAAAMAAAABAA4AAwAAAAMAAAAAAA4AAwAAAAMAAAD//w0AAwAAAAMAAAD+/wwAAwAAAAMAAAD9/wsAAwAAAAMAAAD8/woAAwAAAAMAAAD7/wkAAwAAAAMAAAD6/wgAAwAAAAMAAAD5/wcAAwAAAAMAAAD4/wcAAwAAAAMAAAD5/wgAAwAAAAMAAAD6/wkAAwAAAAMAAAD7/woAAwAAAAMAAAD8/wsAAwAAAAMAAAD9/wwAAwAAAAMAAAD+/w0AAwAAAAMAAAD//w4AAwAAAAMAAAD+/w4AAwAAAAMAAAD9/w0AAwAAAAMAAAD8/wwAAwAAAAMAAAD7/wsAAwAAAAMAAAD6/woAAwAAAAMAAAD5/wkAAwAAAAMAAAD4/wgAAwAAAAMAAAD3/wcAAwAAAAMAAAD//w8AAwAAAAMAAAAAAA8AAwAAAAMAAAABAA8AAwAAAAMAAAACAA8AAwAAAAMAAAADAA8AAwAAAAMAAAAEAA8AAwAAAAMAAAAFAA8AAwAAAAMAAAAGABAAAwAAAAMAAAAFABAAAwAAAAMAAAAEABAAAwAAAAMAAAADABAAAwAAAAMAAAACABAAAwAAAAMAAAABABAAAwAAAAMAAAAAABAAAwAAAAMAAAABABEAAwAAAAMAAAACABEAAwAAAAMAAAADABEAAwAAAAMAAAAEABEAAwAAAAMAAAAFABEAAwAAAAMAAAAGABEAAwAAAAMAAAAHABEAAwAAAAMAAAAIABIAAwAAAAMAAAAHABIAAwAAAAMAAAAGABIAAwAAAAMAAAAFABIAAwAAAAMAAAAEABIAAwAAAAMAAAADABIAAwAAAAMAAAACABIAAwAAAAMAAAADABMAAwAAAAMAAAAEABMAAwAAAAMAAAAFABMAAwAAAAMAAAAGABMAAwAAAAMAAAAHABMAAwAAAAMAAAAIABMAAwAAAAMAAAAJABMAAwAAAAMAAAAEABQAAwAAAAMAAAAFABQAAwAAAAMAAAAGABQAAwAAAAMAAAAHABQAAwAAAAMAAAAIABQAAwAAAAMAAAAJABQAAwAAAAMAAAAKABQAAwAAAAMAAAALABUAAwAAAAMAAAAKABUAAwAAAAMAAAAJABUAAwAAAAMAAAAIABUAAwAAAAMAAAAHABUAAwAAAAMAAAAGABUAAwAAAAMAAAAFABUAAwAAAAMAAAAGABYAAwAAAAMAAAAHABYAAwAAAAMAAAAIABYAAwAAAAMAAAAJABYAAwAAAAMAAAAKABYAAwAAAAMAAAALABYAAwAAAAMAAAAMABYAAwAAAAMAAAA=")
+
 [node name="WallBg2" type="Sprite2D" parent="Background" index="2"]
 position = Vector2(1712, 110)
 scale = Vector2(0.345, 0.345)
 texture = ExtResource("2_my34f")
 
 [node name="WallBgCollidor" parent="Background" index="4"]
-position = Vector2(1288, 266)
+position = Vector2(1283, 262)
 
 [node name="WallLeftCollidor" parent="Background" index="5"]
 position = Vector2(21, 443)
 
-[node name="DoorHw" parent="." index="2" instance=ExtResource("5_di770")]
+[node name="WallBg3" type="Sprite2D" parent="Background" index="7"]
+position = Vector2(-42, -136)
+rotation = -0.523599
+scale = Vector2(0.323363, 0.993151)
+texture = ExtResource("2_my34f")
+region_enabled = true
+region_rect = Rect2(434.031, 351.53, 1654.81, 459.092)
+
+[node name="WallLeftCollidor2" parent="Background" index="8" instance=ExtResource("3_w56c3")]
+position = Vector2(1402.23, 473.038)
+rotation = 1.02974
+shape = SubResource("RectangleShape2D_lrrqo")
+
+[node name="mirror" parent="." index="2" instance=ExtResource("3_31mqc")]
+position = Vector2(422, 221)
+script = ExtResource("4_ram7m")
+camera_path = NodePath("../Camera2D")
+mark_path = NodePath("../CameraTargets/mirror")
+target_zoom = Vector2(1.5, 1.5)
+reveal_offset = Vector2(0, 180)
+reveal_start_duration = 0.6
+focus_duration = 2.0
+hold_on_focus_duration = 0.35
+restore_duration = 0.8
+dialog_chapter = "chapter0"
+wash_dialog_label = "wash_face"
+san_restore = 30
+can_interact = true
+
+[node name="Sprite2D" parent="mirror" index="1"]
+modulate = Color(1, 1, 1, 0)
+
+[node name="CollisionShape2D" parent="mirror/Detection" index="0"]
+position = Vector2(0, 45)
+
+[node name="DoorHw" parent="." index="3" instance=ExtResource("5_di770")]
 position = Vector2(66, 366)
 next_scene = "chapter0/hallway"
 next_pos = Vector2(1754, 464)
@@ -66,6 +111,15 @@ position = Vector2(0, 0)
 position = Vector2(185, 471)
 tween_resource = SubResource("Resource_80haw")
 
+[node name="CameraTargets" type="Node2D" parent="." index="7"]
+
+[node name="mirror" type="Marker2D" parent="CameraTargets" index="0"]
+position = Vector2(457, 124)
+
+[node name="ToiletSceneDirector" type="Node" parent="." index="8"]
+script = ExtResource("9_ram7m")
+
+[editable path="mirror"]
 [editable path="DoorHw"]
 [editable path="Sortables/Item"]
 [editable path="Sortables/Player"]

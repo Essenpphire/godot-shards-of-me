@@ -27,6 +27,7 @@ func change_player_pos(pos : Vector2) -> void:
 	EventBus.player_change_pos.emit(pos)
 
 func lock_player_control(stat : bool = true) -> void:
+	player_control_locked = stat
 	EventBus.player_control_lock.emit(stat)
 
 func is_player_control_locked() -> bool:

@@ -86,21 +86,21 @@ position = Vector2(-13.4286, 0)
 layout_mode = 1
 anchors_preset = 15
 
-[node name="StudyRoomDoor" parent="Sortables" index="1" instance=ExtResource("2_64y6m")]
-position = Vector2(446, 500)
+[node name="EntryWayDoor" parent="Sortables" index="1" instance=ExtResource("2_64y6m")]
+position = Vector2(1551, 475)
 scale = Vector2(1.4, 1.4)
-next_scene = "chapter1/study_room"
+next_scene = "chapter1/entryway"
 room_name = "书房"
 
 [node name="KitchenDoor" parent="Sortables" index="2" instance=ExtResource("2_64y6m")]
-position = Vector2(1074, 500)
+position = Vector2(412, 474)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/kitchen"
 next_pos = Vector2(185, 471)
 room_name = "厨房"
 
 [node name="BathroomDorr" parent="Sortables" index="3" instance=ExtResource("2_64y6m")]
-position = Vector2(1725, 500)
+position = Vector2(966, 471)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/bathroom"
 next_pos = Vector2(185, 471)

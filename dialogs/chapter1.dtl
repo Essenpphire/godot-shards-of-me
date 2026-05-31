@@ -5,15 +5,19 @@ if {chapter1.intro_played} == false:
 	ye_li: *哈欠*
 	ye_li: 嗯……？
 	ye_li: 这张纸条，是什么？
-	do GameManager.lock_player_control(false)
 	[clear time="1.0"]
+do GameManager.lock_player_control(false)
 set {chapter1.intro_played} = true
 [end_timeline]
 label start
+do GameManager.lock_player_control(true)
+li: 先看看床头柜上是什么吧
 do GameManager.lock_player_control(false)
+[end_timeline]
 
 label leave_bedroom_before_note
 li: 先看看床头柜上是什么吧
+[end_timeline]
 
 label read_note
 do GameManager.lock_player_control(true)
@@ -27,8 +31,11 @@ do GameManager.lock_player_control(false)
 label get_medicine
 do GameManager.lock_player_control(true)
 ye_li: 嗯……
+do GameManager.lock_player_control(false)
+[end_timeline]
 
 label read_instruction
+do GameManager.lock_player_control(true)
 ye_li: 怪事，怎么看不清
 do GameManager.lock_player_control(false)
 [end_timeline]

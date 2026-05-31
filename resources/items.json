@@ -48,7 +48,7 @@
 		"description": "从镜子里看到的痕迹，组合后显示：“厨██的██橱”"
 	},
 	"8": {
-		"texture": "gearedbox.png",
+		"texture": "lockedbox.png",
 		"name": "机关小盒",
 		"type": 0,
 		"description": "壁橱里的小盒子，上面有个机关锁"

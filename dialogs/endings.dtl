@@ -1,0 +1,44 @@
+label san_turn_0
+join ye_li (stage2) center [animation="Fade In Down"]
+ye_li: 嘶……
+ye_li: 咳咳咳咳……
+ye_li: ……
+ye_li: *大口喘气*
+ye_li: ……
+ye_li: ……
+ye_li: ……
+# #【立绘消失，屏幕上除了对话框一片黑】
+[clear time="1.0"]
+[background arg="#000000ff" fade="0.0"]
+一片黑暗
+一片无垠的黑暗
+……
+do Data.delete_save()
+do GameManager.back_to_menu()
+[end_timeline]
+label normal_end
+[background arg="res://assets/images/backgrounds/background_classroom_1.png" fade="0.0"]
+join pang left [animation="Fade In" wait="true"]
+join ye_li right [animation="Fade In" wait="true"]
+pang: 离，你咋了
+leave ye_li [animation="Fade Out" length="0.0" wait="true"]
+join ouyang_ye right [animation="Fade In" wait="true"]
+ouyang_ye (stage1): ……
+ouyang_ye: 老毛病了……
+pang: 药呢
+ouyang_ye: 吃着呢
+ouyang_ye: 哎……
+pang: 走
+ouyang_ye: ？
+pang: 请你喝水
+ouyang_ye (stand): 行，走吧
+ye_li: ……
+[clear time="1.0"]
+[background arg="res://assets/images/cg/bg_bird_4.png" fade="1.0" wait="true"]
+没人知道明天会怎样
+也许明天会更好？也许明天会更坏？也许明天就是故事的终章？
+我不知道，但，继续走下去吧，总有一天，总有一天
+有些什么，会变得不同
+do Data.delete_save()
+do GameManager.back_to_menu()
+[end_timeline]

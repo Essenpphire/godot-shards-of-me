@@ -107,6 +107,8 @@ func _san_state_changed(pre_san:int,cur_san:int)->bool:
 func _get_san_stage(val: int) -> int:
 	
 	if val <= 0:
+		GameManager.lock_player_control()
+		Dialogic.start("endings", "san_turn_0")
 		return 0
 	elif val <= 25:
 		return 4

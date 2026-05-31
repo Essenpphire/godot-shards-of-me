@@ -13,6 +13,9 @@ extends Control
 # BGM
 @export var menu_bgm : AudioStream
 
+# 是否存档
+var have_saved : bool = false
+
 func _ready():
 	# 等动画播完再启用按键
 	btn_play.disabled = true
@@ -54,11 +57,11 @@ func _ready():
 
 	# 渐入完成后启动呼吸动画和聚焦
 	tween.tween_callback(func():
-		Data.load_persistent_data()
+		have_saved = await Data.load_persistent_data()
 		#_start_breathing_animation()
 		btn_play.disabled = false
 		btn_exit.disabled = false
-		if not Chapter.cur_scene.is_empty():
+		if have_saved:
 			btn_continue.disabled = false
 		btn_play.grab_focus()
 		# 最后始放bgm

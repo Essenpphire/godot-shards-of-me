@@ -1,0 +1,356 @@
+[gd_resource type="Resource" script_class="LightPuzzleData" load_steps=39 format=3 uid="uid://w00x23r176ve"]
+
+[ext_resource type="Script" uid="uid://cq5o6ta0feptu" path="res://scripts/puzzles/light_board/LightPortData.gd" id="1_u588d"]
+[ext_resource type="Script" uid="uid://dsg3qr8cqnlta" path="res://scripts/puzzles/light_board/LightPiecePlacement.gd" id="2_rr41a"]
+[ext_resource type="Script" uid="uid://4tqnqi78l6g0" path="res://scripts/puzzles/light_board/LightPieceData.gd" id="3_xx01m"]
+[ext_resource type="Script" uid="uid://c8pkjfjwx36si" path="res://scripts/puzzles/light_board/LightPuzzleData.gd" id="4_oxytw"]
+
+[sub_resource type="Resource" id="Resource_dtjyn"]
+script = ExtResource("1_u588d")
+port_id = "exit_bottom_x1"
+kind = 1
+cell = Vector2i(1, 4)
+direction = 2
+color_mask = 2
+requires_exact_color = true
+
+[sub_resource type="Resource" id="Resource_mh261"]
+script = ExtResource("3_xx01m")
+piece_id = "filter_red"
+display_name = "红色滤镜"
+piece_type = 4
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 1
+asset_key = "filter_red"
+
+[sub_resource type="Resource" id="Resource_x5xiw"]
+script = ExtResource("2_rr41a")
+placement_id = "filter_red"
+piece = SubResource("Resource_mh261")
+grid_position = Vector2i(1, 2)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_yboqy"]
+script = ExtResource("3_xx01m")
+piece_id = "filter_green"
+display_name = "绿色滤镜"
+piece_type = 5
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 2
+asset_key = "filter_green"
+
+[sub_resource type="Resource" id="Resource_8sq2l"]
+script = ExtResource("2_rr41a")
+placement_id = "filter_green"
+piece = SubResource("Resource_yboqy")
+grid_position = Vector2i(2, 2)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_a5ifd"]
+script = ExtResource("3_xx01m")
+piece_id = "filter_blue"
+display_name = "蓝色滤镜"
+piece_type = 6
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 4
+asset_key = "filter_blue"
+
+[sub_resource type="Resource" id="Resource_uy1f6"]
+script = ExtResource("2_rr41a")
+placement_id = "filter_blue"
+piece = SubResource("Resource_a5ifd")
+grid_position = Vector2i(3, 2)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_pgu3i"]
+script = ExtResource("3_xx01m")
+piece_id = "mirror_backslash"
+display_name = "反斜杠镜"
+piece_type = 1
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "mirror_backslash"
+
+[sub_resource type="Resource" id="Resource_ykn6o"]
+script = ExtResource("2_rr41a")
+placement_id = "mirror_backslash"
+piece = SubResource("Resource_pgu3i")
+grid_position = Vector2i(2, 3)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_mwe7v"]
+script = ExtResource("3_xx01m")
+piece_id = "mirror_slash"
+display_name = "斜杠镜"
+piece_type = 0
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "mirror_slash"
+
+[sub_resource type="Resource" id="Resource_8wmt6"]
+script = ExtResource("2_rr41a")
+placement_id = "mirror_slash"
+piece = SubResource("Resource_mwe7v")
+grid_position = Vector2i(0, 4)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_6uo5w"]
+script = ExtResource("3_xx01m")
+piece_id = "prism_plus_45"
+display_name = "+45 棱镜"
+piece_type = 2
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_plus_45"
+
+[sub_resource type="Resource" id="Resource_sn3pe"]
+script = ExtResource("2_rr41a")
+placement_id = "prism_plus_45"
+piece = SubResource("Resource_6uo5w")
+grid_position = Vector2i(2, 4)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_aveaa"]
+script = ExtResource("3_xx01m")
+piece_id = "prism_plus_45_001"
+display_name = "+45 棱镜"
+piece_type = 2
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_plus_45"
+
+[sub_resource type="Resource" id="Resource_2f17h"]
+script = ExtResource("2_rr41a")
+placement_id = "prism_plus_45_001"
+piece = SubResource("Resource_aveaa")
+grid_position = Vector2i(4, 0)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_wh800"]
+script = ExtResource("3_xx01m")
+piece_id = "mirror_slash_001"
+display_name = "斜杠镜"
+piece_type = 0
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "mirror_slash"
+
+[sub_resource type="Resource" id="Resource_htnfn"]
+script = ExtResource("2_rr41a")
+placement_id = "mirror_slash_001"
+piece = SubResource("Resource_wh800")
+grid_position = Vector2i(4, 2)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_n8w2v"]
+script = ExtResource("3_xx01m")
+piece_id = "mirror_backslash_001"
+display_name = "反斜杠镜"
+piece_type = 1
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "mirror_backslash"
+
+[sub_resource type="Resource" id="Resource_11h6r"]
+script = ExtResource("2_rr41a")
+placement_id = "mirror_backslash_001"
+piece = SubResource("Resource_n8w2v")
+grid_position = Vector2i(4, 4)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_bo5xj"]
+script = ExtResource("3_xx01m")
+piece_id = "prism_minus_45"
+display_name = "-45 棱镜"
+piece_type = 3
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_minus_45"
+
+[sub_resource type="Resource" id="Resource_l5n3f"]
+script = ExtResource("2_rr41a")
+placement_id = "prism_minus_45"
+piece = SubResource("Resource_bo5xj")
+grid_position = Vector2i(0, 3)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_or86e"]
+script = ExtResource("3_xx01m")
+piece_id = "glass_block"
+display_name = "玻璃障碍"
+piece_type = 10
+size = Vector2i(1, 1)
+move_axis = 3
+is_draggable = false
+filter_mask = 7
+asset_key = "glass_block"
+
+[sub_resource type="Resource" id="Resource_3b8ng"]
+script = ExtResource("2_rr41a")
+placement_id = "glass_block"
+piece = SubResource("Resource_or86e")
+grid_position = Vector2i(0, 2)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_7x4d1"]
+script = ExtResource("3_xx01m")
+piece_id = "glass_block_001"
+display_name = "玻璃障碍"
+piece_type = 10
+size = Vector2i(1, 1)
+move_axis = 3
+is_draggable = false
+filter_mask = 7
+asset_key = "glass_block"
+
+[sub_resource type="Resource" id="Resource_m50k4"]
+script = ExtResource("2_rr41a")
+placement_id = "glass_block_001"
+piece = SubResource("Resource_7x4d1")
+grid_position = Vector2i(1, 1)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_nppvy"]
+script = ExtResource("3_xx01m")
+piece_id = "glass_block_002"
+display_name = "玻璃障碍"
+piece_type = 10
+size = Vector2i(1, 1)
+move_axis = 3
+is_draggable = false
+filter_mask = 7
+asset_key = "glass_block"
+
+[sub_resource type="Resource" id="Resource_yyerh"]
+script = ExtResource("2_rr41a")
+placement_id = "glass_block_002"
+piece = SubResource("Resource_nppvy")
+grid_position = Vector2i(2, 1)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_5g5m8"]
+script = ExtResource("3_xx01m")
+piece_id = "glass_block_003"
+display_name = "玻璃障碍"
+piece_type = 10
+size = Vector2i(1, 1)
+move_axis = 3
+is_draggable = false
+filter_mask = 7
+asset_key = "glass_block"
+
+[sub_resource type="Resource" id="Resource_5loqe"]
+script = ExtResource("2_rr41a")
+placement_id = "glass_block_003"
+piece = SubResource("Resource_5g5m8")
+grid_position = Vector2i(3, 1)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_njqev"]
+script = ExtResource("3_xx01m")
+piece_id = "glass_block_004"
+display_name = "玻璃障碍"
+piece_type = 10
+size = Vector2i(1, 1)
+move_axis = 3
+is_draggable = false
+filter_mask = 7
+asset_key = "glass_block"
+
+[sub_resource type="Resource" id="Resource_umg2j"]
+script = ExtResource("2_rr41a")
+placement_id = "glass_block_004"
+piece = SubResource("Resource_njqev")
+grid_position = Vector2i(1, 3)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_i1mnw"]
+script = ExtResource("3_xx01m")
+piece_id = "glass_block_005"
+display_name = "玻璃障碍"
+piece_type = 10
+size = Vector2i(1, 1)
+move_axis = 3
+is_draggable = false
+filter_mask = 7
+asset_key = "glass_block"
+
+[sub_resource type="Resource" id="Resource_34bd1"]
+script = ExtResource("2_rr41a")
+placement_id = "glass_block_005"
+piece = SubResource("Resource_i1mnw")
+grid_position = Vector2i(3, 3)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_7hk5b"]
+script = ExtResource("1_u588d")
+port_id = "source_left_y2"
+kind = 0
+cell = Vector2i(0, 2)
+direction = 0
+color_mask = 7
+requires_exact_color = true
+
+[resource]
+script = ExtResource("4_oxytw")
+puzzle_id = "new_light_puzzle"
+title = "新建光板谜题"
+board_size = Vector2i(5, 5)
+sources = Array[ExtResource("1_u588d")]([SubResource("Resource_7hk5b")])
+exits = Array[ExtResource("1_u588d")]([SubResource("Resource_dtjyn")])
+placements = Array[ExtResource("2_rr41a")]([SubResource("Resource_x5xiw"), SubResource("Resource_8sq2l"), SubResource("Resource_uy1f6"), SubResource("Resource_ykn6o"), SubResource("Resource_8wmt6"), SubResource("Resource_sn3pe"), SubResource("Resource_2f17h"), SubResource("Resource_htnfn"), SubResource("Resource_11h6r"), SubResource("Resource_l5n3f"), SubResource("Resource_3b8ng"), SubResource("Resource_m50k4"), SubResource("Resource_yyerh"), SubResource("Resource_5loqe"), SubResource("Resource_umg2j"), SubResource("Resource_34bd1")])
+max_beam_steps = 64
+solved_event_name = ""
+designer_notes = ""

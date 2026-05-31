@@ -1,0 +1,263 @@
+﻿[
+    {
+        "file":  "board_panel.png",
+        "width":  1024,
+        "height":  1024,
+        "transparent_required":  false,
+        "transparent_pixels":  0,
+        "partial_pixels":  0,
+        "total_pixels":  1048576
+    },
+    {
+        "file":  "cell_slot_empty.png",
+        "width":  256,
+        "height":  256,
+        "transparent_required":  false,
+        "transparent_pixels":  0,
+        "partial_pixels":  0,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "piece_mirror_slash.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  136806,
+        "partial_pixels":  3140,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_mirror_backslash.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  149067,
+        "partial_pixels":  2387,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_prism_plus_45.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  106160,
+        "partial_pixels":  2021,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_prism_minus_45.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  97498,
+        "partial_pixels":  3867,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_filter_red.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  102635,
+        "partial_pixels":  1993,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_filter_green.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  100687,
+        "partial_pixels":  1585,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_filter_blue.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  128773,
+        "partial_pixels":  1749,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_filter_yellow.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  130328,
+        "partial_pixels":  6579,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_glass_block.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  139149,
+        "partial_pixels":  1106,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "piece_opaque_block.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  61894,
+        "partial_pixels":  1835,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "light_source_white.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  159742,
+        "partial_pixels":  3740,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "exit_red.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  185606,
+        "partial_pixels":  1596,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "exit_green.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  154713,
+        "partial_pixels":  1837,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "exit_blue.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  192101,
+        "partial_pixels":  913,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "beam_white.png",
+        "width":  512,
+        "height":  128,
+        "transparent_required":  true,
+        "transparent_pixels":  37946,
+        "partial_pixels":  14472,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "beam_red.png",
+        "width":  512,
+        "height":  128,
+        "transparent_required":  true,
+        "transparent_pixels":  51362,
+        "partial_pixels":  8224,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "beam_green.png",
+        "width":  512,
+        "height":  128,
+        "transparent_required":  true,
+        "transparent_pixels":  3363,
+        "partial_pixels":  50327,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "beam_blue.png",
+        "width":  512,
+        "height":  128,
+        "transparent_required":  true,
+        "transparent_pixels":  44722,
+        "partial_pixels":  10107,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "beam_yellow.png",
+        "width":  512,
+        "height":  128,
+        "transparent_required":  true,
+        "transparent_pixels":  43622,
+        "partial_pixels":  13122,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "beam_cyan.png",
+        "width":  512,
+        "height":  128,
+        "transparent_required":  true,
+        "transparent_pixels":  40706,
+        "partial_pixels":  16303,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "beam_magenta.png",
+        "width":  512,
+        "height":  128,
+        "transparent_required":  true,
+        "transparent_pixels":  36598,
+        "partial_pixels":  18393,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "piece_hover_glow.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  175349,
+        "partial_pixels":  59363,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "solved_flash.png",
+        "width":  1024,
+        "height":  1024,
+        "transparent_required":  true,
+        "transparent_pixels":  599182,
+        "partial_pixels":  187604,
+        "total_pixels":  1048576
+    },
+    {
+        "file":  "world_prop_light_board_idle.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  158691,
+        "partial_pixels":  1540,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "world_prop_light_board_solved.png",
+        "width":  512,
+        "height":  512,
+        "transparent_required":  true,
+        "transparent_pixels":  149830,
+        "partial_pixels":  46853,
+        "total_pixels":  262144
+    },
+    {
+        "file":  "puzzle_frame_corner.png",
+        "width":  256,
+        "height":  256,
+        "transparent_required":  true,
+        "transparent_pixels":  48023,
+        "partial_pixels":  878,
+        "total_pixels":  65536
+    },
+    {
+        "file":  "puzzle_frame_edge.png",
+        "width":  256,
+        "height":  256,
+        "transparent_required":  true,
+        "transparent_pixels":  57394,
+        "partial_pixels":  742,
+        "total_pixels":  65536
+    }
+]

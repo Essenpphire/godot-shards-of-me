@@ -23,14 +23,14 @@ func _wait_dialogic_ready() -> void:
 
 ## 加载持久化数据，例如章节数据、玩家状态、对话进程等。 [br]
 ## 数据从 Dialogic 的 "process" slot 读取并分发给所有 [code]Persist[/code] 分组的节点。 [br]
-## [b][return][/b]: 是否成功（slot 不存在视为首次启动，返回 [code]true[/code]）
+## [b][return][/b]: 是否成功（slot 不存在视为首次启动，返回 [code]false[/code]）
 func load_persistent_data() -> bool:
 	await _wait_dialogic_ready()
 
 	# slot 还不存在，视为首次启动，节点保留默认值
 	if not Dialogic.Save.has_slot(SLOT_NAME):
 		print("[DataManager] 未发现存档 slot \"", SLOT_NAME)
-		return true
+		return false
 
 	# 加载 Dialogic 自身的对话进程（state.txt）
 	# 若 slot 内没有 state.txt（比如只手动写过 game_data.txt），load 会返回 FAILED，
@@ -106,6 +106,7 @@ func delete_save() -> Error:
 	if not Dialogic.is_node_ready():
 		await Dialogic.ready
 	if not Dialogic.Save.has_slot(SLOT_NAME):
+		Chapter.cur_scene = ""
 		Chapter.chapter_data.clear()
 		ClueManager.clear_clues()
 		ClueManager.clear_inventory()

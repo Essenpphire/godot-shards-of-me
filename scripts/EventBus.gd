@@ -26,3 +26,6 @@ signal slot_add_item()
 
 # 章节管理信号
 signal san_update(val : int)
+
+# Light board puzzle signals
+signal puzzle_light_solved(puzzle_id: String)

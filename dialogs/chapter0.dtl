@@ -27,7 +27,7 @@ audio "res://assets/audios/mirror_shattered.mp3"
 do Chapter.change_scene("chapter0/classroom_inside")
 [clear time="0.0"]
 join ouyang_ye center
-ouyang_ye: 夜：又来……
+ouyang_ye: 又来……
 ouyang_ye: 找找镜子在哪里吧……
 leave ouyang_ye
 do GameManager.lock_player_control(false)
@@ -71,7 +71,7 @@ label toilet1
 ye_li: *呼*
 ye_li: 操
 ye_li: （使劲摇头）又来……
-ye_li: （抬头看向镜子）（停顿）【注意此时镜子里的形象是模糊的，实际上里面是 san 值对应的里世界差分】
+ye_li: （抬头看向镜子）（停顿）
 ye_li: 洗个脸吧
 [end_timeline]
 

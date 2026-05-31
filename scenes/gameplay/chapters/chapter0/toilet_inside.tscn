@@ -60,7 +60,6 @@ next_pos = Vector2(1889, 456)
 
 [node name="Camera2D" parent="." index="7"]
 unique_name_in_owner = false
-position = Vector2(320, 378)
 
 [editable path="mirror"]
 [editable path="DoorHw"]

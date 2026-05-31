@@ -1,0 +1,159 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0bppedbpuu1y"]
+
+[ext_resource type="Script" uid="uid://dnbelq71ortkc" path="res://scenes/tools/light_puzzle_author/LightPuzzleAuthor.gd" id="1_author"]
+[ext_resource type="Script" uid="uid://desy6d663jd83" path="res://scenes/tools/light_puzzle_author/AuthorPalette.gd" id="2_palette"]
+[ext_resource type="Script" uid="uid://bd30h54q5hxyy" path="res://scenes/tools/light_puzzle_author/AuthorBoardCanvas.gd" id="3_canvas"]
+[ext_resource type="Script" uid="uid://idk3mwhflp6t" path="res://scenes/tools/light_puzzle_author/AuthorPropertiesPanel.gd" id="4_props"]
+
+[node name="LightPuzzleAuthor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_author")
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="RootLayout" type="VBoxContainer" parent="RootMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Toolbar" type="HBoxContainer" parent="RootMargin/RootLayout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NewButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "新建"
+
+[node name="LoadButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "载入"
+
+[node name="SaveButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "保存"
+
+[node name="SaveAsButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "另存为"
+
+[node name="ValidateButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "验证"
+
+[node name="TestSolutionButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "测试答案"
+
+[node name="GenerateSceneButton" type="Button" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "生成场景"
+
+[node name="LoadPathEdit" type="LineEdit" parent="RootMargin/RootLayout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://resources/puzzles/light_board/new_light_puzzle.tres"
+
+[node name="MainArea" type="HBoxContainer" parent="RootMargin/RootLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="PalettePanel" type="PanelContainer" parent="RootMargin/RootLayout/MainArea"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+
+[node name="PaletteMargin" type="MarginContainer" parent="RootMargin/RootLayout/MainArea/PalettePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PaletteScroll" type="ScrollContainer" parent="RootMargin/RootLayout/MainArea/PalettePanel/PaletteMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Palette" type="VBoxContainer" parent="RootMargin/RootLayout/MainArea/PalettePanel/PaletteMargin/PaletteScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+script = ExtResource("2_palette")
+
+[node name="BoardPanel" type="PanelContainer" parent="RootMargin/RootLayout/MainArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BoardCanvas" type="Control" parent="RootMargin/RootLayout/MainArea/BoardPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("3_canvas")
+
+[node name="PropertiesPanelOuter" type="PanelContainer" parent="RootMargin/RootLayout/MainArea"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="PropertiesMargin" type="MarginContainer" parent="RootMargin/RootLayout/MainArea/PropertiesPanelOuter"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PropertiesScroll" type="ScrollContainer" parent="RootMargin/RootLayout/MainArea/PropertiesPanelOuter/PropertiesMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="PropertiesPanel" type="VBoxContainer" parent="RootMargin/RootLayout/MainArea/PropertiesPanelOuter/PropertiesMargin/PropertiesScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+script = ExtResource("4_props")
+
+[node name="StatusBar" type="HBoxContainer" parent="RootMargin/RootLayout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SolutionLabel" type="Label" parent="RootMargin/RootLayout/StatusBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "追踪中"
+
+[node name="StatusLabel" type="Label" parent="RootMargin/RootLayout/StatusBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "就绪"
+clip_text = true

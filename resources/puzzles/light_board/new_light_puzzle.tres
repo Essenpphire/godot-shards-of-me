@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="LightPuzzleData" load_steps=11 format=3 uid="uid://cwssx22yaghch"]
+
+[ext_resource type="Script" uid="uid://cq5o6ta0feptu" path="res://scripts/puzzles/light_board/LightPortData.gd" id="1_u588d"]
+[ext_resource type="Script" uid="uid://dsg3qr8cqnlta" path="res://scripts/puzzles/light_board/LightPiecePlacement.gd" id="2_rr41a"]
+[ext_resource type="Script" uid="uid://4tqnqi78l6g0" path="res://scripts/puzzles/light_board/LightPieceData.gd" id="3_xx01m"]
+[ext_resource type="Script" uid="uid://c8pkjfjwx36si" path="res://scripts/puzzles/light_board/LightPuzzleData.gd" id="4_oxytw"]
+
+[sub_resource type="Resource" id="Resource_dtjyn"]
+script = ExtResource("1_u588d")
+port_id = "exit_right_y4"
+kind = 1
+cell = Vector2i(4, 4)
+direction = 0
+color_mask = 1
+requires_exact_color = true
+
+[sub_resource type="Resource" id="Resource_mh261"]
+script = ExtResource("3_xx01m")
+piece_id = "filter_magenta"
+display_name = "品红滤镜"
+piece_type = 9
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 5
+asset_key = "filter_magenta"
+
+[sub_resource type="Resource" id="Resource_x5xiw"]
+script = ExtResource("2_rr41a")
+placement_id = "filter_magenta"
+piece = SubResource("Resource_mh261")
+grid_position = Vector2i(1, 4)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_yboqy"]
+script = ExtResource("3_xx01m")
+piece_id = "filter_red"
+display_name = "红色滤镜"
+piece_type = 4
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 1
+asset_key = "filter_red"
+
+[sub_resource type="Resource" id="Resource_8sq2l"]
+script = ExtResource("2_rr41a")
+placement_id = "filter_red"
+piece = SubResource("Resource_yboqy")
+grid_position = Vector2i(2, 4)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_a5ifd"]
+script = ExtResource("1_u588d")
+port_id = "source_left_y4"
+kind = 0
+cell = Vector2i(0, 4)
+direction = 0
+color_mask = 7
+requires_exact_color = true
+
+[resource]
+script = ExtResource("4_oxytw")
+puzzle_id = "new_light_puzzle"
+title = "新建光板谜题"
+board_size = Vector2i(5, 5)
+sources = Array[ExtResource("1_u588d")]([SubResource("Resource_a5ifd")])
+exits = Array[ExtResource("1_u588d")]([SubResource("Resource_dtjyn")])
+placements = Array[ExtResource("2_rr41a")]([SubResource("Resource_x5xiw"), SubResource("Resource_8sq2l")])
+max_beam_steps = 64
+solved_event_name = ""
+designer_notes = ""

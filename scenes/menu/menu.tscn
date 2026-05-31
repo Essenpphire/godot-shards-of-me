@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c2gocuhw2o7py"]
 
-[ext_resource type="AudioStream" uid="uid://bpt0bsb0eyn5x" path="res://assets/audios/BGM00-StartScene.wav" id="2_r8yej"]
+[ext_resource type="AudioStream" uid="uid://j3ccs1hnocse" path="res://assets/audios/BGM00-StartScene.ogg" id="2_r8yej"]
 [ext_resource type="Texture2D" uid="uid://bpf1lcv3c3isu" path="res://assets/images/backgrounds/旧资产/classroom.png" id="2_y1o0p"]
 [ext_resource type="Script" uid="uid://dfnwymtygg1to" path="res://scenes/menu/game_version.gd" id="4_3hod2"]
 [ext_resource type="Script" uid="uid://cvc42inud8fxx" path="res://scenes/menu/menu.gd" id="5"]

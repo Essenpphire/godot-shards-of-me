@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://bulewp0xprism"]
+
+[ext_resource type="Script" uid="uid://cnfknr8bgqkjj" path="res://scenes/props/prism_reveal.gd" id="1_w5w3l"]
+[ext_resource type="Texture2D" uid="uid://dtwpm3uclaspj" path="res://assets/images/sprites/icon.png" id="2_j2n8k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3yia"]
+size = Vector2(210, 250)
+
+[node name="PrismReveal" type="Node2D"]
+script = ExtResource("1_w5w3l")
+
+[node name="Composition" type="Node2D" parent="."]
+
+[node name="RevealShadow" type="Polygon2D" parent="Composition"]
+position = Vector2(-82, 58)
+color = Color(0.13, 0.07, 0.11, 0.18)
+polygon = PackedVector2Array(-34, -12, 14, -20, 48, -2, 16, 16, -24, 18)
+
+[node name="RevealedSprite" type="Sprite2D" parent="Composition"]
+modulate = Color(1, 0.74, 0.74, 0)
+position = Vector2(-88, -2)
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("2_j2n8k")
+
+[node name="PrismShadow" type="Polygon2D" parent="Composition"]
+position = Vector2(2, 84)
+color = Color(0, 0, 0, 0.22)
+polygon = PackedVector2Array(-62, -12, -28, -22, 22, -22, 62, -8, 30, 12, -22, 12)
+
+[node name="PrismSprite" type="Sprite2D" parent="Composition"]
+scale = Vector2(0.96, 0.96)
+
+[node name="PrismHitArea" type="Area2D" parent="Composition"]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Composition/PrismHitArea"]
+shape = SubResource("RectangleShape2D_g3yia")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(320, 320)
+
+[node name="PrismRoot" type="Node3D" parent="SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/PrismRoot"]
+
+[node name="KeyLight" type="DirectionalLight3D" parent="SubViewport/PrismRoot"]
+
+[node name="FillLight" type="DirectionalLight3D" parent="SubViewport/PrismRoot"]
+
+[node name="PresentationPivot" type="Node3D" parent="SubViewport/PrismRoot"]
+
+[node name="SpinPivot" type="Node3D" parent="SubViewport/PrismRoot/PresentationPivot"]
+
+[node name="PrismMesh" type="MeshInstance3D" parent="SubViewport/PrismRoot/PresentationPivot/SpinPivot"]
+
+[node name="PrismShell" type="MeshInstance3D" parent="SubViewport/PrismRoot/PresentationPivot/SpinPivot"]
+
+[connection signal="input_event" from="Composition/PrismHitArea" to="." method="_on_prism_hit_area_input_event"]

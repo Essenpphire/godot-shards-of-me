@@ -1,0 +1,136 @@
+[gd_resource type="Resource" script_class="LightPuzzleData" load_steps=17 format=3 uid="uid://btdyo3110v7xt"]
+
+[ext_resource type="Script" uid="uid://cq5o6ta0feptu" path="res://scripts/puzzles/light_board/LightPortData.gd" id="1_1bcwl"]
+[ext_resource type="Script" uid="uid://dsg3qr8cqnlta" path="res://scripts/puzzles/light_board/LightPiecePlacement.gd" id="2_bgnnr"]
+[ext_resource type="Script" uid="uid://4tqnqi78l6g0" path="res://scripts/puzzles/light_board/LightPieceData.gd" id="3_dyttb"]
+[ext_resource type="Script" uid="uid://c8pkjfjwx36si" path="res://scripts/puzzles/light_board/LightPuzzleData.gd" id="4_3be02"]
+
+[sub_resource type="Resource" id="Resource_tw0vu"]
+script = ExtResource("1_1bcwl")
+port_id = "exit_left_y2"
+kind = 1
+cell = Vector2i(0, 2)
+direction = 4
+color_mask = 2
+requires_exact_color = true
+
+[sub_resource type="Resource" id="Resource_jcpim"]
+script = ExtResource("3_dyttb")
+piece_id = "plane_mirror_horizontal"
+display_name = "水平平面镜"
+piece_type = 12
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "plane_mirror_horizontal"
+
+[sub_resource type="Resource" id="Resource_al3iq"]
+script = ExtResource("2_bgnnr")
+placement_id = "plane_mirror_horizontal"
+piece = SubResource("Resource_jcpim")
+grid_position = Vector2i(3, 4)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_e3u4i"]
+script = ExtResource("3_dyttb")
+piece_id = "mirror_backslash"
+display_name = "反斜杠镜"
+piece_type = 1
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "mirror_backslash"
+
+[sub_resource type="Resource" id="Resource_oyxwj"]
+script = ExtResource("2_bgnnr")
+placement_id = "mirror_backslash"
+piece = SubResource("Resource_e3u4i")
+grid_position = Vector2i(4, 0)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_ax243"]
+script = ExtResource("3_dyttb")
+piece_id = "prism_plus_45"
+display_name = "+45 棱镜"
+piece_type = 2
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_plus_45"
+
+[sub_resource type="Resource" id="Resource_3slwp"]
+script = ExtResource("2_bgnnr")
+placement_id = "prism_plus_45"
+piece = SubResource("Resource_ax243")
+grid_position = Vector2i(4, 3)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_78prj"]
+script = ExtResource("3_dyttb")
+piece_id = "prism_minus_45"
+display_name = "-45 棱镜"
+piece_type = 3
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_minus_45"
+
+[sub_resource type="Resource" id="Resource_pgv00"]
+script = ExtResource("2_bgnnr")
+placement_id = "prism_minus_45"
+piece = SubResource("Resource_78prj")
+grid_position = Vector2i(1, 3)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_a3n4j"]
+script = ExtResource("3_dyttb")
+piece_id = "filter_green"
+display_name = "绿色滤镜"
+piece_type = 5
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 2
+asset_key = "filter_green"
+
+[sub_resource type="Resource" id="Resource_1mnhl"]
+script = ExtResource("2_bgnnr")
+placement_id = "filter_green"
+piece = SubResource("Resource_a3n4j")
+grid_position = Vector2i(0, 2)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Resource_8arjl"]
+script = ExtResource("1_1bcwl")
+port_id = "source_left_y0"
+kind = 0
+cell = Vector2i(0, 0)
+direction = 0
+color_mask = 7
+requires_exact_color = true
+
+[resource]
+script = ExtResource("4_3be02")
+puzzle_id = "new_light_puzzle"
+title = "新建光板谜题"
+board_size = Vector2i(5, 5)
+sources = Array[ExtResource("1_1bcwl")]([SubResource("Resource_8arjl")])
+exits = Array[ExtResource("1_1bcwl")]([SubResource("Resource_tw0vu")])
+placements = Array[ExtResource("2_bgnnr")]([SubResource("Resource_al3iq"), SubResource("Resource_oyxwj"), SubResource("Resource_3slwp"), SubResource("Resource_pgv00"), SubResource("Resource_1mnhl")])
+max_beam_steps = 64
+solved_event_name = ""
+designer_notes = ""

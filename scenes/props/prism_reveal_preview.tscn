@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://biblf1qcyg0nw"]
+
+[ext_resource type="PackedScene" path="res://scenes/props/prism_reveal.tscn" id="1_4v02m"]
+
+[node name="PrismRevealPreview" type="Node2D"]
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+color = Color(0.1, 0.11, 0.16, 1)
+polygon = PackedVector2Array(-640, -360, 640, -360, 640, 360, -640, 360)
+
+[node name="Ground" type="Polygon2D" parent="."]
+position = Vector2(0, 88)
+color = Color(0.16, 0.17, 0.22, 1)
+polygon = PackedVector2Array(-320, -28, 320, -28, 420, 120, -420, 120)
+
+[node name="PrismReveal" parent="." instance=ExtResource("1_4v02m")]
+position = Vector2(0, -8)
+
+[node name="Camera2D" type="Camera2D" parent="."]

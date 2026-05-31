@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://ln4y7eqqcebe"]
+[gd_scene load_steps=18 format=4 uid="uid://ln4y7eqqcebe"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_34u5e"]
 [ext_resource type="Texture2D" uid="uid://dcv8yaqmftth1" path="res://assets/images/backgrounds/background_classroom_1.png" id="3_34u5e"]
@@ -15,6 +15,9 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_s240p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aiibi"]
 size = Vector2(36.5486, 712.072)
 
 [sub_resource type="Resource" id="Resource_hcnid"]
@@ -86,11 +89,12 @@ position = Vector2(1290, 289)
 
 [node name="WallLeftCollidor" parent="Background" index="11"]
 position = Vector2(20, 452)
+shape = SubResource("RectangleShape2D_lrrqo")
 
 [node name="WallLeftCollidor2" parent="Background" index="13" instance=ExtResource("7_aiibi")]
 position = Vector2(1643, 477)
 rotation = 1.02974
-shape = SubResource("RectangleShape2D_lrrqo")
+shape = SubResource("RectangleShape2D_aiibi")
 
 [node name="CameraTargets" type="Node2D" parent="." index="3"]
 
@@ -238,6 +242,4 @@ environment = SubResource("Environment_umphd")
 physics_interpolation_mode = 0
 position = Vector2(1000, 450)
 zoom = Vector2(1.7, 1.7)
-limit_left = -115
-limit_top = 80
-limit_right = 1378
+limit_right = 2260

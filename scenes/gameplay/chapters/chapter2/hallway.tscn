@@ -1,11 +1,16 @@
-[gd_scene load_steps=11 format=4 uid="uid://wc0gudrok6fs"]
+[gd_scene load_steps=20 format=4 uid="uid://wc0gudrok6fs"]
 
 [ext_resource type="Texture2D" uid="uid://bxe6l41mtwhpd" path="res://assets/images/backgrounds/bg_hallway_1.png" id="1_xbcr7"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_k8pcc"]
 [ext_resource type="Texture2D" uid="uid://nk6168nayrp8" path="res://assets/images/backgrounds/wall_hallway_1.png" id="3_ppuvr"]
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="4_swmww"]
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="5_f4wli"]
-[ext_resource type="PackedScene" uid="uid://du4m0sm073id5" path="res://scenes/gameplay/npc/pang.tscn" id="6_hoex0"]
+[ext_resource type="Texture2D" uid="uid://dbkvbqfuk8n3f" path="res://assets/images/backgrounds/bg_hallway_inside.png" id="5_ppuvr"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/npc/pang.tscn" id="6_hoex0"]
+[ext_resource type="Texture2D" uid="uid://dvt4gdpa7vl3v" path="res://assets/images/backgrounds/wall_hl_3.png" id="6_swmww"]
+[ext_resource type="Script" uid="uid://bje8skpsorpve" path="res://scenes/gameplay/chapters/chapter2/hallway_director.gd" id="7_director"]
+[ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="8_hint"]
+[ext_resource type="Script" uid="uid://cwdwbl7weyufp" path="res://scenes/gameplay/chapters/chapter2/pang_interact.gd" id="9_pang_interact"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_07san"]
 atlas = ExtResource("1_xbcr7")
@@ -20,9 +25,25 @@ size = Vector2(36.5486, 712.072)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdupy"]
 size = Vector2(36.5486, 712.072)
 
-[node name="Hallway" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4wli"]
+size = Vector2(2416, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoex0"]
+size = Vector2(29, 651)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppuvr"]
+size = Vector2(41.5, 369)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pang_detect"]
+radius = 80.0
+
+[node name="Hallway" type="Node"]
+
+[node name="SceneDirector" type="Node" parent="."]
+script = ExtResource("7_director")
 
 [node name="Background" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="WallBg3" type="Sprite2D" parent="Background"]
 position = Vector2(-37, -133)
@@ -75,6 +96,58 @@ position = Vector2(2000, 466)
 rotation = 1.02974
 shape = SubResource("RectangleShape2D_wdupy")
 
+[node name="Background2" type="StaticBody2D" parent="."]
+
+[node name="FloorTile" type="TileMapLayer" parent="Background2"]
+position = Vector2(1, -1)
+tile_map_data = PackedByteArray("AAAEAA4AAwAAAAIAAAADAA0AAwAAAAIAAAACAAwAAwAAAAIAAAABAAsAAwAAAAIAAAAAAAoAAwAAAAIAAAD//wkAAwAAAAIAAAD+/wgAAwAAAAIAAAD9/wcAAwAAAAIAAAD8/wcAAwAAAAIAAAD9/wgAAwAAAAIAAAD+/wkAAwAAAAIAAAD//woAAwAAAAIAAAAAAAsAAwAAAAIAAAABAAwAAwAAAAIAAAACAA0AAwAAAAIAAAADAA4AAwAAAAIAAAACAA4AAwAAAAIAAAABAA0AAwAAAAIAAAAAAAwAAwAAAAIAAAD//wsAAwAAAAIAAAD+/woAAwAAAAIAAAD9/wkAAwAAAAIAAAD8/wgAAwAAAAIAAAD7/wcAAwAAAAIAAAD6/wcAAwAAAAIAAAD7/wgAAwAAAAIAAAD8/wkAAwAAAAIAAAD9/woAAwAAAAIAAAD+/wsAAwAAAAIAAAD//wwAAwAAAAIAAAAAAA0AAwAAAAIAAAABAA4AAwAAAAIAAAAAAA4AAwAAAAIAAAD//w0AAwAAAAIAAAD+/wwAAwAAAAIAAAD9/wsAAwAAAAIAAAD8/woAAwAAAAIAAAD7/wkAAwAAAAIAAAD6/wgAAwAAAAIAAAD5/wcAAwAAAAIAAAD4/wcAAwAAAAIAAAD5/wgAAwAAAAIAAAD6/wkAAwAAAAIAAAD7/woAAwAAAAIAAAD8/wsAAwAAAAIAAAD9/wwAAwAAAAIAAAD+/w0AAwAAAAIAAAD//w4AAwAAAAIAAAD+/w4AAwAAAAIAAAD9/w0AAwAAAAIAAAD8/wwAAwAAAAIAAAD7/wsAAwAAAAIAAAD6/woAAwAAAAIAAAD5/wkAAwAAAAIAAAD4/wgAAwAAAAIAAAD3/wcAAwAAAAIAAAD//w8AAwAAAAIAAAAAAA8AAwAAAAIAAAABAA8AAwAAAAIAAAACAA8AAwAAAAIAAAADAA8AAwAAAAIAAAAEAA8AAwAAAAIAAAAFAA8AAwAAAAIAAAAGABAAAwAAAAIAAAAFABAAAwAAAAIAAAAEABAAAwAAAAIAAAADABAAAwAAAAIAAAACABAAAwAAAAIAAAABABAAAwAAAAIAAAAAABAAAwAAAAIAAAABABEAAwAAAAIAAAACABEAAwAAAAIAAAADABEAAwAAAAIAAAAEABEAAwAAAAIAAAAFABEAAwAAAAIAAAAGABEAAwAAAAIAAAAHABEAAwAAAAIAAAAEABIAAwAAAAIAAAADABIAAwAAAAIAAAACABIAAwAAAAIAAAADABMAAwAAAAIAAAAEABMAAwAAAAIAAAAFABIAAwAAAAIAAAAGABIAAwAAAAIAAAAHABIAAwAAAAIAAAAIABIAAwAAAAIAAAAJABMAAwAAAAIAAAAIABMAAwAAAAIAAAAHABMAAwAAAAIAAAAGABMAAwAAAAIAAAAFABMAAwAAAAIAAAAFABQAAwAAAAIAAAAEABQAAwAAAAIAAAAGABQAAwAAAAIAAAAHABUAAwAAAAIAAAAHABQAAwAAAAIAAAAIABQAAwAAAAIAAAAJABQAAwAAAAIAAAAGABUAAwAAAAIAAAAFABUAAwAAAAIAAAAIABUAAwAAAAIAAAAKABQAAwAAAAIAAAAKABUAAwAAAAIAAAALABUAAwAAAAIAAAAHABYAAwAAAAIAAAAGABYAAwAAAAIAAAAIABYAAwAAAAIAAAAJABYAAwAAAAIAAAAJABUAAwAAAAIAAAAKABYAAwAAAAIAAAALABYAAwAAAAIAAAAMABYAAwAAAAIAAAAHABcAAwAAAAIAAAAIABcAAwAAAAIAAAAJABcAAwAAAAIAAAAKABcAAwAAAAIAAAALABcAAwAAAAIAAAAMABcAAwAAAAIAAAANABcAAwAAAAIAAAAIABgAAwAAAAIAAAAJABgAAwAAAAIAAAAKABgAAwAAAAIAAAALABgAAwAAAAIAAAAMABgAAwAAAAIAAAANABgAAwAAAAIAAAAOABgAAwAAAAIAAAAJABkAAwAAAAIAAAAKABkAAwAAAAIAAAALABkAAwAAAAIAAAAMABkAAwAAAAIAAAANABkAAwAAAAIAAAAOABkAAwAAAAIAAAAKABoAAwAAAAIAAAALABoAAwAAAAIAAAAMABsAAwAAAAIAAAAMABoAAwAAAAIAAAANABsAAwAAAAIAAAANABoAAwAAAAIAAAAOABoAAwAAAAIAAAAPABoAAwAAAAIAAAAQABoAAwAAAAIAAAAQABkAAwAAAAIAAAAPABkAAwAAAAIAAAARABsAAwAAAAIAAAAQABsAAwAAAAIAAAAQABwAAwAAAAIAAAAPABsAAwAAAAIAAAAPABwAAwAAAAIAAAAOABwAAwAAAAIAAAANABwAAwAAAAIAAAAMABwAAwAAAAIAAAAOABsAAwAAAAIAAAALABsAAwAAAAIAAAANAB0AAwAAAAIAAAAOAB0AAwAAAAIAAAAPAB0AAwAAAAIAAAARABwAAwAAAAIAAAASABwAAwAAAAIAAAARAB0AAwAAAAIAAAAQAB0AAwAAAAIAAAAPAB4AAwAAAAIAAAAOAB4AAwAAAAIAAAASAB0AAwAAAAIAAAARAB4AAwAAAAIAAAAQAB4AAwAAAAIAAAATAB0AAwAAAAIAAAA=")
+tile_set = ExtResource("2_k8pcc")
+
+[node name="WallBg" type="Sprite2D" parent="Background2"]
+position = Vector2(841.55, 150)
+scale = Vector2(0.392716, 0.296969)
+texture = ExtResource("5_ppuvr")
+
+[node name="WallBg2" type="Sprite2D" parent="Background2"]
+position = Vector2(1720, 145)
+scale = Vector2(0.392716, 0.296969)
+texture = ExtResource("5_ppuvr")
+
+[node name="WallLeft" type="Sprite2D" parent="Background2"]
+position = Vector2(71, 281)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_swmww")
+
+[node name="WallBgCollidor" parent="Background2" instance=ExtResource("4_swmww")]
+position = Vector2(1288, 268)
+shape = SubResource("RectangleShape2D_f4wli")
+
+[node name="WallLeftCollidor" parent="Background2" instance=ExtResource("4_swmww")]
+position = Vector2(21, 433)
+rotation = 1.02974
+shape = SubResource("RectangleShape2D_hoex0")
+
+[node name="FloorCollidor" parent="Background2" instance=ExtResource("4_swmww")]
+position = Vector2(1057, 658)
+shape = SubResource("RectangleShape2D_f4wli")
+
+[node name="WallLeft2" type="Sprite2D" parent="Background2"]
+position = Vector2(18.176, -41.7477)
+rotation = -0.523599
+scale = Vector2(4.31652, 11.1972)
+texture = ExtResource("6_swmww")
+region_enabled = true
+region_rect = Rect2(217.063, 790.345, 127.093, 20.7499)
+
+[node name="WallBg3" type="Sprite2D" parent="Background2"]
+position = Vector2(2787, 143)
+scale = Vector2(0.392716, 0.296969)
+texture = ExtResource("5_ppuvr")
+
+[node name="WallRightCollidor" parent="Background2" instance=ExtResource("4_swmww")]
+position = Vector2(2277.25, 467.5)
+shape = SubResource("RectangleShape2D_ppuvr")
+
 [node name="Sortables" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -82,6 +155,24 @@ y_sort_enabled = true
 position = Vector2(185, 471)
 scale = Vector2(2, 2)
 
-[node name="Pang" parent="." instance=ExtResource("6_hoex0")]
+[node name="Pang" parent="Sortables" instance=ExtResource("6_hoex0")]
 position = Vector2(684, 497)
 scale = Vector2(2, 2)
+
+[node name="Hint" parent="Sortables/Pang" instance=ExtResource("8_hint")]
+offset_left = -20.0
+offset_top = -95.0
+offset_right = 20.0
+offset_bottom = -55.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Detection" type="Area2D" parent="Sortables/Pang"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sortables/Pang/Detection"]
+shape = SubResource("CircleShape2D_pang_detect")
+
+[node name="PangInteract" type="Node" parent="Sortables/Pang"]
+script = ExtResource("9_pang_interact")
+
+[connection signal="body_entered" from="Sortables/Pang/Detection" to="Sortables/Pang/PangInteract" method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Sortables/Pang/Detection" to="Sortables/Pang/PangInteract" method="_on_detection_body_exited"]

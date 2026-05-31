@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dprtb8lcydd4l"]
+[gd_scene load_steps=10 format=4 uid="uid://dprtb8lcydd4l"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_617d8"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="2_64y6m"]
@@ -7,10 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="4_bagmg"]
 [ext_resource type="Texture2D" uid="uid://cvujcwn572meo" path="res://assets/images/backgrounds/客厅/36EF5636B303A4EF932C045F14759648.png" id="6_4r8g2"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hv1rg"]
 size = Vector2(2000, 30)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4r8g2"]
 size = Vector2(36.5486, 712.072)
 
 [node name="Gameplay2" instance=ExtResource("1_617d8")]
@@ -36,6 +39,9 @@ position = Vector2(57, 304)
 scale = Vector2(0.5, 0.570755)
 texture = ExtResource("3_4r8g2")
 
+[node name="WallLeftCollidor" parent="Background" index="5"]
+shape = SubResource("RectangleShape2D_lrrqo")
+
 [node name="FloorCollidor" parent="Background" index="6"]
 position = Vector2(832, 644)
 
@@ -51,7 +57,7 @@ shape = SubResource("RectangleShape2D_hv1rg")
 [node name="WallLeftCollidor2" parent="Background" index="9" instance=ExtResource("4_bagmg")]
 position = Vector2(2132, 452)
 rotation = 1.02974
-shape = SubResource("RectangleShape2D_lrrqo")
+shape = SubResource("RectangleShape2D_4r8g2")
 
 [node name="WallLeft3" type="Sprite2D" parent="Background" index="10"]
 z_index = -2
@@ -91,7 +97,7 @@ anchors_preset = 15
 position = Vector2(1551, 475)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/entryway"
-room_name = "书房"
+room_name = "玄关"
 
 [node name="KitchenDoor" parent="Sortables" index="2" instance=ExtResource("2_64y6m")]
 position = Vector2(412, 474)
@@ -134,5 +140,6 @@ texture = ExtResource("6_4r8g2")
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)
+limit_right = 2260
 
 [editable path="Sortables/BedRoomDoor"]

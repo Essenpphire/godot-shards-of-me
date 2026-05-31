@@ -66,6 +66,10 @@ variables={
 "box_taken": false,
 "intro_played": false,
 "key_taken": false
+},
+"chapter2": {
+"ending_seen": false,
+"pang_talked": false
 }
 }
 extensions_folder="res://addons/dialogic_additions"

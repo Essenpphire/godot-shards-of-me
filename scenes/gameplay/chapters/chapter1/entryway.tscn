@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://24e46mfeslsf"]
+[gd_scene load_steps=9 format=4 uid="uid://24e46mfeslsf"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_4tmrp"]
 [ext_resource type="Texture2D" uid="uid://m6pck2j3rueq" path="res://assets/images/backgrounds/玄关/ED5F91270EC84600DD29DA43128A6CE9.png" id="2_dp170"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://bkvhb2cy0byst" path="res://scenes/gameplay/chapters/chapter1/exit_door.gd" id="6_gxttn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_skf4g"]
 size = Vector2(36.5486, 712.072)
 
 [node name="Gameplay" instance=ExtResource("1_4tmrp")]
@@ -30,10 +33,13 @@ texture = ExtResource("2_dp170")
 [node name="WallLeft" parent="Background" index="3"]
 visible = false
 
+[node name="WallLeftCollidor" parent="Background" index="5"]
+shape = SubResource("RectangleShape2D_lrrqo")
+
 [node name="WallLeftCollidor2" parent="Background" index="7" instance=ExtResource("3_2x381")]
 position = Vector2(1371, 471)
 rotation = 1.02974
-shape = SubResource("RectangleShape2D_lrrqo")
+shape = SubResource("RectangleShape2D_skf4g")
 
 [node name="WallLeft2" type="Sprite2D" parent="Background" index="8"]
 z_index = -2
@@ -56,16 +62,21 @@ region_rect = Rect2(648.699, 235.711, 259.374, 381.988)
 position = Vector2(897, 477)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("6_gxttn")
+room_name = "出门"
 
 [node name="LivingRoomDOor" parent="Sortables" index="2" instance=ExtResource("4_skf4g")]
 position = Vector2(84, 342)
 scale = Vector2(1.5, 1.5)
 next_scene = "chapter1/livingroom"
+next_pos = Vector2(1393, 497)
+room_name = "客厅"
 
 [node name="Sprite2D" parent="Sortables/LivingRoomDOor" index="1"]
 modulate = Color(1, 1, 1, 0)
 
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(999, 378)
+position = Vector2(320, 378)
+limit_right = 2260
 
+[editable path="Sortables/ExitDoor"]
 [editable path="Sortables/LivingRoomDOor"]

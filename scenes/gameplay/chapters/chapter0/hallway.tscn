@@ -99,5 +99,9 @@ skew = 0.0
 [node name="CollisionShape2D" parent="DoorWC/Detection" index="0"]
 shape = SubResource("RectangleShape2D_ljmjk")
 
+[node name="Camera2D" parent="." index="6"]
+position = Vector2(320, 378)
+limit_right = 2260
+
 [editable path="DoorClassroom"]
 [editable path="DoorWC"]

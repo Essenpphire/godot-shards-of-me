@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://bmyqcyqptngrq"]
+[gd_scene load_steps=18 format=4 uid="uid://bmyqcyqptngrq"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_vtnsi"]
 [ext_resource type="Texture2D" uid="uid://bc4r2sf1r0bth" path="res://assets/images/backgrounds/次卧/ChatGPT_Image_2026年5月30日_19_10_40.png" id="2_5wjsr"]
@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://bm3ga803kmycn" path="res://assets/images/items/pill_instruction.png" id="10_a0hpe"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_pcam"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_tween"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
 
 [sub_resource type="Resource" id="Resource_bed_intro"]
 script = ExtResource("12_tween")
@@ -49,6 +52,7 @@ position = Vector2(1288, 272)
 
 [node name="WallLeftCollidor" parent="Background" index="5"]
 position = Vector2(21, 435)
+shape = SubResource("RectangleShape2D_lrrqo")
 
 [node name="IntroPanPcam" type="Node2D" parent="Cameras" index="0" node_paths=PackedStringArray("follow_target") groups=["Pcam"]]
 top_level = true
@@ -160,6 +164,7 @@ texture = ExtResource("10_a0hpe")
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(999, 378)
+limit_right = 2260
 
 [node name="SceneDirector" type="Node" parent="." index="5"]
 script = ExtResource("6_l17rv")

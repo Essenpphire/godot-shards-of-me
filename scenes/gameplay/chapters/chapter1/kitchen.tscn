@@ -31,6 +31,9 @@ rotation = 0.0174533
 scale = Vector2(0.476795, 0.476795)
 texture = ExtResource("3_a1182")
 
+[node name="WallLeftCollidor" parent="Background" index="4"]
+shape = SubResource("RectangleShape2D_lrrqo")
+
 [node name="WallLeftCollidor2" parent="Background" index="6" instance=ExtResource("4_be8jl")]
 position = Vector2(1034, 464)
 rotation = 1.02974
@@ -143,6 +146,7 @@ texture = ExtResource("8_jhd8e")
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)
+limit_right = 2260
 
 [node name="KitchenDirector" type="Node" parent="." index="5"]
 script = ExtResource("7_0wulh")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://ckjelnlepu7js"]
+[gd_scene load_steps=10 format=4 uid="uid://ckjelnlepu7js"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_g1ev2"]
 [ext_resource type="Texture2D" uid="uid://cgykmpwyctdbt" path="res://assets/images/backgrounds/书房/study_room_flat_background_v2.png" id="2_1q3eu"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dna58ulvc15n1" path="res://assets/images/backgrounds/书房/phrase1.png" id="6_hja1m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
+size = Vector2(36.5486, 712.072)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hja1m"]
 size = Vector2(36.5486, 712.072)
 
 [node name="Gameplay2" instance=ExtResource("1_g1ev2")]
@@ -37,10 +40,13 @@ texture = ExtResource("2_1q3eu")
 [node name="WallLeft" parent="Background" index="4"]
 visible = false
 
+[node name="WallLeftCollidor" parent="Background" index="6"]
+shape = SubResource("RectangleShape2D_lrrqo")
+
 [node name="WallLeftCollidor2" parent="Background" index="8" instance=ExtResource("3_x4ua1")]
 position = Vector2(1449, 474)
 rotation = 1.02974
-shape = SubResource("RectangleShape2D_lrrqo")
+shape = SubResource("RectangleShape2D_hja1m")
 
 [node name="WallLeft2" type="Sprite2D" parent="Background" index="9"]
 z_index = -2
@@ -74,7 +80,7 @@ render_topdown_ratio = 0.12
 position = Vector2(74, 310)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/bedroom"
-next_pos = Vector2(275, 556)
+next_pos = Vector2(1211, 556)
 room_name = "卧室"
 
 [node name="Sprite2D" parent="Sortables/BedRoomDoor" index="1"]
@@ -89,5 +95,6 @@ anchors_preset = 15
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)
+limit_right = 2260
 
 [editable path="Sortables/BedRoomDoor"]

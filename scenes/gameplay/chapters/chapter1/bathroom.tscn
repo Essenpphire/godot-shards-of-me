@@ -27,6 +27,9 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_l3ejn")
 offset = Vector2(-43.3333, 318.333)
 
+[node name="WallLeftCollidor" parent="Background" index="4"]
+shape = SubResource("RectangleShape2D_lrrqo")
+
 [node name="WallLeftCollidor2" parent="Background" index="6" instance=ExtResource("4_r4exh")]
 position = Vector2(932, 468)
 rotation = 1.02974
@@ -150,7 +153,7 @@ region_rect = Rect2(651.057, 268.723, 287.67, 365.482)
 position = Vector2(71, 332)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/livingroom"
-next_pos = Vector2(1918, 541)
+next_pos = Vector2(800, 541)
 room_name = "客厅"
 
 [node name="Sprite2D" parent="Sortables/LivingRoomDoor" index="1"]
@@ -165,5 +168,6 @@ anchors_preset = 15
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)
+limit_right = 2260
 
 [editable path="Sortables/LivingRoomDoor"]

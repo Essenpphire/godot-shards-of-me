@@ -70,11 +70,11 @@ position = Vector2(2787, 143)
 scale = Vector2(0.392716, 0.296969)
 texture = ExtResource("3_0krup")
 
-[node name="WallRightCollidor" parent="." index="3" instance=ExtResource("5_bxwv0")]
+[node name="WallRightCollidor" parent="Background2" index="9" instance=ExtResource("5_bxwv0")]
 position = Vector2(2277.25, 467.5)
 shape = SubResource("RectangleShape2D_8tvm1")
 
-[node name="DoorClassroom" parent="." index="4"]
+[node name="DoorClassroom" parent="." index="3"]
 position = Vector2(654, 226)
 next_scene = "chapter0/classroom_inside"
 next_pos = Vector2(1332, 570)
@@ -82,7 +82,7 @@ next_pos = Vector2(1332, 570)
 [node name="Sprite2D" parent="DoorClassroom" index="1"]
 texture = null
 
-[node name="DoorWC" parent="." index="5"]
+[node name="DoorWC" parent="." index="4"]
 position = Vector2(1904, 233)
 next_scene = "chapter0/toilet_inside"
 next_pos = Vector2(177, 464)
@@ -112,10 +112,10 @@ autoplay = "Ye_idle"
 position = Vector2(653, 438)
 limit_right = 2260
 
-[node name="Camera2D" parent="." index="8"]
+[node name="Camera2D" parent="." index="7"]
 unique_name_in_owner = false
-top_level = true
 position = Vector2(653, 378)
+limit_right = 2260
 
 [editable path="DoorClassroom"]
 [editable path="DoorWC"]

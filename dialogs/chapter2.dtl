@@ -21,3 +21,4 @@ do GameManager.lock_player_control(true)
 set {chapter2.pang_talked} = true
 set {chapter2.ending_seen} = true
 do GameManager.lock_player_control(false)
+[end_timeline]

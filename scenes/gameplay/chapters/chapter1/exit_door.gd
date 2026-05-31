@@ -1,10 +1,10 @@
-extends Prop
+extends "res://scenes/props/prop_door.gd"
 
 const KEY_ID: String = "9"
 const NEXT_SCENE: String = "chapter2/classroom"
 
 
-## 玄关出口：钥匙必须先从线索书拿到手上，也就是进入物品栏。
+## 玄关出口：复用普通门的房间提示，但开门前先检查钥匙是否在手上。
 func handle_interact() -> void:
 	if not ClueManager.has_in_inventory(KEY_ID):
 		Dialogic.start("chapter1", "door_without_key")

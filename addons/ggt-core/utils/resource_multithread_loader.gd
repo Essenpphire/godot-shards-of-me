@@ -16,7 +16,12 @@ func load_resource(path):
 		if thread == null:
 			thread = Thread.new()
 		if ResourceLoader.has_cached(path):
-			return ResourceLoader.load(path)
+			var res = ResourceLoader.load(path)
+			if res == null:
+				push_error("Cached resource load failed for: {0}".format([path]))
+				return
+			call_deferred("emit_signal", "resource_stage_loaded", 1.0)
+			call_deferred("emit_signal", "resource_loaded", res)
 		else:
 			_load_resource_threaded(path)
 

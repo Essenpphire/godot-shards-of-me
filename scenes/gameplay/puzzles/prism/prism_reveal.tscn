@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bulewp0xprism"]
 
-[ext_resource type="Script" uid="uid://ju3m1smi5anf" path="res://scenes/props/prism_reveal.gd" id="1_w5w3l"]
+[ext_resource type="Script" uid="uid://ju3m1smi5anf" path="res://scenes/gameplay/puzzles/prism/prism_reveal.gd" id="1_w5w3l"]
 [ext_resource type="Texture2D" uid="uid://dtwpm3uclaspj" path="res://assets/images/sprites/icon.png" id="2_j2n8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g3yia"]

@@ -1,0 +1,9 @@
+﻿Create a transparent-ready 2D TV and TV cabinet asset for a side-scrolling Godot living room scene.
+
+Subject: a simple flat-screen television sitting on a low TV cabinet, shown in a three-quarter oblique side view. The TV screen is dark gray/black and blank. The cabinet is muted warm wood or warm ivory, simple rectangular design, no logos, no visible text.
+
+Style: pixel-art inspired hand-painted 2D illustration, low-saturation colors, thin dark gray outlines, slightly pixel-stepped edges, soft ambient lighting, simple readable silhouette. Match the visual language of the provided chapter 1 school interior references.
+
+Place the TV and cabinet on a perfectly flat solid #00ff00 chroma-key background for background removal. The background must be one uniform color with no shadows, gradients, texture, reflections, floor plane, or lighting variation. Keep the subject fully separated from the background with crisp edges and generous padding. Do not use #00ff00 anywhere in the subject.
+
+Constraints: no photorealism, no 3D render, no text, no watermark, no floor, no wall background, no people, no extra objects, no image on the TV screen.

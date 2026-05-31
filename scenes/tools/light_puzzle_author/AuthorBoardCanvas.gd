@@ -31,6 +31,7 @@ var current_mode: int = MODE_SELECT
 var selection_kind: int = SELECTION_PUZZLE
 var selection_index: int = -1
 var validation_cells: Array[Vector2i] = []
+var solver_preview_positions: Array = []
 
 var _pending_drag_placement_index: int = -1
 var _pending_drag_start_position: Vector2 = Vector2.ZERO
@@ -51,7 +52,8 @@ func set_author_state(
 	new_mode: int,
 	new_selection_kind: int,
 	new_selection_index: int,
-	new_validation_cells: Array[Vector2i]
+	new_validation_cells: Array[Vector2i],
+	new_solver_preview_positions: Array = []
 ) -> void:
 	puzzle_data = new_puzzle_data
 	solution = new_solution
@@ -59,6 +61,7 @@ func set_author_state(
 	selection_kind = new_selection_kind
 	selection_index = new_selection_index
 	validation_cells = new_validation_cells.duplicate()
+	solver_preview_positions = new_solver_preview_positions.duplicate()
 	queue_redraw()
 
 
@@ -220,6 +223,7 @@ func _draw() -> void:
 	_draw_port_sockets()
 	_draw_allowed_cells()
 	_draw_validation_cells()
+	_draw_solver_preview()
 	_draw_beams()
 	_draw_ports()
 	_draw_placements()
@@ -269,6 +273,41 @@ func _draw_validation_cells() -> void:
 		if _is_cell_inside(cell):
 			draw_rect(_cell_rect(cell).grow(-4.0), Color(1.0, 0.2, 0.18, 0.32), true)
 			draw_rect(_cell_rect(cell).grow(-4.0), Color(1.0, 0.3, 0.24, 0.95), false, 2.0)
+
+
+func _draw_solver_preview() -> void:
+	if solver_preview_positions.is_empty() or puzzle_data == null:
+		return
+	var font := get_theme_default_font()
+	for index in range(mini(puzzle_data.placements.size(), solver_preview_positions.size())):
+		var placement := puzzle_data.placements[index]
+		if placement == null or placement.piece == null:
+			continue
+		if not placement.is_movable():
+			continue
+		if not (solver_preview_positions[index] is Vector2i):
+			continue
+		var target_cell: Vector2i = solver_preview_positions[index]
+		if not _is_cell_inside(target_cell):
+			continue
+		var target_rect := Rect2(
+			_board_origin() + Vector2(target_cell) * _cell_step(),
+			Vector2(placement.piece.size) * _cell_step()
+		)
+		draw_rect(target_rect.grow(-9.0), Color(0.22, 1.0, 0.72, 0.16), true)
+		draw_rect(target_rect.grow(-9.0), Color(0.32, 1.0, 0.78, 0.92), false, 3.0)
+		if target_cell != placement.grid_position:
+			draw_line(_cell_center(placement.grid_position), _cell_center(target_cell), Color(0.32, 1.0, 0.78, 0.45), 2.0, true)
+		if font != null:
+			draw_string(
+				font,
+				target_rect.position + Vector2(9.0, 20.0),
+				str(index + 1),
+				HORIZONTAL_ALIGNMENT_LEFT,
+				-1.0,
+				14,
+				Color(0.86, 1.0, 0.94)
+			)
 
 
 func _draw_port_sockets() -> void:

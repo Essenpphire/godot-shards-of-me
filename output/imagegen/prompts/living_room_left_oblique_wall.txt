@@ -1,0 +1,7 @@
+﻿Transform the reference wall module into a left-side oblique stretch wall module that matches the new living room wall background.
+
+The asset should look like a milk-white / warm ivory living room wall extending diagonally toward the left side, suitable as a side wall boundary module in a 2D Godot scene. It should preserve the transparent-background module logic of the reference wall image.
+
+Style: pixel-art inspired hand-painted 2D illustration, low-saturation colors, thin dark gray outlines, slightly pixel-stepped edges, soft ambient lighting, subtle aged wall texture. Match the living room wall background and the chapter 1 school interior references.
+
+Constraints: transparent outside the wall module, no floor, no furniture, no window, no right-side wall, no text, no watermark, no photorealism, no 3D render.

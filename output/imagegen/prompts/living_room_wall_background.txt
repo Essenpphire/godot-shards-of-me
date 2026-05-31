@@ -1,0 +1,9 @@
+﻿Transform the reference classroom wall into a simple living room front wall background layer for a 2D side-scrolling Godot game.
+
+Keep the same visual language as the reference: pixel-art inspired hand-painted 2D illustration, low-saturation colors, thin dark gray outlines, slightly pixel-stepped edges, soft ambient light, subtle aged wall texture.
+
+Create a flat front-facing living room wall only. The wall is warm ivory / milk-white. Include one or two simple windows with curtains, using the classroom window and curtain style as the main reference. The curtains should be simple, muted gray or pale green-gray, with the same slightly pixelated folds and dark outline style.
+
+Composition must be orthographic and front-facing, like a reusable 2D background wall layer. Leave clean empty wall space for placing furniture in front.
+
+Important constraints: no floor, no side walls, no furniture, no characters, no text, no watermark, no strong perspective, no realistic photo look, no 3D render, no dramatic lighting.

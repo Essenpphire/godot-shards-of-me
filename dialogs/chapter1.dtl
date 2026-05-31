@@ -4,5 +4,38 @@ ye_li: *哈欠*
 ye_li: 嗯……？
 ye_li: 这张纸条，是什么？
 [end_timeline]
+# 若玩家尝试直接离开房间，出现独白“先看看床头柜上是什么吧”
+label check_prompt
+ye_li: (先看看床头柜上是什么吧)
+[end_timeline]
+# 拿到药瓶后才能和旁边的说明书互动
 label find_pill
 ye_li: 嗯……
+[end_timeline]
+label find_paper
+ye_li: 怪事，怎么看不清
+[end_timeline]
+# 玩家开始自由行动和解密
+# 解开浴室或者书房谜题后
+label solve_01
+ye_li: 这句话缺了几个字？……莫名其妙
+[end_timeline]
+# 两者都解开
+label slove_02
+ye_li: 是不是能拼一起？合一块好像是……“在厨房的壁橱里”？
+ye_li: 去看看吧
+[end_timeline]
+# 拿到厨房的小盒子并开始尝试解谜时
+label find_box
+ye_li: 机关？
+ye_li: ……
+[end_timeline]
+# 解开厨房谜题拿到钥匙
+label slove_03
+ye_li: 呼，终于解开了
+ye_li: 走吧，我该走了，该走了
+[end_timeline]
+# 直接出门
+label unsolve
+ye_li: ……我出不去。
+[end_timeline]

@@ -1,0 +1,212 @@
+[gd_resource type="Resource" script_class="LightPuzzleData" load_steps=25 format=3 uid="uid://bov5hq1d8walw"]
+
+[ext_resource type="Script" uid="uid://c8pkjfjwx36si" path="res://scripts/puzzles/light_board/LightPuzzleData.gd" id="1_aebny"]
+[ext_resource type="Script" uid="uid://cq5o6ta0feptu" path="res://scripts/puzzles/light_board/LightPortData.gd" id="2_w4t6j"]
+[ext_resource type="Script" uid="uid://4tqnqi78l6g0" path="res://scripts/puzzles/light_board/LightPieceData.gd" id="3_ujhpg"]
+[ext_resource type="Script" uid="uid://dsg3qr8cqnlta" path="res://scripts/puzzles/light_board/LightPiecePlacement.gd" id="4_wqfp0"]
+
+[sub_resource type="Resource" id="LightPortData_exit"]
+script = ExtResource("2_w4t6j")
+port_id = "exit_corner_se"
+kind = 1
+cell = Vector2i(4, 4)
+direction = 1
+color_mask = 2
+requires_exact_color = true
+
+[sub_resource type="Resource" id="Piece_yellow_filter"]
+script = ExtResource("3_ujhpg")
+piece_id = "yellow_filter"
+display_name = "Yellow Filter"
+piece_type = 7
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 3
+asset_key = "filter_yellow"
+
+[sub_resource type="Resource" id="Placement_yellow_filter"]
+script = ExtResource("4_wqfp0")
+placement_id = "yellow_filter"
+piece = SubResource("Piece_yellow_filter")
+grid_position = Vector2i(0, 2)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Piece_plus"]
+script = ExtResource("3_ujhpg")
+piece_id = "plus_prism"
+display_name = "+45 Prism"
+piece_type = 2
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_plus_45"
+
+[sub_resource type="Resource" id="Placement_plus"]
+script = ExtResource("4_wqfp0")
+placement_id = "plus_prism"
+piece = SubResource("Piece_plus")
+grid_position = Vector2i(2, 0)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(1, 0)
+
+[sub_resource type="Resource" id="Piece_minus_a"]
+script = ExtResource("3_ujhpg")
+piece_id = "minus_prism_a"
+display_name = "-45 Prism"
+piece_type = 3
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_minus_45"
+
+[sub_resource type="Resource" id="Placement_minus_a"]
+script = ExtResource("4_wqfp0")
+placement_id = "minus_prism_a"
+piece = SubResource("Piece_minus_a")
+grid_position = Vector2i(2, 1)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(2, 1)
+
+[sub_resource type="Resource" id="Piece_backslash"]
+script = ExtResource("3_ujhpg")
+piece_id = "backslash"
+display_name = "Backslash Mirror"
+piece_type = 1
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "mirror_backslash"
+
+[sub_resource type="Resource" id="Placement_backslash"]
+script = ExtResource("4_wqfp0")
+placement_id = "backslash"
+piece = SubResource("Piece_backslash")
+grid_position = Vector2i(4, 1)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(3, 1)
+
+[sub_resource type="Resource" id="Piece_green_filter"]
+script = ExtResource("3_ujhpg")
+piece_id = "green_filter"
+display_name = "Green Filter"
+piece_type = 5
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 2
+asset_key = "filter_green"
+
+[sub_resource type="Resource" id="Placement_green_filter"]
+script = ExtResource("4_wqfp0")
+placement_id = "green_filter"
+piece = SubResource("Piece_green_filter")
+grid_position = Vector2i(4, 2)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(3, 2)
+
+[sub_resource type="Resource" id="Piece_minus_b"]
+script = ExtResource("3_ujhpg")
+piece_id = "minus_prism_b"
+display_name = "-45 Prism"
+piece_type = 3
+size = Vector2i(1, 1)
+move_axis = 0
+is_draggable = true
+filter_mask = 7
+asset_key = "prism_minus_45"
+
+[sub_resource type="Resource" id="Placement_minus_b"]
+script = ExtResource("4_wqfp0")
+placement_id = "minus_prism_b"
+piece = SubResource("Piece_minus_b")
+grid_position = Vector2i(3, 3)
+locked = false
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(3, 3)
+
+[sub_resource type="Resource" id="Piece_glass"]
+script = ExtResource("3_ujhpg")
+piece_id = "glass_block"
+display_name = "Glass Block"
+piece_type = 10
+size = Vector2i(1, 1)
+move_axis = 3
+is_draggable = false
+filter_mask = 7
+asset_key = "glass_block"
+
+[sub_resource type="Resource" id="Placement_glass_0"]
+script = ExtResource("4_wqfp0")
+placement_id = "glass_0"
+piece = SubResource("Piece_glass")
+grid_position = Vector2i(3, 0)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Placement_glass_1"]
+script = ExtResource("4_wqfp0")
+placement_id = "glass_1"
+piece = SubResource("Piece_glass")
+grid_position = Vector2i(1, 1)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Placement_glass_2"]
+script = ExtResource("4_wqfp0")
+placement_id = "glass_2"
+piece = SubResource("Piece_glass")
+grid_position = Vector2i(2, 2)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Placement_glass_3"]
+script = ExtResource("4_wqfp0")
+placement_id = "glass_3"
+piece = SubResource("Piece_glass")
+grid_position = Vector2i(0, 3)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="Placement_glass_4"]
+script = ExtResource("4_wqfp0")
+placement_id = "glass_4"
+piece = SubResource("Piece_glass")
+grid_position = Vector2i(2, 4)
+locked = true
+allowed_cells = Array[Vector2i]([])
+solution_position = Vector2i(-1, -1)
+
+[sub_resource type="Resource" id="LightPortData_source"]
+script = ExtResource("2_w4t6j")
+port_id = "source_left_y0"
+kind = 0
+cell = Vector2i(0, 0)
+direction = 0
+color_mask = 7
+requires_exact_color = true
+
+[resource]
+script = ExtResource("1_aebny")
+puzzle_id = "green_dual_filter_chain"
+title = "Green Dual Filter Chain"
+board_size = Vector2i(5, 5)
+sources = Array[ExtResource("2_w4t6j")]([SubResource("LightPortData_source")])
+exits = Array[ExtResource("2_w4t6j")]([SubResource("LightPortData_exit")])
+placements = Array[ExtResource("4_wqfp0")]([SubResource("Placement_yellow_filter"), SubResource("Placement_plus"), SubResource("Placement_minus_a"), SubResource("Placement_backslash"), SubResource("Placement_green_filter"), SubResource("Placement_minus_b"), SubResource("Placement_glass_0"), SubResource("Placement_glass_1"), SubResource("Placement_glass_2"), SubResource("Placement_glass_3"), SubResource("Placement_glass_4")])
+max_beam_steps = 64
+solved_event_name = ""
+designer_notes = "White light is narrowed by a yellow filter, then green is isolated late in the route. The exit requires exact SE direction and exact green color."

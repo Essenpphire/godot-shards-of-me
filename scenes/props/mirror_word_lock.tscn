@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=3 uid="uid://bilwq8el1gch"]
+
+[ext_resource type="Script" uid="uid://dlirb7jh2hs2g" path="res://scenes/props/mirror_word_lock.gd" id="1_fvtf6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n8pmq"]
+line_spacing = -18.0
+font_size = 116
+font_color = Color(0.17, 0.08, 0.08, 0.93)
+outline_size = 3
+outline_color = Color(0.95, 0.87, 0.72, 0.55)
+
+[node name="MirrorWordLock" type="Node2D"]
+script = ExtResource("1_fvtf6")
+
+[node name="Composition" type="Node2D" parent="."]
+
+[node name="MirrorShadow" type="Polygon2D" parent="Composition"]
+color = Color(0, 0, 0, 0.2)
+
+[node name="OutsideShadow" type="Polygon2D" parent="Composition"]
+color = Color(0, 0, 0, 0.16)
+
+[node name="MirrorBack" type="Polygon2D" parent="Composition"]
+color = Color(0.16, 0.21, 0.28, 0.84)
+
+[node name="ReflectionSprite" type="Sprite2D" parent="Composition"]
+modulate = Color(0.82, 0.9, 1, 0.96)
+
+[node name="OutsideSliceSprite" type="Sprite2D" parent="Composition"]
+
+[node name="FrameTop" type="Polygon2D" parent="Composition"]
+color = Color(0.33, 0.26, 0.21, 1)
+
+[node name="FrameBottom" type="Polygon2D" parent="Composition"]
+color = Color(0.24, 0.18, 0.14, 1)
+
+[node name="FrameLeft" type="Polygon2D" parent="Composition"]
+color = Color(0.29, 0.23, 0.18, 1)
+
+[node name="FrameRight" type="Polygon2D" parent="Composition"]
+color = Color(0.18, 0.13, 0.11, 1)
+
+[node name="OutsideFrame" type="Polygon2D" parent="Composition"]
+color = Color(1, 1, 1, 0.12)
+
+[node name="SeamLine" type="Line2D" parent="Composition"]
+width = 2.0
+default_color = Color(1, 0.95, 0.83, 0.22)
+
+[node name="SourceViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1024, 256)
+render_target_update_mode = 4
+
+[node name="WallCanvas" type="Control" parent="SourceViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="ColorRect" parent="SourceViewport/WallCanvas"]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 256.0
+color = Color(0.83, 0.77, 0.66, 1)
+
+[node name="BandTop" type="ColorRect" parent="SourceViewport/WallCanvas"]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 20.0
+color = Color(0.55, 0.5, 0.43, 0.22)
+
+[node name="BandBottom" type="ColorRect" parent="SourceViewport/WallCanvas"]
+layout_mode = 0
+offset_top = 214.0
+offset_right = 1024.0
+offset_bottom = 232.0
+color = Color(0.48, 0.42, 0.35, 0.26)
+
+[node name="WordLabel" type="Label" parent="SourceViewport/WallCanvas"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 26.0
+offset_right = 912.0
+offset_bottom = 230.0
+text = "SPEAK
+THE NAME"
+label_settings = SubResource("LabelSettings_n8pmq")
+horizontal_alignment = 1
+vertical_alignment = 1

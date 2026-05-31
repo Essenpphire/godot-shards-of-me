@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dmxm3bgdaxn48"
+path="res://.godot/imported/BGM02-The Interior.ogg-51cb43de7236b9524a23d8cf4c7d54aa.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audios/BGM02-The Interior.ogg"
+dest_files=["res://.godot/imported/BGM02-The Interior.ogg-51cb43de7236b9524a23d8cf4c7d54aa.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

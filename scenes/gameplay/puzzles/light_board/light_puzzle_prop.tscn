@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmluywkk37moj"]
+
+[ext_resource type="Script" uid="uid://sney5huorkln" path="res://scenes/gameplay/puzzles/light_board/light_puzzle_prop.gd" id="1_5pfyk"]
+[ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="2_7gdbq"]
+[ext_resource type="Texture2D" uid="uid://ckx6neogulned" path="res://assets/images/puzzle/world_prop_light_board_idle.png" id="3_0xw0t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5e0ln"]
+radius = 54.6717
+
+[node name="LightPuzzleProp" type="StaticBody2D"]
+script = ExtResource("1_5pfyk")
+
+[node name="Hint" parent="." instance=ExtResource("2_7gdbq")]
+offset_left = -10.0
+offset_top = -75.0
+offset_right = 30.0
+offset_bottom = -35.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(511, 269)
+texture = ExtResource("3_0xw0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource("CircleShape2D_5e0ln")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]

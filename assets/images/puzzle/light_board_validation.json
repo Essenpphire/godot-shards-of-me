@@ -1,0 +1,32 @@
+[
+    {
+        "file": "piece_plane_mirror_horizontal.png",
+        "width": 512,
+        "height": 512,
+        "transparent_required": true,
+        "transparent_pixels": 125783,
+        "partial_pixels": 2063,
+        "total_pixels": 262144,
+        "corner_alpha": [
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    {
+        "file": "piece_plane_mirror_vertical.png",
+        "width": 512,
+        "height": 512,
+        "transparent_required": true,
+        "transparent_pixels": 139473,
+        "partial_pixels": 1007,
+        "total_pixels": 262144,
+        "corner_alpha": [
+            0,
+            0,
+            0,
+            0
+        ]
+    }
+]

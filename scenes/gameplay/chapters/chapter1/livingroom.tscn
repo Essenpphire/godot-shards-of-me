@@ -13,7 +13,7 @@ size = Vector2(2000, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
 
-[node name="Gameplay" instance=ExtResource("1_617d8")]
+[node name="Gameplay2" instance=ExtResource("1_617d8")]
 
 [node name="WallBg4" type="Sprite2D" parent="Background" index="0"]
 position = Vector2(2068, 131)
@@ -49,7 +49,7 @@ position = Vector2(2294, 267)
 shape = SubResource("RectangleShape2D_hv1rg")
 
 [node name="WallLeftCollidor2" parent="Background" index="9" instance=ExtResource("4_bagmg")]
-position = Vector2(2201, 465)
+position = Vector2(2132, 452)
 rotation = 1.02974
 shape = SubResource("RectangleShape2D_lrrqo")
 

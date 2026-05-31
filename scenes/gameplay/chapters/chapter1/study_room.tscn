@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
 
-[node name="Gameplay" instance=ExtResource("1_g1ev2")]
+[node name="Gameplay2" instance=ExtResource("1_g1ev2")]
 
 [node name="StudyRoomFlatBackgroundV3" type="Sprite2D" parent="Background" index="0"]
 position = Vector2(1829.61, 137.04)
@@ -75,6 +75,6 @@ layout_mode = 1
 anchors_preset = 15
 
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(176, 207.9)
+position = Vector2(320, 378)
 
 [editable path="Sortables/BedRoomDoor"]

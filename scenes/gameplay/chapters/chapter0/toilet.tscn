@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://qdrkdqengp66" path="res://assets/images/backgrounds/bg_toilet_2.png" id="2_my34f"]
 [ext_resource type="PackedScene" uid="uid://csycuuybc442e" path="res://scenes/props/prop_template.tscn" id="3_31mqc"]
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="3_w56c3"]
-[ext_resource type="Script" uid="uid://cx33m7ncjr8fu" path="res://scenes/props/prop_mirror.gd" id="4_ram7m"]
+[ext_resource type="Script" path="res://scenes/props/prop_mirror.gd" id="4_ram7m"]
 [ext_resource type="Texture2D" uid="uid://cgnwrkllt1gsu" path="res://assets/images/items/note_0.png" id="5_80haw"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="5_di770"]
 [ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="5_ekcvj"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_ekcvj"]
-[ext_resource type="Script" uid="uid://cj0gqx7trpqn2" path="res://scenes/gameplay/chapters/chapter0/toilet_scene_director.gd" id="9_ram7m"]
+[ext_resource type="Script" path="res://scenes/gameplay/chapters/chapter0/toilet_scene_director.gd" id="9_ram7m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
@@ -110,6 +110,9 @@ position = Vector2(0, 0)
 [node name="PlayerPhantomCamera2D" parent="Sortables/Player" index="3"]
 position = Vector2(185, 471)
 tween_resource = SubResource("Resource_80haw")
+
+[node name="Camera2D" parent="." index="6"]
+position = Vector2(320, 378)
 
 [node name="CameraTargets" type="Node2D" parent="." index="7"]
 

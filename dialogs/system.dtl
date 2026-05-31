@@ -1,3 +1,6 @@
 label no_use
 该线索无法使用。
 [end_timeline]
+label door_locked
+门被锁住了。
+[end_timeline]

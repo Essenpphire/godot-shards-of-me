@@ -1,41 +1,70 @@
 label get_up
-join ye_li center
-ye_li: *哈欠*
-ye_li: 嗯……？
-ye_li: 这张纸条，是什么？
+if {chapter1.intro_played} == false:
+	join ye_li center
+	do GameManager.lock_player_control(true)
+	ye_li: *哈欠*
+	ye_li: 嗯……？
+	ye_li: 这张纸条，是什么？
+	do GameManager.lock_player_control(false)
+	[clear time="1.0"]
+set {chapter1.intro_played} = true
 [end_timeline]
-# 若玩家尝试直接离开房间，出现独白“先看看床头柜上是什么吧”
-label check_prompt
-ye_li: (先看看床头柜上是什么吧)
+label start
+do GameManager.lock_player_control(false)
+
+label leave_bedroom_before_note
+li: 先看看床头柜上是什么吧
+
+label read_note
+do GameManager.lock_player_control(true)
+“我们有事出门一趟，你在家照顾好自己”
+ye_li: 看来是把门反锁了
+ye_li: 但是我想出去一趟来着
+ye_li: 去找找钥匙在哪吧
+do GameManager.lock_player_control(false)
 [end_timeline]
-# 拿到药瓶后才能和旁边的说明书互动
-label find_pill
+
+label get_medicine
+do GameManager.lock_player_control(true)
 ye_li: 嗯……
-[end_timeline]
-label find_paper
+
+label read_instruction
 ye_li: 怪事，怎么看不清
+do GameManager.lock_player_control(false)
 [end_timeline]
-# 玩家开始自由行动和解密
-# 解开浴室或者书房谜题后
-label solve_01
-ye_li: 这句话缺了几个字？……莫名其妙
+label bathroom_clue_found
+# 浴室线索
+if Chapter.get_data("collected_clues", []).has("7"):
+	ye_li: 是不是能拼一起？
+	ye_li: 合一块好像是……
+	ye_li: “在厨房的壁橱里”？
+	li: 去看看吧
+	set {chapter1.combined_clue} = true
+else:
+	ye_li: 这句话缺了几个字？……莫名其妙
 [end_timeline]
-# 两者都解开
-label slove_02
-ye_li: 是不是能拼一起？合一块好像是……“在厨房的壁橱里”？
-ye_li: 去看看吧
-[end_timeline]
-# 拿到厨房的小盒子并开始尝试解谜时
-label find_box
+
+label study_clue_found
+if {chapter1.bathroom_clue} == true:
+	ye_li: 是不是能拼一起？
+	ye_li: 合一块好像是……
+	ye_li: “在厨房的壁橱里”？
+	ye_li: 去看看吧
+	set {chapter1.combined_clue} = true
+else:
+	ye_li: 这句话缺了几个字？……莫名其妙
+
+label kitchen_box_start
 ye_li: 机关？
 ye_li: ……
-[end_timeline]
-# 解开厨房谜题拿到钥匙
-label slove_03
-ye_li: 呼，终于解开了
-ye_li: 走吧，我该走了，该走了
-[end_timeline]
-# 直接出门
-label unsolve
+set {chapter1.box_taken} = true
+
+label door_without_key
 ye_li: ……我出不去。
-[end_timeline]
+
+label get_key
+ye_li: 走吧，我该走了，该走了
+set {chapter1.key_taken} = true
+
+label door_with_key
+ye_li: ……

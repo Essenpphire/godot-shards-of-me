@@ -30,7 +30,7 @@ func _on_use_btn_pressed() -> void:
 			var s: String = Chapter.cur_scene
 			if s.contains("_inside"):
 				s = "chapter0/classroom"
-			Chapter.change_scene(s, 10)
+			Chapter.change_scene(s, 30)
 			## 第一次回到表世界
 			#Chapter.set_data("first_back", true)
 		"_":

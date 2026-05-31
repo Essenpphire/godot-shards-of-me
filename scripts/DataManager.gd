@@ -105,10 +105,5 @@ func has_save() -> bool:
 func delete_save() -> Error:
 	if not Dialogic.is_node_ready():
 		await Dialogic.ready
-	if not Dialogic.Save.has_slot(SLOT_NAME):
-		Chapter.cur_scene = ""
-		Chapter.chapter_data.clear()
-		ClueManager.clear_clues()
-		ClueManager.clear_inventory()
-		return OK
+	Dialogic.VAR.reset()
 	return Dialogic.Save.delete_slot(SLOT_NAME)

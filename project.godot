@@ -46,6 +46,7 @@ directories/dch_directory={
 directories/dtl_directory={
 "chapter0": "res://dialogs/chapter0.dtl",
 "chapter1": "res://dialogs/chapter1.dtl",
+"chapter2": "res://dialogs/chapter2.dtl",
 "endings": "res://dialogs/endings.dtl",
 "system": "res://dialogs/system.dtl"
 }
@@ -60,6 +61,9 @@ variables={
 "chapter0": {
 "cutin_played": false,
 "test_str": "baka"
+},
+"chapter1": {
+"intro_played": false
 }
 }
 extensions_folder="res://addons/dialogic_additions"

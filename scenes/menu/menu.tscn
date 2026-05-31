@@ -1,13 +1,11 @@
 [gd_scene load_steps=12 format=3 uid="uid://c2gocuhw2o7py"]
 
+[ext_resource type="AudioStream" uid="uid://j3ccs1hnocse" path="res://assets/audios/BGM00-StartScene.ogg" id="2_r8yej"]
 [ext_resource type="Texture2D" uid="uid://bpf1lcv3c3isu" path="res://assets/images/backgrounds/旧资产/classroom.png" id="2_y1o0p"]
 [ext_resource type="Script" uid="uid://dfnwymtygg1to" path="res://scenes/menu/game_version.gd" id="4_3hod2"]
 [ext_resource type="Script" uid="uid://cvc42inud8fxx" path="res://scenes/menu/menu.gd" id="5"]
 [ext_resource type="Script" uid="uid://baky6bgu7psf2" path="res://scenes/menu/godot_version.gd" id="5_fdyjp"]
 [ext_resource type="FontFile" uid="uid://cj7ntfjwc0y02" path="res://assets/fonts/纳米点宋.ttf" id="6_cnfont"]
-
-[sub_resource type="Resource" id="Resource_y1o0p"]
-metadata/__load_path__ = "res://assets/audios/BGM00-StartScene.wav"
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7uqf1"]
 particle_flag_disable_z = true
@@ -65,7 +63,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5")
-menu_bgm = SubResource("Resource_y1o0p")
+menu_bgm = ExtResource("2_r8yej")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

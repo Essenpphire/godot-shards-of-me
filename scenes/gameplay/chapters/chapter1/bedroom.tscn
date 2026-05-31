@@ -1,15 +1,23 @@
-[gd_scene load_steps=6 format=4 uid="uid://bmyqcyqptngrq"]
+[gd_scene load_steps=14 format=4 uid="uid://bmyqcyqptngrq"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_vtnsi"]
 [ext_resource type="Texture2D" uid="uid://bc4r2sf1r0bth" path="res://assets/images/backgrounds/次卧/ChatGPT_Image_2026年5月30日_19_10_40.png" id="2_5wjsr"]
 [ext_resource type="Texture2D" uid="uid://guxc01xptmxd" path="res://assets/images/backgrounds/次卧/wall_bedroom.png" id="3_5wjsr"]
+[ext_resource type="Texture2D" uid="uid://ptrj13eks1g3" path="res://assets/images/backgrounds/次卧/Gemini_Generated_Image_dnssj3dnssj3dnss.png" id="3_ud4ay"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="4_f7fd0"]
+[ext_resource type="PackedScene" uid="uid://d1yhy8r0qookj" path="res://scenes/props/prop_locked_door.tscn" id="5_a0hpe"]
 [ext_resource type="Texture2D" uid="uid://blirxb7xn2luq" path="res://assets/images/backgrounds/bg_hallway_2_door.png" id="5_sy1jl"]
+[ext_resource type="Script" uid="uid://be2rvveuqe4tp" path="res://scenes/props/prop_locked_door.gd" id="6_6ybea"]
+[ext_resource type="Script" uid="uid://de0b3drivxfqd" path="res://scenes/gameplay/chapters/chapter1/scene_director_bedrpp,.gd" id="6_l17rv"]
+[ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="6_rhvxx"]
+[ext_resource type="Texture2D" uid="uid://cddw7wmbkxkrn" path="res://assets/images/items/note_1.png" id="7_04lje"]
+[ext_resource type="Texture2D" uid="uid://c25ynwilgsaoi" path="res://assets/images/items/pill_bottle.png" id="9_bw71u"]
+[ext_resource type="Texture2D" uid="uid://bm3ga803kmycn" path="res://assets/images/items/pill_instruction.png" id="10_a0hpe"]
 
 [node name="Gameplay" instance=ExtResource("1_vtnsi")]
 
 [node name="FloorTile" parent="Background" index="0"]
-tile_map_data = PackedByteArray("AAAEAA4AAwAAAAUAAAADAA0AAwAAAAUAAAACAAwAAwAAAAUAAAABAAsAAwAAAAUAAAAAAAoAAwAAAAUAAAD//wkAAwAAAAUAAAD+/wgAAwAAAAUAAAD9/wcAAwAAAAUAAAD8/wcAAwAAAAUAAAD9/wgAAwAAAAUAAAD+/wkAAwAAAAUAAAD//woAAwAAAAUAAAAAAAsAAwAAAAUAAAABAAwAAwAAAAUAAAACAA0AAwAAAAUAAAADAA4AAwAAAAUAAAACAA4AAwAAAAUAAAABAA0AAwAAAAUAAAAAAAwAAwAAAAUAAAD//wsAAwAAAAUAAAD+/woAAwAAAAUAAAD9/wkAAwAAAAUAAAD8/wgAAwAAAAUAAAD7/wcAAwAAAAUAAAD6/wcAAwAAAAUAAAD7/wgAAwAAAAUAAAD8/wkAAwAAAAUAAAD9/woAAwAAAAUAAAD+/wsAAwAAAAUAAAD//wwAAwAAAAUAAAAAAA0AAwAAAAUAAAABAA4AAwAAAAUAAAAAAA4AAwAAAAUAAAD//w0AAwAAAAUAAAD+/wwAAwAAAAUAAAD9/wsAAwAAAAUAAAD8/woAAwAAAAUAAAD7/wkAAwAAAAUAAAD6/wgAAwAAAAUAAAD5/wcAAwAAAAUAAAD4/wcAAwAAAAUAAAD5/wgAAwAAAAUAAAD6/wkAAwAAAAUAAAD7/woAAwAAAAUAAAD8/wsAAwAAAAUAAAD9/wwAAwAAAAUAAAD+/w0AAwAAAAUAAAD//w4AAwAAAAUAAAD+/w4AAwAAAAUAAAD9/w0AAwAAAAUAAAD8/wwAAwAAAAUAAAD7/wsAAwAAAAUAAAD6/woAAwAAAAUAAAD5/wkAAwAAAAUAAAD4/wgAAwAAAAUAAAD3/wcAAwAAAAUAAAD//w8AAwAAAAUAAAAAAA8AAwAAAAUAAAABAA8AAwAAAAUAAAACAA8AAwAAAAUAAAADAA8AAwAAAAUAAAAEAA8AAwAAAAUAAAAFAA8AAwAAAAUAAAAGABAAAwAAAAUAAAAFABAAAwAAAAUAAAAEABAAAwAAAAUAAAADABAAAwAAAAUAAAACABAAAwAAAAUAAAABABAAAwAAAAUAAAAAABAAAwAAAAUAAAABABEAAwAAAAUAAAACABEAAwAAAAUAAAADABEAAwAAAAUAAAAEABEAAwAAAAUAAAAFABEAAwAAAAUAAAAGABEAAwAAAAUAAAAHABEAAwAAAAUAAAACABIAAwAAAAUAAAADABIAAwAAAAUAAAAEABIAAwAAAAUAAAAFABIAAwAAAAUAAAAGABIAAwAAAAUAAAAHABIAAwAAAAUAAAAIABIAAwAAAAUAAAA=")
+tile_map_data = PackedByteArray("AAAEAA4AAwAAAAUAAAADAA0AAwAAAAUAAAACAAwAAwAAAAUAAAABAAsAAwAAAAUAAAAAAAoAAwAAAAUAAAD//wkAAwAAAAUAAAD+/wgAAwAAAAUAAAD9/wcAAwAAAAUAAAD8/wcAAwAAAAUAAAD9/wgAAwAAAAUAAAD+/wkAAwAAAAUAAAD//woAAwAAAAUAAAAAAAsAAwAAAAUAAAABAAwAAwAAAAUAAAACAA0AAwAAAAUAAAADAA4AAwAAAAUAAAACAA4AAwAAAAUAAAABAA0AAwAAAAUAAAAAAAwAAwAAAAUAAAD//wsAAwAAAAUAAAD+/woAAwAAAAUAAAD9/wkAAwAAAAUAAAD8/wgAAwAAAAUAAAD7/wcAAwAAAAUAAAD6/wcAAwAAAAUAAAD7/wgAAwAAAAUAAAD8/wkAAwAAAAUAAAD9/woAAwAAAAUAAAD+/wsAAwAAAAUAAAD//wwAAwAAAAUAAAAAAA0AAwAAAAUAAAABAA4AAwAAAAUAAAAAAA4AAwAAAAUAAAD//w0AAwAAAAUAAAD+/wwAAwAAAAUAAAD9/wsAAwAAAAUAAAD8/woAAwAAAAUAAAD7/wkAAwAAAAUAAAD6/wgAAwAAAAUAAAD5/wcAAwAAAAUAAAD4/wcAAwAAAAUAAAD5/wgAAwAAAAUAAAD6/wkAAwAAAAUAAAD7/woAAwAAAAUAAAD8/wsAAwAAAAUAAAD9/wwAAwAAAAUAAAD+/w0AAwAAAAUAAAD//w4AAwAAAAUAAAD+/w4AAwAAAAUAAAD9/w0AAwAAAAUAAAD8/wwAAwAAAAUAAAD7/wsAAwAAAAUAAAD6/woAAwAAAAUAAAD5/wkAAwAAAAUAAAD4/wgAAwAAAAUAAAD3/wcAAwAAAAUAAAD//w8AAwAAAAUAAAAAAA8AAwAAAAUAAAABAA8AAwAAAAUAAAACAA8AAwAAAAUAAAADAA8AAwAAAAUAAAAEAA8AAwAAAAUAAAAFAA8AAwAAAAUAAAAGABAAAwAAAAUAAAAFABAAAwAAAAUAAAAEABAAAwAAAAUAAAADABAAAwAAAAUAAAACABAAAwAAAAUAAAABABAAAwAAAAUAAAAAABAAAwAAAAUAAAABABEAAwAAAAUAAAACABEAAwAAAAUAAAADABEAAwAAAAUAAAAEABEAAwAAAAUAAAAFABEAAwAAAAUAAAAGABEAAwAAAAUAAAAHABEAAwAAAAUAAAACABIAAwAAAAUAAAADABIAAwAAAAUAAAAEABIAAwAAAAUAAAAFABIAAwAAAAUAAAAGABIAAwAAAAUAAAAHABIAAwAAAAUAAAAIABIAAwAAAAUAAAAJABMAAwAAAAUAAAAIABMAAwAAAAUAAAAHABMAAwAAAAUAAAAGABMAAwAAAAUAAAAFABMAAwAAAAUAAAAEABMAAwAAAAUAAAADABMAAwAAAAUAAAAEABQAAwAAAAUAAAAFABQAAwAAAAUAAAAGABQAAwAAAAUAAAAHABQAAwAAAAUAAAAIABQAAwAAAAUAAAAJABQAAwAAAAUAAAAKABQAAwAAAAUAAAAFABUAAwAAAAUAAAAGABUAAwAAAAUAAAAHABUAAwAAAAUAAAAIABUAAwAAAAUAAAAJABUAAwAAAAUAAAAKABUAAwAAAAUAAAALABUAAwAAAAUAAAAGABYAAwAAAAUAAAAHABYAAwAAAAUAAAAIABYAAwAAAAUAAAAJABYAAwAAAAUAAAAKABYAAwAAAAUAAAALABYAAwAAAAUAAAAMABYAAwAAAAUAAAA=")
 
 [node name="WallBg" parent="Background" index="1"]
 z_index = -1
@@ -17,23 +25,38 @@ position = Vector2(806, 203)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_5wjsr")
 
-[node name="WallLeft" parent="Background" index="2"]
+[node name="WallBg2" type="Sprite2D" parent="Background" index="2"]
+z_index = -1
+position = Vector2(1805, 203)
+scale = Vector2(0.73, 0.735)
+texture = ExtResource("3_ud4ay")
+
+[node name="WallLeft" parent="Background" index="3"]
 position = Vector2(17, 305)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_5wjsr")
 
-[node name="WallBgCollidor" parent="Background" index="3"]
+[node name="WallBgCollidor" parent="Background" index="4"]
 position = Vector2(1288, 272)
 
-[node name="WallLeftCollidor" parent="Background" index="4"]
+[node name="WallLeftCollidor" parent="Background" index="5"]
 position = Vector2(21, 435)
 
-[node name="LivingRoomDoor" parent="Sortables" index="0" instance=ExtResource("4_f7fd0")]
+[node name="LockedLivingDoorProp" parent="Sortables" index="0" instance=ExtResource("5_a0hpe")]
+position = Vector2(849, 531)
+scale = Vector2(1, 1)
+script = ExtResource("6_6ybea")
+required_key_id = "6"
+next_scene = "chapter1/livingroom"
+next_pos = Vector2(0, 0)
+room_name = "测试"
+
+[node name="LivingRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_f7fd0")]
 position = Vector2(446, 500)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/livingroom"
 next_pos = Vector2(185, 471)
-room_name = "客厅（应该被锁）"
+room_name = "客厅"
 
 [node name="Sprite2D" parent="Sortables/LivingRoomDoor" index="1"]
 texture = ExtResource("5_sy1jl")
@@ -42,14 +65,63 @@ texture = ExtResource("5_sy1jl")
 layout_mode = 1
 anchors_preset = 15
 
-[node name="StudyRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_f7fd0")]
-position = Vector2(1168, 500)
+[node name="StudyRoomDoor" parent="Sortables" index="2" instance=ExtResource("4_f7fd0")]
+position = Vector2(1328, 500)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/study_room"
 next_pos = Vector2(185, 471)
 room_name = "书房"
 
+[node name="Player" parent="Sortables" index="3"]
+position = Vector2(999, 384)
+
+[node name="NoteItem" parent="Sortables" index="4" instance=ExtResource("6_rhvxx")]
+position = Vector2(1093, 284)
+item_id = "3"
+oneshot = true
+interact_dialog_chapter = "chapter1"
+interact_dialog_label = "read_note"
+
+[node name="Sprite2D" parent="Sortables/NoteItem" index="1"]
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("7_04lje")
+
+[node name="PillItem" parent="Sortables" index="5" instance=ExtResource("6_rhvxx")]
+position = Vector2(653, 355)
+item_id = "4"
+oneshot = true
+
+[node name="Hint" parent="Sortables/PillItem" index="0"]
+visible = true
+offset_left = -12.0
+offset_top = -64.0
+offset_right = 28.0
+offset_bottom = -24.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" parent="Sortables/PillItem" index="1"]
+rotation = -1.16937
+scale = Vector2(0.005, 0.005)
+texture = ExtResource("9_bw71u")
+
+[node name="PillInstructionItem" parent="Sortables" index="6" instance=ExtResource("6_rhvxx")]
+position = Vector2(157, 520)
+item_id = "5"
+oneshot = true
+interact_dialog_chapter = "chapter1"
+interact_dialog_label = "get_medicine"
+
+[node name="Sprite2D" parent="Sortables/PillInstructionItem" index="1"]
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("10_a0hpe")
+
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(320, 378)
+position = Vector2(999, 378)
+
+[node name="SceneDirector" type="Node" parent="." index="5"]
+script = ExtResource("6_l17rv")
 
 [editable path="Sortables/LivingRoomDoor"]
+[editable path="Sortables/NoteItem"]
+[editable path="Sortables/PillItem"]
+[editable path="Sortables/PillInstructionItem"]

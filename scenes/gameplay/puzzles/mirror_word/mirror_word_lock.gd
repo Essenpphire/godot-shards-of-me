@@ -1,90 +1,80 @@
 class_name MirrorWordLock
 extends Node2D
 
-signal mirror_locked
-
 @export_group("Player Tracking")
 @export var tracked_player_path: NodePath
-@export_range(-4096.0, 4096.0, 1.0) var lock_player_world_x: float = 0.0
-@export_range(1.0, 512.0, 1.0) var lock_window_width: float = 36.0
-@export_range(0.0, 2048.0, 1.0, "suffix:px") var reflection_move_range_px: float = 180.0
 @export var find_player_in_group: bool = true
+@export var reveal_world_point: Vector2 = Vector2.ZERO
+@export_range(0.0, 512.0, 1.0, "suffix:px") var full_alpha_distance: float = 24.0
+@export_range(1.0, 2048.0, 1.0, "suffix:px") var fade_distance: float = 260.0
 
 @export_group("Mirror Layout")
 @export var mirror_view_size: Vector2 = Vector2(260.0, 180.0)
-@export var outside_view_size: Vector2 = Vector2(116.0, 180.0)
-@export_range(0.0, 128.0, 1.0) var mirror_outside_gap: float = 0.0
-@export_range(4.0, 40.0, 1.0) var mirror_frame_thickness: float = 12.0
 
 @export_group("Content")
 @export var mirror_texture: Texture2D
-@export var outside_texture: Texture2D
 @export var fallback_texture_size: Vector2i = Vector2i(1024, 256)
-@export_range(0.0, 1024.0, 1.0) var source_region_y: float = 24.0
-@export_range(0.0, 1024.0, 1.0) var aligned_mirror_source_x: float = 392.0
-@export_range(0.0, 1024.0, 1.0) var outside_source_origin_x: float = 260.0
-@export var auto_align_same_origin_images: bool = true
+@export var source_region_position: Vector2 = Vector2.ZERO
 @export var fallback_text: String = "SPEAK\nTHE NAME"
 
+@export_group("Reveal")
+@export_range(0.0, 1.0, 0.01) var hidden_alpha: float = 0.0
+@export_range(0.0, 1.0, 0.01) var shown_alpha: float = 1.0
+@export_range(0.0, 1.0, 0.01) var clue_collect_alpha_threshold: float = 0.9
+@export var revealed_clue_id: String = ""
+
 @export_group("State")
-@export var starts_already_locked: bool = false
+@export var starts_already_collected: bool = false
 
 @onready var reflection_sprite: Sprite2D = $Composition/ReflectionSprite
-@onready var outside_slice_sprite: Sprite2D = $Composition/OutsideSliceSprite
 @onready var mirror_back: Polygon2D = $Composition/MirrorBack
 @onready var mirror_shadow: Polygon2D = $Composition/MirrorShadow
-@onready var outer_shadow: Polygon2D = $Composition/OutsideShadow
-@onready var frame_top: Polygon2D = $Composition/FrameTop
-@onready var frame_bottom: Polygon2D = $Composition/FrameBottom
-@onready var frame_left: Polygon2D = $Composition/FrameLeft
-@onready var frame_right: Polygon2D = $Composition/FrameRight
-@onready var seam_line: Line2D = $Composition/SeamLine
-@onready var outside_frame: Polygon2D = $Composition/OutsideFrame
 @onready var source_viewport: SubViewport = $SourceViewport
 @onready var source_back: ColorRect = $SourceViewport/WallCanvas/Back
 @onready var source_label: Label = $SourceViewport/WallCanvas/WordLabel
 @onready var source_band_top: ColorRect = $SourceViewport/WallCanvas/BandTop
 @onready var source_band_bottom: ColorRect = $SourceViewport/WallCanvas/BandBottom
+@onready var collect_hint: Panel = get_node_or_null("Hint")
 
 var _player: Node2D
-var _locked: bool = false
-var _resolved_reflection_texture: Texture2D
-var _resolved_outside_texture: Texture2D
+var _collected: bool = false
+var _hint_active: bool = false
+var _current_alpha: float = 0.0
 
 
 func _ready() -> void:
-	_locked = starts_already_locked
+	_collected = starts_already_collected
 	_player = _resolve_player()
 	_configure_source_texture()
 	_configure_geometry()
-	_update_mirror_from_player(true)
+	_update_reveal_alpha()
+	if collect_hint != null:
+		collect_hint.hide()
 
 
 func _physics_process(_delta: float) -> void:
-	if _locked:
-		return
 	if not is_instance_valid(_player):
 		_player = _resolve_player()
-	if not is_instance_valid(_player):
-		return
-	_update_mirror_from_player(false)
+	_update_reveal_alpha()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("互动") and _can_collect_clue():
+		_collect_clue()
+		get_viewport().set_input_as_handled()
 
 
 func reset_lock() -> void:
-	_locked = false
-	_update_mirror_from_player(true)
+	_collected = false
+	_update_reveal_alpha()
 
 
 func force_lock() -> void:
-	if _locked:
-		return
-	_locked = true
-	_apply_reflection_x(_get_aligned_reflection_x())
-	mirror_locked.emit()
+	_collect_clue()
 
 
 func is_locked() -> bool:
-	return _locked
+	return _collected
 
 
 func _resolve_player() -> Node2D:
@@ -111,62 +101,35 @@ func _configure_source_texture() -> void:
 	source_label.text = fallback_text
 	source_label.size = Vector2(fallback_texture_size)
 
-	_resolved_reflection_texture = mirror_texture
-	if _resolved_reflection_texture == null:
-		_resolved_reflection_texture = reflection_sprite.texture
-	if _resolved_reflection_texture == null:
-		_resolved_reflection_texture = source_viewport.get_texture()
+	var resolved_texture := mirror_texture
+	if resolved_texture == null:
+		resolved_texture = reflection_sprite.texture
+	if resolved_texture == null:
+		resolved_texture = source_viewport.get_texture()
 
-	_resolved_outside_texture = outside_texture
-	if _resolved_outside_texture == null:
-		_resolved_outside_texture = outside_slice_sprite.texture
-	if _resolved_outside_texture == null:
-		_resolved_outside_texture = _resolved_reflection_texture
-	reflection_sprite.texture = _resolved_reflection_texture
-	outside_slice_sprite.texture = _resolved_outside_texture
-
+	reflection_sprite.texture = resolved_texture
 	reflection_sprite.region_enabled = true
 	reflection_sprite.centered = false
-	outside_slice_sprite.region_enabled = true
-	outside_slice_sprite.centered = false
+
+	var region_pos := source_region_position
+	if region_pos == Vector2.ZERO and resolved_texture != null:
+		var tex_size := resolved_texture.get_size()
+		if tex_size.x > mirror_view_size.x or tex_size.y > mirror_view_size.y:
+			region_pos = (tex_size - mirror_view_size) / 2.0
+
+	reflection_sprite.region_rect = Rect2(region_pos, mirror_view_size)
 
 
 func _configure_geometry() -> void:
 	var mirror_rect := Rect2(Vector2.ZERO, mirror_view_size)
-	var outside_rect := Rect2(Vector2(mirror_view_size.x + mirror_outside_gap, 0.0), outside_view_size)
-
 	reflection_sprite.position = mirror_rect.position
-	outside_slice_sprite.position = outside_rect.position
 
-	mirror_back.polygon = PackedVector2Array([
-		mirror_rect.position,
-		Vector2(mirror_rect.end.x, mirror_rect.position.y),
-		mirror_rect.end,
-		Vector2(mirror_rect.position.x, mirror_rect.end.y)
-	])
-
+	mirror_back.polygon = _rect_polygon(mirror_rect)
 	mirror_shadow.polygon = PackedVector2Array([
 		Vector2(14.0, mirror_rect.end.y + 10.0),
 		Vector2(mirror_rect.end.x + 22.0, mirror_rect.end.y + 6.0),
 		Vector2(mirror_rect.end.x + 40.0, mirror_rect.end.y + 26.0),
 		Vector2(28.0, mirror_rect.end.y + 36.0)
-	])
-
-	outer_shadow.polygon = PackedVector2Array([
-		Vector2(outside_rect.position.x + 8.0, outside_rect.end.y + 8.0),
-		Vector2(outside_rect.end.x + 16.0, outside_rect.end.y + 4.0),
-		Vector2(outside_rect.end.x + 28.0, outside_rect.end.y + 18.0),
-		Vector2(outside_rect.position.x + 18.0, outside_rect.end.y + 24.0)
-	])
-
-	frame_top.polygon = _rect_polygon(Rect2(-mirror_frame_thickness, -mirror_frame_thickness, mirror_view_size.x + mirror_frame_thickness * 2.0, mirror_frame_thickness))
-	frame_bottom.polygon = _rect_polygon(Rect2(-mirror_frame_thickness, mirror_view_size.y, mirror_view_size.x + mirror_frame_thickness * 2.0, mirror_frame_thickness))
-	frame_left.polygon = _rect_polygon(Rect2(-mirror_frame_thickness, 0.0, mirror_frame_thickness, mirror_view_size.y))
-	frame_right.polygon = _rect_polygon(Rect2(mirror_view_size.x, 0.0, mirror_frame_thickness, mirror_view_size.y))
-	outside_frame.polygon = _rect_polygon(Rect2(outside_rect.position.x, outside_rect.position.y, outside_rect.size.x, outside_rect.size.y))
-	seam_line.points = PackedVector2Array([
-		Vector2(mirror_view_size.x + mirror_outside_gap * 0.5, 0.0),
-		Vector2(mirror_view_size.x + mirror_outside_gap * 0.5, maxf(mirror_view_size.y, outside_view_size.y))
 	])
 
 
@@ -179,97 +142,61 @@ func _rect_polygon(rect: Rect2) -> PackedVector2Array:
 	])
 
 
-func _update_mirror_from_player(force_refresh: bool) -> void:
-	if _locked and not force_refresh:
-		_apply_reflection_x(_get_aligned_reflection_x())
+func _update_reveal_alpha() -> void:
+	if not is_instance_valid(reflection_sprite):
 		return
 
-	var reflection_x := _get_aligned_reflection_x()
-	if is_instance_valid(_player):
-		var tracking_bounds := _get_tracking_bounds_x()
-		var tracked_player_x := clampf(_player.global_position.x, tracking_bounds.x, tracking_bounds.y)
-		var aligned_player_x := clampf(lock_player_world_x, tracking_bounds.x, tracking_bounds.y)
-		var tracked_ratio := inverse_lerp(tracking_bounds.x, tracking_bounds.y, tracked_player_x)
-		var aligned_ratio := inverse_lerp(tracking_bounds.x, tracking_bounds.y, aligned_player_x)
-		var offset_units := tracked_player_x - aligned_player_x
-		reflection_x = _get_aligned_reflection_x() + (tracked_ratio - aligned_ratio) * _get_effective_reflection_travel()
-
-		if absf(offset_units) <= lock_window_width * 0.5:
-			reflection_x = _get_aligned_reflection_x()
-			if not _locked:
-				_locked = true
-				mirror_locked.emit()
-
-	if force_refresh or not _locked:
-		_apply_reflection_x(reflection_x)
-	else:
-		_apply_reflection_x(_get_aligned_reflection_x())
+	_current_alpha = _calculate_alpha()
+	var color := reflection_sprite.modulate
+	color.a = _current_alpha
+	reflection_sprite.modulate = color
+	reflection_sprite.visible = _current_alpha > 0.01
+	_update_collect_hint()
 
 
-func _apply_reflection_x(reflection_x: float) -> void:
-	var reflection_region_x := _get_source_x_for_local_x(
-		reflection_x,
+func _calculate_alpha() -> float:
+	if not is_instance_valid(_player):
+		return hidden_alpha
+
+	var safe_fade_distance := maxf(fade_distance, full_alpha_distance + 1.0)
+	var distance := _player.global_position.distance_to(reveal_world_point)
+	var normalized := clampf(
+		1.0 - inverse_lerp(full_alpha_distance, safe_fade_distance, distance),
 		0.0,
-		mirror_view_size.x,
-		_get_texture_width(reflection_sprite.texture)
+		1.0
 	)
-	var outside_region_x := _get_source_x_for_local_x(
-		_get_aligned_reflection_x(),
-		_get_effective_outside_source_offset_x(),
-		outside_view_size.x,
-		_get_texture_width(outside_slice_sprite.texture)
-	)
-
-	reflection_sprite.region_rect = Rect2(reflection_region_x, source_region_y, mirror_view_size.x, mirror_view_size.y)
-	outside_slice_sprite.region_rect = Rect2(outside_region_x, source_region_y, outside_view_size.x, outside_view_size.y)
+	return lerpf(hidden_alpha, shown_alpha, smoothstep(0.0, 1.0, normalized))
 
 
-func _get_aligned_reflection_x() -> float:
-	if auto_align_same_origin_images and _textures_share_same_width():
-		var texture_width := _get_texture_width(reflection_sprite.texture)
-		var seam_source_x := texture_width - (_get_effective_outside_source_offset_x() + outside_view_size.x)
-		var max_reflection_x := maxf(0.0, texture_width - mirror_view_size.x)
-		return clampf(seam_source_x, 0.0, max_reflection_x)
-	return aligned_mirror_source_x
-
-
-func _get_tracking_bounds_x() -> Vector2:
-	var left_world_x := to_global(Vector2.ZERO).x
-	var right_world_x := to_global(Vector2(mirror_view_size.x, 0.0)).x
-	return Vector2(minf(left_world_x, right_world_x), maxf(left_world_x, right_world_x))
-
-
-func _get_source_x_for_local_x(source_origin_x: float, local_x: float, region_width: float, texture_width: float) -> float:
-	var max_region_x := maxf(0.0, texture_width - region_width)
-	return clampf(source_origin_x + local_x, 0.0, max_region_x)
-
-
-func _get_texture_width(texture: Texture2D) -> float:
-	if texture == null:
-		return fallback_texture_size.x
-	return texture.get_size().x
-
-
-func _get_effective_reflection_travel() -> float:
-	if auto_align_same_origin_images and _textures_share_same_width():
-		return _get_aligned_reflection_x()
-	return reflection_move_range_px
-
-
-func _get_effective_outside_source_offset_x() -> float:
-	if auto_align_same_origin_images and _textures_share_same_width():
-		return _get_outside_layout_offset_x()
-	return outside_source_origin_x
-
-
-func _textures_share_same_width() -> bool:
-	if reflection_sprite.texture == null or outside_slice_sprite.texture == null:
-		return false
-	return is_equal_approx(
-		_get_texture_width(reflection_sprite.texture),
-		_get_texture_width(outside_slice_sprite.texture)
+func _can_collect_clue() -> bool:
+	return (
+		not _collected
+		and not revealed_clue_id.is_empty()
+		and _current_alpha >= clue_collect_alpha_threshold
 	)
 
 
-func _get_outside_layout_offset_x() -> float:
-	return outside_slice_sprite.position.x - reflection_sprite.position.x
+func _collect_clue() -> void:
+	if _collected or revealed_clue_id.is_empty():
+		return
+
+	var clue_manager := get_node_or_null("/root/ClueManager")
+	if clue_manager != null and not clue_manager.get_clues().has(revealed_clue_id):
+		clue_manager.add_clue(revealed_clue_id)
+
+	_collected = true
+	_update_collect_hint()
+
+
+func _update_collect_hint() -> void:
+	if collect_hint == null:
+		return
+
+	var should_show := _can_collect_clue()
+	if should_show and not _hint_active:
+		collect_hint.show()
+		collect_hint.fade_in()
+		_hint_active = true
+	elif not should_show and _hint_active:
+		collect_hint.fade_out()
+		_hint_active = false

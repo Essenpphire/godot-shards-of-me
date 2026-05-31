@@ -42,7 +42,7 @@
 		"description": "经过棱镜折射后显示的模糊文字：“在██房██壁██里”"
 	},
 	"7": {
-		"texture": "shower_traces.png",
+		"texture": "res://assets/images/backgrounds/浴室/phrase2.png",
 		"name": "浴室墙上的痕迹",
 		"type": 1,
 		"description": "从镜子里看到的痕迹，组合后显示：“厨██的██橱”"

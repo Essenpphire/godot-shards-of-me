@@ -94,37 +94,29 @@
 
 这个场景的核心逻辑是：
 
-- 玩家在镜子 `x` 范围内移动时，镜内图像按规则偏移
-- 玩家到达对齐区间后，镜内图像锁定
-- 镜外右侧那块固定图像和镜内图像拼成完整内容
+- 只有镜内图像，没有镜外切片
+- 镜内图像透明度由玩家到某个世界坐标定点的距离决定
+- 透明度达到阈值后显示 E，按 E 收入线索书
 
 ### Player Tracking
 
 - `tracked_player_path`
   - 手动指定玩家节点。
   - 如果不填，脚本会尝试从 `Player` 组自动找。
-- `lock_player_world_x`
-  - 玩家走到哪个世界坐标 `x` 时，判定为“拼合完成”。
-  - 这是世界坐标，不是镜子局部坐标。
-- `lock_window_width`
-  - 锁定区间宽度。
-  - 玩家 `x` 落在这个窗口内，就会锁定镜面。
-  - 想要更严格的解谜体验，就调小。
-- `reflection_move_range_px`
-  - 镜内图像总共允许移动多远。
-  - 只在手动模式下有明显作用；若启用同尺寸自动对齐，脚本会优先使用自动推导值。
 - `find_player_in_group`
   - 是否自动从 `Player` 组找玩家。
+- `reveal_world_point`
+  - 显现定点的世界坐标。
+  - 玩家越靠近这个点，镜内内容越清晰。
+- `full_alpha_distance`
+  - 玩家距离定点小于等于这个值时，透明度达到最高。
+- `fade_distance`
+  - 玩家距离定点大于等于这个值时，透明度降到最低。
 
 ### Mirror Layout
 
 - `mirror_view_size`
   - 镜内显示区域宽高。
-- `outside_view_size`
-  - 镜外右侧那块“真墙面”显示区域宽高。
-  - 这会直接影响自动对齐计算。
-- `mirror_outside_gap`
-  - 镜内与镜外之间的间隔宽度。
 - `mirror_frame_thickness`
   - 镜框厚度。
 
@@ -132,84 +124,50 @@
 
 - `mirror_texture`
   - 镜内图使用的源图。
-- `outside_texture`
-  - 镜外右侧固定图使用的源图。
 - `fallback_texture_size`
   - 当没有手动指定图片、回退到内部 `Viewport` 演示图时使用的尺寸。
-- `source_region_y`
-  - 从源图的哪个 `y` 开始裁切。
-  - 源图上下没对齐时，优先调这个。
-- `aligned_mirror_source_x`
-  - 手动模式下，镜内图在“完全拼合”时的源图起点 `x`。
-- `outside_source_origin_x`
-  - 手动模式下，镜外右侧图相对公共原点的源图 `x` 偏移。
-- `auto_align_same_origin_images`
-  - 如果打开，并且镜内/镜外两张图宽度相同：
-  - 脚本会默认把两张图当作“同尺寸、同原点”的完整图。
-  - 自动推导镜内终点和镜外偏移。
-  - 优先用于“给两张同样大的图，只想让它自动拼起来”的场景。
+- `source_region_position`
+  - 镜内图从源图哪个坐标开始裁切。
+  - 留空(0,0)时，如果源图比 `mirror_view_size` 大，会自动取源图中心区域。
 - `fallback_text`
   - 仅用于内部演示图，不影响正式贴图。
 
+### Reveal
+
+- `hidden_alpha`
+  - 玩家远离定点时的最低透明度。
+- `shown_alpha`
+  - 玩家靠近定点时的最高透明度。
+- `clue_collect_alpha_threshold`
+  - 允许按 E 收集所需的透明度阈值。
+  - 默认 `0.9`，也就是 90%。
+- `revealed_clue_id`
+  - 透明度达标后按 E 收入线索书的线索 ID。
+
 ### State
 
-- `starts_already_locked`
-  - 初始是否已经解开并锁定。
+- `starts_already_collected`
+  - 初始是否已经收集。
   - 适合用在剧情后续场景，避免玩家重复解谜。
 
-### 推荐用法 A：两张同样大的完整图
+### 推荐调参顺序
 
-适用于：
-
-- 镜内图和镜外图尺寸完全相同
-- 两张图内容共用同一个绘制原点
-
-建议设置：
-
-1. 把图分别填到 `mirror_texture` 和 `outside_texture`
-2. 打开 `auto_align_same_origin_images`
-3. 先只调 `outside_view_size`
-4. 再调场景里镜外切片的位置和 `mirror_outside_gap`
-5. 最后用 `lock_player_world_x`、`lock_window_width` 控制解谜触发位置
-
-这时一般不需要手动调 `aligned_mirror_source_x` 和 `outside_source_origin_x`。
-
-### 推荐用法 B：手动对齐
-
-适用于：
-
-- 两张图不是同尺寸
-- 两张图不是同一个源图原点
-- 想精确控制镜内终点和镜外取样位置
-
-建议设置：
-
-1. 关闭 `auto_align_same_origin_images`
-2. 手动设置 `aligned_mirror_source_x`
-3. 手动设置 `outside_source_origin_x`
-4. 视需要调 `reflection_move_range_px`
+1. 先放好镜子场景位置
+2. 设置 `mirror_texture` 和 `mirror_view_size`
+3. 设置 `reveal_world_point`
+4. 调 `full_alpha_distance` 和 `fade_distance`
+5. 设置 `revealed_clue_id`
 
 ### 常见问题
 
-#### 镜子不跟玩家动
-
-优先检查：
+#### 镜子没有显现
 
 - `tracked_player_path` 是否填对
 - 玩家是否在 `Player` 组
-- 玩家是否真的进入了镜子 `x` 范围
+- `reveal_world_point` 是否填在玩家可到达的位置附近
+- `fade_distance` 是否太小
 
-#### 镜内外始终拼不上
+#### 已经能看见但不能按 E
 
-优先检查：
-
-1. `outside_view_size.x` 是否等于右侧真墙显示宽度
-2. 两张图是否真的是同尺寸、同原点
-3. 若不是，关闭 `auto_align_same_origin_images` 后手动调 `aligned_mirror_source_x` 和 `outside_source_origin_x`
-
-#### 玩家刚靠近就直接锁定
-
-优先检查：
-
-- `lock_player_world_x` 是否落在镜子有效范围内
-- `lock_window_width` 是否太大
+- `clue_collect_alpha_threshold` 是否高于当前透明度
+- `revealed_clue_id` 是否为空

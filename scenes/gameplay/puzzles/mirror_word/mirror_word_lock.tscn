@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bilwq8el1gch"]
+[gd_scene load_steps=4 format=3 uid="uid://bilwq8el1gch"]
 
 [ext_resource type="Script" uid="uid://b8imxvi226738" path="res://scenes/gameplay/puzzles/mirror_word/mirror_word_lock.gd" id="1_fvtf6"]
+[ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="2_hint"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n8pmq"]
 line_spacing = -18.0
@@ -12,40 +13,25 @@ outline_color = Color(0.95, 0.87, 0.72, 0.55)
 [node name="MirrorWordLock" type="Node2D"]
 script = ExtResource("1_fvtf6")
 
+[node name="Hint" parent="." instance=ExtResource("2_hint")]
+visible = false
+offset_left = 40.0
+offset_top = -66.0
+offset_right = 80.0
+offset_bottom = -26.0
+
 [node name="Composition" type="Node2D" parent="."]
 
 [node name="MirrorShadow" type="Polygon2D" parent="Composition"]
+visible = false
 color = Color(0, 0, 0, 0.2)
 
-[node name="OutsideShadow" type="Polygon2D" parent="Composition"]
-color = Color(0, 0, 0, 0.16)
-
 [node name="MirrorBack" type="Polygon2D" parent="Composition"]
+visible = false
 color = Color(0.16, 0.21, 0.28, 0.84)
 
 [node name="ReflectionSprite" type="Sprite2D" parent="Composition"]
-modulate = Color(0.82, 0.9, 1, 0.96)
-
-[node name="OutsideSliceSprite" type="Sprite2D" parent="Composition"]
-
-[node name="FrameTop" type="Polygon2D" parent="Composition"]
-color = Color(0.33, 0.26, 0.21, 1)
-
-[node name="FrameBottom" type="Polygon2D" parent="Composition"]
-color = Color(0.24, 0.18, 0.14, 1)
-
-[node name="FrameLeft" type="Polygon2D" parent="Composition"]
-color = Color(0.29, 0.23, 0.18, 1)
-
-[node name="FrameRight" type="Polygon2D" parent="Composition"]
-color = Color(0.18, 0.13, 0.11, 1)
-
-[node name="OutsideFrame" type="Polygon2D" parent="Composition"]
-color = Color(1, 1, 1, 0.12)
-
-[node name="SeamLine" type="Line2D" parent="Composition"]
-width = 2.0
-default_color = Color(1, 0.95, 0.83, 0.22)
+modulate = Color(0.82, 0.9, 1, 0)
 
 [node name="SourceViewport" type="SubViewport" parent="."]
 transparent_bg = true

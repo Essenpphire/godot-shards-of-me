@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://guxc01xptmxd" path="res://assets/images/backgrounds/次卧/wall_bedroom.png" id="3_5wjsr"]
 [ext_resource type="Texture2D" uid="uid://ptrj13eks1g3" path="res://assets/images/backgrounds/次卧/Gemini_Generated_Image_dnssj3dnssj3dnss.png" id="3_ud4ay"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="4_f7fd0"]
-[ext_resource type="PackedScene" uid="uid://d1yhy8r0qookj" path="res://scenes/props/prop_locked_door.tscn" id="5_a0hpe"]
+[ext_resource type="PackedScene" path="res://scenes/props/prop_locked_door.tscn" id="5_a0hpe"]
 [ext_resource type="Texture2D" uid="uid://blirxb7xn2luq" path="res://assets/images/backgrounds/bg_hallway_2_door.png" id="5_sy1jl"]
-[ext_resource type="Script" uid="uid://be2rvveuqe4tp" path="res://scenes/props/prop_locked_door.gd" id="6_6ybea"]
-[ext_resource type="Script" uid="uid://de0b3drivxfqd" path="res://scenes/gameplay/chapters/chapter1/scene_director_bedrpp,.gd" id="6_l17rv"]
+[ext_resource type="Script" path="res://scenes/props/prop_locked_door.gd" id="6_6ybea"]
+[ext_resource type="Script" path="res://scenes/gameplay/chapters/chapter1/scene_director_bedrpp,.gd" id="6_l17rv"]
 [ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="6_rhvxx"]
 [ext_resource type="Texture2D" uid="uid://cddw7wmbkxkrn" path="res://assets/images/items/note_1.png" id="7_04lje"]
 [ext_resource type="Texture2D" uid="uid://c25ynwilgsaoi" path="res://assets/images/items/pill_bottle.png" id="9_bw71u"]
@@ -43,8 +43,8 @@ position = Vector2(1288, 272)
 position = Vector2(21, 435)
 
 [node name="LockedLivingDoorProp" parent="Sortables" index="0" instance=ExtResource("5_a0hpe")]
-position = Vector2(849, 531)
-scale = Vector2(1, 1)
+position = Vector2(852, 496)
+scale = Vector2(1.4, 1.4)
 script = ExtResource("6_6ybea")
 required_key_id = "6"
 next_scene = "chapter1/livingroom"

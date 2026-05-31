@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgywg78rdsy65"]
-
-[ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_abud5"]
-
-[node name="Gameplay" instance=ExtResource("1_abud5")]

@@ -1,0 +1,8 @@
+label get_up
+join ye_li center
+ye_li: *哈欠*
+ye_li: 嗯……？
+ye_li: 这张纸条，是什么？
+[end_timeline]
+label find_pill
+ye_li: 嗯……

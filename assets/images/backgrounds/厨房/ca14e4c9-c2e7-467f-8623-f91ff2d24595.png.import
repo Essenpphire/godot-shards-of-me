@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xy3t20nn3cxe"
-path="res://.godot/imported/家门钥匙.png-1de54b42d86fad255fbb493755e7e2b6.ctex"
+uid="uid://wgyl5jr02dpv"
+path="res://.godot/imported/ca14e4c9-c2e7-467f-8623-f91ff2d24595.png-d55ec940dba91742b3dc9a84882db890.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/items/家门钥匙.png"
-dest_files=["res://.godot/imported/家门钥匙.png-1de54b42d86fad255fbb493755e7e2b6.ctex"]
+source_file="res://assets/images/backgrounds/厨房/ca14e4c9-c2e7-467f-8623-f91ff2d24595.png"
+dest_files=["res://.godot/imported/ca14e4c9-c2e7-467f-8623-f91ff2d24595.png-d55ec940dba91742b3dc9a84882db890.ctex"]
 
 [params]
 

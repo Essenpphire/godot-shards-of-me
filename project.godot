@@ -45,6 +45,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "chapter0": "res://dialogs/chapter0.dtl",
+"chapter1": "res://dialogs/chapter1.dtl",
 "endings": "res://dialogs/endings.dtl",
 "system": "res://dialogs/system.dtl"
 }

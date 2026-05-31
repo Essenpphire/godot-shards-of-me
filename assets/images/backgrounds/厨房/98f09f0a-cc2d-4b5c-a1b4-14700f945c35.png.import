@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xy3t20nn3cxe"
-path="res://.godot/imported/home_key.png-21d3695cd3229aa6706cbfcfb9ebc5a2.ctex"
+uid="uid://4q1y42lhrox6"
+path="res://.godot/imported/98f09f0a-cc2d-4b5c-a1b4-14700f945c35.png-372ed77a48f554034b5bb76d416ca4fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/items/home_key.png"
-dest_files=["res://.godot/imported/home_key.png-21d3695cd3229aa6706cbfcfb9ebc5a2.ctex"]
+source_file="res://assets/images/backgrounds/厨房/98f09f0a-cc2d-4b5c-a1b4-14700f945c35.png"
+dest_files=["res://.godot/imported/98f09f0a-cc2d-4b5c-a1b4-14700f945c35.png-372ed77a48f554034b5bb76d416ca4fe.ctex"]
 
 [params]
 

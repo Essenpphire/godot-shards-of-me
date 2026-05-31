@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xy3t20nn3cxe"
-path="res://.godot/imported/home_key.png-21d3695cd3229aa6706cbfcfb9ebc5a2.ctex"
+uid="uid://guxc01xptmxd"
+path="res://.godot/imported/wall_bedroom.png-8abc2db3044a0372965c70b72c482950.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/items/home_key.png"
-dest_files=["res://.godot/imported/home_key.png-21d3695cd3229aa6706cbfcfb9ebc5a2.ctex"]
+source_file="res://assets/images/backgrounds/次卧/wall_bedroom.png"
+dest_files=["res://.godot/imported/wall_bedroom.png-8abc2db3044a0372965c70b72c482950.ctex"]
 
 [params]
 

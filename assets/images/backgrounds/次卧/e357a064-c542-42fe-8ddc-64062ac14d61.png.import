@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm3ga803kmycn"
-path="res://.godot/imported/药品说明书.png-52d4f45cf38f59a51d2cb01225f1b1a4.ctex"
+uid="uid://cwxaguxnbfu2u"
+path="res://.godot/imported/e357a064-c542-42fe-8ddc-64062ac14d61.png-a94aff0169c8a5f35cf688a091edd198.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/items/药品说明书.png"
-dest_files=["res://.godot/imported/药品说明书.png-52d4f45cf38f59a51d2cb01225f1b1a4.ctex"]
+source_file="res://assets/images/backgrounds/次卧/e357a064-c542-42fe-8ddc-64062ac14d61.png"
+dest_files=["res://.godot/imported/e357a064-c542-42fe-8ddc-64062ac14d61.png-a94aff0169c8a5f35cf688a091edd198.ctex"]
 
 [params]
 

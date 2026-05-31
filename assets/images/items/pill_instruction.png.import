@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xy3t20nn3cxe"
-path="res://.godot/imported/home_key.png-21d3695cd3229aa6706cbfcfb9ebc5a2.ctex"
+uid="uid://bm3ga803kmycn"
+path="res://.godot/imported/pill_instruction.png-d504b40b2c8a4226ce5cd4214bff1c64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/items/home_key.png"
-dest_files=["res://.godot/imported/home_key.png-21d3695cd3229aa6706cbfcfb9ebc5a2.ctex"]
+source_file="res://assets/images/items/pill_instruction.png"
+dest_files=["res://.godot/imported/pill_instruction.png-d504b40b2c8a4226ce5cd4214bff1c64.ctex"]
 
 [params]
 

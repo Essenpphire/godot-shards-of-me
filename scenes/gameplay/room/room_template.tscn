@@ -40,11 +40,11 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_qmd80")
 
 [node name="WallBgCollidor" parent="Background" instance=ExtResource("5_dusiu")]
-position = Vector2(1288, 236)
+position = Vector2(1288, 265)
 shape = SubResource("RectangleShape2D_hv1rg")
 
 [node name="WallLeftCollidor" parent="Background" instance=ExtResource("5_dusiu")]
-position = Vector2(21, 398)
+position = Vector2(21, 429)
 rotation = 1.02974
 shape = SubResource("RectangleShape2D_lrrqo")
 

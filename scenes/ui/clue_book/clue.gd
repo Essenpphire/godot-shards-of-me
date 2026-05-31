@@ -50,6 +50,14 @@ func _gui_input(event: InputEvent) -> void:
 			action_menu.show()
 			info.hide()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not action_menu.visible:
+		return
+	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
+		action_menu.hide()
+		info.show()
+		get_viewport().set_input_as_handled()
+
 func _on_inspect_btn_pressed() -> void:
 	print("仔细查看: ", item_id)
 	UiLayer.get_node("ClueBook").hide()

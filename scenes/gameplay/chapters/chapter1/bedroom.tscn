@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=4 uid="uid://bmyqcyqptngrq"]
+
+[ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_vtnsi"]
+[ext_resource type="Texture2D" uid="uid://bc4r2sf1r0bth" path="res://assets/images/backgrounds/次卧/ChatGPT_Image_2026年5月30日_19_10_40.png" id="2_5wjsr"]
+[ext_resource type="Texture2D" uid="uid://guxc01xptmxd" path="res://assets/images/backgrounds/次卧/wall_bedroom.png" id="3_5wjsr"]
+[ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="4_f7fd0"]
+[ext_resource type="Texture2D" uid="uid://blirxb7xn2luq" path="res://assets/images/backgrounds/bg_hallway_2_door.png" id="5_sy1jl"]
+
+[node name="Gameplay" instance=ExtResource("1_vtnsi")]
+
+[node name="FloorTile" parent="Background" index="0"]
+tile_map_data = PackedByteArray("AAAEAA4AAwAAAAUAAAADAA0AAwAAAAUAAAACAAwAAwAAAAUAAAABAAsAAwAAAAUAAAAAAAoAAwAAAAUAAAD//wkAAwAAAAUAAAD+/wgAAwAAAAUAAAD9/wcAAwAAAAUAAAD8/wcAAwAAAAUAAAD9/wgAAwAAAAUAAAD+/wkAAwAAAAUAAAD//woAAwAAAAUAAAAAAAsAAwAAAAUAAAABAAwAAwAAAAUAAAACAA0AAwAAAAUAAAADAA4AAwAAAAUAAAACAA4AAwAAAAUAAAABAA0AAwAAAAUAAAAAAAwAAwAAAAUAAAD//wsAAwAAAAUAAAD+/woAAwAAAAUAAAD9/wkAAwAAAAUAAAD8/wgAAwAAAAUAAAD7/wcAAwAAAAUAAAD6/wcAAwAAAAUAAAD7/wgAAwAAAAUAAAD8/wkAAwAAAAUAAAD9/woAAwAAAAUAAAD+/wsAAwAAAAUAAAD//wwAAwAAAAUAAAAAAA0AAwAAAAUAAAABAA4AAwAAAAUAAAAAAA4AAwAAAAUAAAD//w0AAwAAAAUAAAD+/wwAAwAAAAUAAAD9/wsAAwAAAAUAAAD8/woAAwAAAAUAAAD7/wkAAwAAAAUAAAD6/wgAAwAAAAUAAAD5/wcAAwAAAAUAAAD4/wcAAwAAAAUAAAD5/wgAAwAAAAUAAAD6/wkAAwAAAAUAAAD7/woAAwAAAAUAAAD8/wsAAwAAAAUAAAD9/wwAAwAAAAUAAAD+/w0AAwAAAAUAAAD//w4AAwAAAAUAAAD+/w4AAwAAAAUAAAD9/w0AAwAAAAUAAAD8/wwAAwAAAAUAAAD7/wsAAwAAAAUAAAD6/woAAwAAAAUAAAD5/wkAAwAAAAUAAAD4/wgAAwAAAAUAAAD3/wcAAwAAAAUAAAD//w8AAwAAAAUAAAAAAA8AAwAAAAUAAAABAA8AAwAAAAUAAAACAA8AAwAAAAUAAAADAA8AAwAAAAUAAAAEAA8AAwAAAAUAAAAFAA8AAwAAAAUAAAAGABAAAwAAAAUAAAAFABAAAwAAAAUAAAAEABAAAwAAAAUAAAADABAAAwAAAAUAAAACABAAAwAAAAUAAAABABAAAwAAAAUAAAAAABAAAwAAAAUAAAABABEAAwAAAAUAAAACABEAAwAAAAUAAAADABEAAwAAAAUAAAAEABEAAwAAAAUAAAAFABEAAwAAAAUAAAAGABEAAwAAAAUAAAAHABEAAwAAAAUAAAACABIAAwAAAAUAAAADABIAAwAAAAUAAAAEABIAAwAAAAUAAAAFABIAAwAAAAUAAAAGABIAAwAAAAUAAAAHABIAAwAAAAUAAAAIABIAAwAAAAUAAAA=")
+
+[node name="WallBg" parent="Background" index="1"]
+z_index = -1
+position = Vector2(806, 203)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_5wjsr")
+
+[node name="WallLeft" parent="Background" index="2"]
+position = Vector2(17, 305)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_5wjsr")
+
+[node name="WallBgCollidor" parent="Background" index="3"]
+position = Vector2(1288, 272)
+
+[node name="WallLeftCollidor" parent="Background" index="4"]
+position = Vector2(21, 435)
+
+[node name="LivingRoomDoor" parent="Sortables" index="0" instance=ExtResource("4_f7fd0")]
+position = Vector2(446, 500)
+scale = Vector2(1.4, 1.4)
+next_scene = "chapter1/livingroom"
+next_pos = Vector2(185, 471)
+room_name = "客厅（应该被锁）"
+
+[node name="Sprite2D" parent="Sortables/LivingRoomDoor" index="1"]
+texture = ExtResource("5_sy1jl")
+
+[node name="Label" parent="Sortables/LivingRoomDoor/RoomHint" index="0"]
+layout_mode = 1
+anchors_preset = 15
+
+[node name="StudyRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_f7fd0")]
+position = Vector2(1168, 500)
+scale = Vector2(1.4, 1.4)
+next_scene = "chapter1/study_room"
+next_pos = Vector2(185, 471)
+room_name = "书房"
+
+[node name="Camera2D" parent="." index="4"]
+position = Vector2(320, 378)
+
+[editable path="Sortables/LivingRoomDoor"]

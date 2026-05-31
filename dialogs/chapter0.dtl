@@ -49,7 +49,6 @@ ouyang_ye: 密码不对……
 label code_succ
 咔哒——
 ouyang_ye: 打开了。
-do ClueManager.add_clue("2")
 （提示：将镜子碎片放在手上，点击快捷栏即可使用。）
 [end_timeline]
 

@@ -1,5 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckjelnlepu7js"]
+[gd_scene load_steps=3 format=3 uid="uid://ckjelnlepu7js"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_g1ev2"]
+[ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="2_nqaxo"]
 
 [node name="Gameplay" instance=ExtResource("1_g1ev2")]
+
+[node name="BedRoomDoor" parent="Sortables" index="0" instance=ExtResource("2_nqaxo")]
+position = Vector2(74, 310)
+scale = Vector2(1.4, 1.4)
+next_scene = "chapter1/bedroom"
+next_pos = Vector2(275, 556)
+room_name = "卧室"
+
+[node name="Sprite2D" parent="Sortables/BedRoomDoor" index="1"]
+texture = null
+
+[node name="CollisionShape2D" parent="Sortables/BedRoomDoor/Detection" index="0"]
+position = Vector2(-13.4286, 0)
+scale = Vector2(1, 1)
+
+[node name="Label" parent="Sortables/BedRoomDoor/RoomHint" index="0"]
+layout_mode = 1
+anchors_preset = 15
+
+[node name="LivingRoomDoor" parent="Sortables" index="1" instance=ExtResource("2_nqaxo")]
+position = Vector2(446, 492)
+scale = Vector2(1.4, 1.4)
+next_scene = "chapter1/livingroom"
+next_pos = Vector2(595, 575)
+room_name = "客厅"
+
+[editable path="Sortables/BedRoomDoor"]

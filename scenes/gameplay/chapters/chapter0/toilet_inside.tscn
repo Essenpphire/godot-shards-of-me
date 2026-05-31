@@ -69,6 +69,9 @@ next_pos = Vector2(1889, 456)
 
 [node name="Camera2D" parent="." index="7"]
 unique_name_in_owner = false
+limit_left = -10000000
+limit_top = -10000000
+limit_bottom = 10000000
 
 [editable path="mirror"]
 [editable path="DoorHw"]

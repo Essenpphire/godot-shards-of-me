@@ -40,11 +40,28 @@ func pause_hide():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("pause"):
+		# 让位：UI 弹层（物品详情 / 线索书 / 线索操作菜单）可见时，
+		# 把 ESC 优先交给它们关闭，自己不响应。
+		if _is_ui_overlay_active():
+			return
 		if get_tree().paused:
 			resume()
 		else:
 			pause_game()
 		get_viewport().set_input_as_handled()
+
+
+func _is_ui_overlay_active() -> bool:
+	var ui := get_node_or_null("/root/UiLayer")
+	if ui == null:
+		return false
+	var item_layer := ui.get_node_or_null("ItemLayer")
+	if item_layer != null and item_layer.visible:
+		return true
+	var clue_book := ui.get_node_or_null("ClueBook")
+	if clue_book != null and clue_book.visible:
+		return true
+	return false
 
 
 func resume():

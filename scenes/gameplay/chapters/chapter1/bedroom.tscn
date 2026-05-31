@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://bmyqcyqptngrq"]
+[gd_scene load_steps=17 format=4 uid="uid://bmyqcyqptngrq"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_vtnsi"]
 [ext_resource type="Texture2D" uid="uid://bc4r2sf1r0bth" path="res://assets/images/backgrounds/次卧/ChatGPT_Image_2026年5月30日_19_10_40.png" id="2_5wjsr"]
@@ -8,11 +8,19 @@
 [ext_resource type="PackedScene" path="res://scenes/props/prop_locked_door.tscn" id="5_a0hpe"]
 [ext_resource type="Texture2D" uid="uid://blirxb7xn2luq" path="res://assets/images/backgrounds/bg_hallway_2_door.png" id="5_sy1jl"]
 [ext_resource type="Script" path="res://scenes/props/prop_locked_door.gd" id="6_6ybea"]
-[ext_resource type="Script" path="res://scenes/gameplay/chapters/chapter1/scene_director_bedrpp,.gd" id="6_l17rv"]
+[ext_resource type="Script" uid="uid://de0b3drivxfqd" path="res://scenes/gameplay/chapters/chapter1/scene_director_bedrpp,.gd" id="6_l17rv"]
 [ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="6_rhvxx"]
 [ext_resource type="Texture2D" uid="uid://cddw7wmbkxkrn" path="res://assets/images/items/note_1.png" id="7_04lje"]
 [ext_resource type="Texture2D" uid="uid://c25ynwilgsaoi" path="res://assets/images/items/pill_bottle.png" id="9_bw71u"]
 [ext_resource type="Texture2D" uid="uid://bm3ga803kmycn" path="res://assets/images/items/pill_instruction.png" id="10_a0hpe"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_pcam"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_tween"]
+
+[sub_resource type="Resource" id="Resource_bed_intro"]
+script = ExtResource("12_tween")
+duration = 0.0
+transition = 0
+ease = 2
 
 [node name="Gameplay2" instance=ExtResource("1_vtnsi")]
 
@@ -42,8 +50,24 @@ position = Vector2(1288, 272)
 [node name="WallLeftCollidor" parent="Background" index="5"]
 position = Vector2(21, 435)
 
+[node name="IntroPanPcam" type="Node2D" parent="Cameras" index="0" node_paths=PackedStringArray("follow_target") groups=["Pcam"]]
+top_level = true
+position = Vector2(450, 378)
+script = ExtResource("11_pcam")
+follow_mode = 2
+follow_target = NodePath("../../CameraTargets/IntroStart")
+zoom = Vector2(1.2, 1.2)
+tween_resource = SubResource("Resource_bed_intro")
+tween_on_load = false
+draw_limits = true
+limit_left = -160
+limit_top = 0
+limit_bottom = 648
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
 [node name="LockedLivingDoorProp" parent="Sortables" index="0" instance=ExtResource("5_a0hpe")]
-position = Vector2(852, 496)
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(852, 550)
 scale = Vector2(1.4, 1.4)
 script = ExtResource("6_6ybea")
 required_key_id = "6"
@@ -55,7 +79,8 @@ required_clue_dialog_chapter = "chapter1"
 required_clue_dialog_label = "start"
 
 [node name="LivingRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_f7fd0")]
-position = Vector2(446, 500)
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(446, 550)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/livingroom"
 next_pos = Vector2(185, 471)
@@ -72,7 +97,8 @@ layout_mode = 1
 anchors_preset = 15
 
 [node name="StudyRoomDoor" parent="Sortables" index="2" instance=ExtResource("4_f7fd0")]
-position = Vector2(1328, 500)
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(1328, 550)
 scale = Vector2(1.4, 1.4)
 next_scene = "chapter1/study_room"
 next_pos = Vector2(185, 471)
@@ -137,6 +163,27 @@ position = Vector2(999, 378)
 
 [node name="SceneDirector" type="Node" parent="." index="5"]
 script = ExtResource("6_l17rv")
+
+[node name="CameraTargets" type="Node2D" parent="." index="6"]
+
+[node name="IntroStart" type="Marker2D" parent="CameraTargets" index="0"]
+position = Vector2(450, 378)
+
+[node name="IntroEnd" type="Marker2D" parent="CameraTargets" index="1"]
+position = Vector2(999, 384)
+
+[node name="IntroFadeLayer" type="CanvasLayer" parent="." index="7"]
+layer = 80
+
+[node name="Black" type="ColorRect" parent="IntroFadeLayer" index="0"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [editable path="Sortables/LivingRoomDoor"]
 [editable path="Sortables/NoteItem"]

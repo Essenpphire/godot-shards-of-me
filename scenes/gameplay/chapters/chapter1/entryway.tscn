@@ -66,6 +66,6 @@ next_scene = "chapter1/livingroom"
 modulate = Color(1, 1, 1, 0)
 
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(320, 378)
+position = Vector2(999, 378)
 
 [editable path="Sortables/LivingRoomDOor"]

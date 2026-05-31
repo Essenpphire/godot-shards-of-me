@@ -3,8 +3,10 @@ extends Node
 
 @export var bgm : AudioStream
 
+@export var startup_pcam_path: NodePath = ^"Sortables/Player/PlayerPhantomCamera2D"
+
 @onready var player: CharacterBody2D = $Sortables/Player
-@onready var player_camera: PhantomCamera2D = $Sortables/Player/PlayerPhantomCamera2D
+@onready var startup_camera: PhantomCamera2D = get_node(startup_pcam_path)
 @onready var main_camera: Camera2D = $Camera2D
 
 
@@ -39,11 +41,11 @@ func _prime_main_camera() -> void:
 	main_camera.make_current()
 	main_camera.offset = Vector2.ZERO
 
-	player_camera.teleport_position()
-	main_camera.global_transform = player_camera.get_transform_output()
-	main_camera.zoom = player_camera.zoom
-	main_camera.limit_left = player_camera.limit_left
-	main_camera.limit_top = player_camera.limit_top
-	main_camera.limit_right = player_camera.limit_right
-	main_camera.limit_bottom = player_camera.limit_bottom
+	startup_camera.teleport_position()
+	main_camera.global_transform = startup_camera.get_transform_output()
+	main_camera.zoom = startup_camera.zoom
+	main_camera.limit_left = startup_camera.limit_left
+	main_camera.limit_top = startup_camera.limit_top
+	main_camera.limit_right = startup_camera.limit_right
+	main_camera.limit_bottom = startup_camera.limit_bottom
 	main_camera.reset_physics_interpolation()

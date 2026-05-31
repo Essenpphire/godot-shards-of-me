@@ -14,7 +14,7 @@
 size = Vector2(2000, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
-size = Vector2(29, 651)
+size = Vector2(36.5486, 712.072)
 
 [node name="Gameplay" type="Node"]
 script = ExtResource("1_3j2p0")

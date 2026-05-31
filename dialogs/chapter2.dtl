@@ -1,0 +1,23 @@
+# 镜头从教室头推到教室尾、黑屏转场、走廊里世界和角色形象切换，建议由场景或导演脚本处理。
+# 玩家在走廊与小胖互动后调用：Dialogic.start("chapter2", "start")
+
+label start
+do GameManager.lock_player_control(true)
+胖: 离，你咋了
+夜: ……
+夜: 老毛病了……
+胖: 药呢
+夜: 吃着呢
+夜: 哎……
+胖: 走
+夜: ？
+胖: 请你喝水
+夜: 行，走吧
+离: ……
+旁白: 没人知道明天会怎样
+旁白: 也许明天会更好？也许明天会更坏？也许明天就是故事的终章？
+旁白: 我不知道，但，继续走下去吧，总有一天，总有一天
+旁白: 有些什么，会变得不同
+set {chapter2.pang_talked} = true
+set {chapter2.ending_seen} = true
+do GameManager.lock_player_control(false)

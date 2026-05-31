@@ -50,6 +50,7 @@ label code_succ
 咔哒——
 ouyang_ye: 打开了。
 （提示：将镜子碎片放在手上，点击快捷栏即可使用。）
+do ClueManager.add_clue("2")
 [end_timeline]
 
 
@@ -81,8 +82,16 @@ ouyang_ye: ……
 [end_timeline]
 
 label wash_face
-ouyang_ye: （洗脸）【san值回复到最大值】
+ouyang_ye: （洗脸）
+[wait time="1.0"]
+join ye_li center [wait="true"]
 ouyang_ye: 拿东西回家吧
+[clear time="1.0"]
+[background arg="#000000ff" fade="1.0" wait="true"]
+……
+do Chapter.change_scene("chapter1/bedroom")
+[clear time="1.0"]
+第二天
 [end_timeline]
 # 解锁：和镜子互动
 

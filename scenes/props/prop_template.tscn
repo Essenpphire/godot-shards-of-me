@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://csycuuybc442e"]
 
-[ext_resource type="Script" uid="uid://ctnx2vpyvbkxg" path="res://scenes/props/prop_template.gd" id="1_cvxq6"]
+[ext_resource type="Script" uid="uid://be2rvveuqe4tp" path="res://scenes/props/prop_locked_door.gd" id="1_cvxq6"]
 [ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="2_vo4tf"]
 [ext_resource type="Texture2D" uid="uid://dtwpm3uclaspj" path="res://assets/images/sprites/icon.png" id="3_xkotg"]
 

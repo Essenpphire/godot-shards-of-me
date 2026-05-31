@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cguopjp4146jh"]
+[gd_scene load_steps=17 format=4 uid="uid://cguopjp4146jh"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_0lwj5"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_8cj6l"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c0t1ykhh1p1ir" path="res://scenes/props/prop_desk.tscn" id="9_afu07"]
 [ext_resource type="PackedScene" uid="uid://b2iremvlh342a" path="res://scenes/props/prop_backpack.tscn" id="9_it5ba"]
 [ext_resource type="PackedScene" uid="uid://caikehdgduskc" path="res://scenes/props/prop_paper.tscn" id="11_v3bl4"]
+[ext_resource type="Script" uid="uid://ctnx2vpyvbkxg" path="res://scenes/props/prop_template.gd" id="12_it5ba"]
 [ext_resource type="Texture2D" uid="uid://6w7a6mfm880v" path="res://assets/images/sprites/fullbody_man.png" id="14_s0prt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
@@ -163,12 +164,15 @@ position = Vector2(950, 500)
 
 [node name="PaperProp" parent="Sortables/Papers" index="0" instance=ExtResource("11_v3bl4")]
 position = Vector2(561, 421)
+script = ExtResource("12_it5ba")
 
 [node name="PaperProp2" parent="Sortables/Papers" index="1" instance=ExtResource("11_v3bl4")]
 position = Vector2(178, 575)
+script = ExtResource("12_it5ba")
 
 [node name="PaperProp3" parent="Sortables/Papers" index="2" instance=ExtResource("11_v3bl4")]
 position = Vector2(1330, 455)
+script = ExtResource("12_it5ba")
 
 [node name="npc_group" type="Node2D" parent="Sortables" index="4"]
 visible = false
@@ -231,9 +235,6 @@ texture = ExtResource("14_s0prt")
 [node name="Camera2D" parent="." index="5"]
 unique_name_in_owner = false
 position = Vector2(416, 378)
-limit_left = -10000000
-limit_top = -10000000
-limit_bottom = 10000000
 
 [editable path="Sortables/DoorProp"]
 [editable path="Sortables/Player"]

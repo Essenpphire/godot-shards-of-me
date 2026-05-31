@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1yhy8r0qookj"]
+
+[ext_resource type="PackedScene" uid="uid://csycuuybc442e" path="res://scenes/props/prop_template.tscn" id="1_5e0ln"]
+[ext_resource type="Script" uid="uid://de04i67drxyan" path="res://scenes/props/prop_door.gd" id="1_yepiq"]
+[ext_resource type="Texture2D" uid="uid://co8vdwfw8fslx" path="res://assets/images/backgrounds/bg_hallway_1_door.png" id="3_8dmq6"]
+[ext_resource type="Theme" uid="uid://ducfept6pmkkm" path="res://resources/theme/theme-main.tres" id="4_theme"]
+[ext_resource type="Script" uid="uid://d1fbaf1tvkgwm" path="res://scenes/ui/key_hint.gd" id="5_hint"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4drsr"]
+size = Vector2(101.143, 256)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_room_hint"]
+bg_color = Color(0.1, 0.08, 0.18, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78, 0.78, 0.78, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="LockedDoorProp" instance=ExtResource("1_5e0ln")]
+z_index = 1
+script = ExtResource("1_yepiq")
+can_interact = true
+
+[node name="Hint" parent="." index="0"]
+physics_interpolation_mode = 0
+visible = true
+z_index = 1
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_8dmq6")
+
+[node name="CollisionShape2D" parent="." index="2"]
+rotation = -0.523599
+skew = 0.523599
+
+[node name="CollisionShape2D" parent="Detection" index="0"]
+shape = SubResource("RectangleShape2D_4drsr")
+
+[node name="RoomHint" type="Panel" parent="." index="4"]
+z_index = 2
+offset_left = -80.0
+offset_top = -120.0
+offset_right = 80.0
+offset_bottom = -80.0
+theme = ExtResource("4_theme")
+theme_override_styles/panel = SubResource("StyleBoxFlat_room_hint")
+script = ExtResource("5_hint")
+
+[node name="Label" type="Label" parent="RoomHint" index="0"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1

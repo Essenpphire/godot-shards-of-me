@@ -11,6 +11,9 @@ var player_control_locked: bool = false
 func wait(seconds: float) -> Signal:
 	return get_tree().create_timer(seconds).timeout
 
+func back_to_menu() -> void:
+	GGT.change_scene("res://scenes/menu/menu.tscn", {"show_progress_bar": false})
+
 ## 取当前玩家位置
 func get_player_pos() -> Vector2:
 	var players := get_tree().get_nodes_in_group("Player")

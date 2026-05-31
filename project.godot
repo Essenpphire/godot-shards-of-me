@@ -40,10 +40,12 @@ property_name=1
 
 directories/dch_directory={
 "ouyang_ye": "res://dialogs/ouyang_ye.dch",
+"pang": "res://dialogs/pang.dch",
 "ye_li": "res://dialogs/ye_li.dch"
 }
 directories/dtl_directory={
 "chapter0": "res://dialogs/chapter0.dtl",
+"endings": "res://dialogs/endings.dtl",
 "system": "res://dialogs/system.dtl"
 }
 layout/style_directory={

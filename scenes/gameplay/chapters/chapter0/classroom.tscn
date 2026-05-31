@@ -238,3 +238,6 @@ environment = SubResource("Environment_umphd")
 physics_interpolation_mode = 0
 position = Vector2(1000, 450)
 zoom = Vector2(1.7, 1.7)
+limit_left = -115
+limit_top = 80
+limit_right = 1378

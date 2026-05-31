@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpf70duce4gg1"]
+[gd_scene load_steps=3 format=3 uid="uid://cpf70duce4gg1"]
 
 [ext_resource type="PackedScene" uid="uid://kdta2bnt7h4a" path="res://scenes/ui/password_lock/password_lock.tscn" id="1_7tc7l"]
+[ext_resource type="Script" uid="uid://cccg46itcdpjm" path="res://scenes/ui/puzzle_layer.gd" id="1_jm5lr"]
 
 [node name="PuzzleLayer" type="CanvasLayer"]
+script = ExtResource("1_jm5lr")
 
 [node name="PasswordLock" parent="." instance=ExtResource("1_7tc7l")]
 unique_name_in_owner = true

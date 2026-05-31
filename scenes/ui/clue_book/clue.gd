@@ -70,6 +70,12 @@ func _on_inspect_btn_pressed() -> void:
 		"1":
 			UiLayer.get_node("ItemLayer").hide()
 			PuzzleLayer.get_node("PasswordLock").show()
+		"8":
+			# 机关小盒的“仔细查看”进入厨房光路谜题。
+			UiLayer.get_node("ItemLayer").hide()
+			action_menu.hide()
+			info.show()
+			PuzzleLayer.open_hard_02()
 		_:	
 			UiLayer.get_node("ItemLayer/ContentFull").hide()
 			UiLayer.get_node("ItemLayer/Content").show()

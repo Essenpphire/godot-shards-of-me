@@ -5,15 +5,12 @@ if {chapter1.intro_played} == false:
 	ye_li: *哈欠*
 	ye_li: 嗯……？
 	ye_li: 这张纸条，是什么？
+	do GameManager.lock_player_control(false)
 	[clear time="1.0"]
-do GameManager.lock_player_control(false)
 set {chapter1.intro_played} = true
 [end_timeline]
 label start
-do GameManager.lock_player_control(true)
-li: 先看看床头柜上是什么吧
 do GameManager.lock_player_control(false)
-[end_timeline]
 
 label leave_bedroom_before_note
 li: 先看看床头柜上是什么吧
@@ -29,15 +26,11 @@ do GameManager.lock_player_control(false)
 [end_timeline]
 
 label get_medicine
-do GameManager.lock_player_control(true)
 ye_li: 嗯……
-do GameManager.lock_player_control(false)
 [end_timeline]
 
 label read_instruction
-do GameManager.lock_player_control(true)
 ye_li: 怪事，怎么看不清
-do GameManager.lock_player_control(false)
 [end_timeline]
 label bathroom_clue_found
 # 浴室线索
@@ -65,13 +58,20 @@ label kitchen_box_start
 ye_li: 机关？
 ye_li: ……
 set {chapter1.box_taken} = true
+[end_timeline]
+label kitchen_box_solve
+ye_li: 呼，终于打开了
+[end_timeline]
 
 label door_without_key
 ye_li: ……我出不去。
+[end_timeline]
 
 label get_key
 ye_li: 走吧，我该走了，该走了
 set {chapter1.key_taken} = true
+[end_timeline]
 
 label door_with_key
 ye_li: ……
+[end_timeline]

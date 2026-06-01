@@ -64,8 +64,13 @@ variables={
 },
 "chapter1": {
 "box_taken": false,
+"combined_clues": false,
+"get_bath_clue": false,
+"get_study_clue": false,
 "intro_played": false,
-"key_taken": false
+"key_taken": false,
+"read_pill_instruction": false,
+"read_prism": false
 },
 "chapter2": {
 "ending_seen": false,

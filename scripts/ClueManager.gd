@@ -7,6 +7,13 @@ var inventory : Array[String] = []
 
 func _ready() -> void:
 	add_to_group("Persist")
+	## 超级拼装
+	Dialogic.signal_event.connect(func(arg):
+		if arg == "combine_clues":
+			remove_clue("6")
+			remove_clue("7")
+			add_clue("10")
+	)
 
 func save_data() -> Dictionary:
 	return {

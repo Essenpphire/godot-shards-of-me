@@ -4,3 +4,6 @@ label no_use
 label door_locked
 门被锁住了。
 [end_timeline]
+label take_pill
+ye_li: 我已经吃过药了，不能再吃了。
+[end_timeline]

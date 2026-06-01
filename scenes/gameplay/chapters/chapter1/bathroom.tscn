@@ -29,7 +29,11 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_l3ejn")
 offset = Vector2(-43.3333, 318.333)
 
+[node name="WallBgCollidor" parent="Background" index="3"]
+position = Vector2(1288, 268)
+
 [node name="WallLeftCollidor" parent="Background" index="4"]
+position = Vector2(21, 432)
 shape = SubResource("RectangleShape2D_lrrqo")
 
 [node name="WallLeftCollidor2" parent="Background" index="6" instance=ExtResource("4_r4exh")]
@@ -151,13 +155,6 @@ offset = Vector2(-43.3333, 318.333)
 region_enabled = true
 region_rect = Rect2(651.057, 268.723, 287.67, 365.482)
 
-[node name="MirrorWordLock" parent="Background" index="21" instance=ExtResource("5_4rf1x")]
-position = Vector2(486, 238)
-reveal_world_point = Vector2(500, 380)
-mirror_view_size = Vector2(120, 120)
-mirror_texture = ExtResource("6_su4ka")
-revealed_clue_id = "7"
-
 [node name="LivingRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_pj8qa")]
 position = Vector2(71, 332)
 scale = Vector2(1.4, 1.4)
@@ -174,6 +171,13 @@ position = Vector2(-13.4286, 0)
 [node name="Label" parent="Sortables/LivingRoomDoor/RoomHint" index="0"]
 layout_mode = 1
 anchors_preset = 15
+
+[node name="MirrorWordLock" parent="Sortables" index="2" instance=ExtResource("5_4rf1x")]
+position = Vector2(486, 238)
+reveal_world_point = Vector2(500, 380)
+mirror_view_size = Vector2(120, 120)
+mirror_texture = ExtResource("6_su4ka")
+revealed_clue_id = "7"
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)

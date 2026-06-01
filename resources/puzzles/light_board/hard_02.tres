@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LightPuzzleData" load_steps=43 format=3 uid="uid://cqovip3s0cwan"]
+[gd_resource type="Resource" script_class="LightPuzzleData" load_steps=43 format=3 uid="uid://cbs3d3wdbookh"]
 
 [ext_resource type="Script" uid="uid://cq5o6ta0feptu" path="res://scripts/puzzles/light_board/LightPortData.gd" id="1_qesre"]
 [ext_resource type="Script" uid="uid://dsg3qr8cqnlta" path="res://scripts/puzzles/light_board/LightPiecePlacement.gd" id="2_rya2a"]

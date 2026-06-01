@@ -10,3 +10,4 @@ func _ready() -> void:
 	EventBus.san_update.connect(func(san): 
 		san_label.text = "SAN:" + str(san)	
 	)
+	

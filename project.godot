@@ -14,7 +14,10 @@ config/name="shards-of-me"
 config/version="0.0.1"
 run/main_scene="res://scenes/menu/menu.tscn"
 config/features=PackedStringArray("4.4")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://dfwi1xlb3cald"
 config/icon="res://assets/images/sprites/icon.png"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 

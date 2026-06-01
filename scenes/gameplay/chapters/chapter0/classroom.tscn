@@ -127,7 +127,7 @@ next_scene = "chapter0/hallway"
 next_pos = Vector2(642, 431)
 
 [node name="Player" parent="Sortables" index="0"]
-position = Vector2(296, 435)
+position = Vector2(408, 399)
 scale = Vector2(1.4, 1.4)
 
 [node name="npc_group" type="Node2D" parent="Sortables" index="1"]
@@ -242,4 +242,3 @@ environment = SubResource("Environment_umphd")
 physics_interpolation_mode = 0
 position = Vector2(1000, 450)
 zoom = Vector2(1.7, 1.7)
-limit_right = 2260

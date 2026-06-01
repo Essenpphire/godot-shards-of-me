@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://jjbythngm52s"]
+[gd_scene load_steps=10 format=4 uid="uid://jjbythngm52s"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_4lpny"]
 [ext_resource type="Texture2D" uid="uid://6q4ngkdatymm" path="res://assets/images/backgrounds/厨房/e9eb4746-ce07-489a-883b-7ee3497ffa52.png" id="2_oe0xi"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="6_rffjy"]
 [ext_resource type="Script" uid="uid://t0kd8bkuh4ye" path="res://scenes/gameplay/chapters/chapter1/kitchen_director.gd" id="7_0wulh"]
 [ext_resource type="Texture2D" uid="uid://bva0mwi4mpjrf" path="res://assets/images/items/lockedbox.png" id="7_jhd8e"]
-[ext_resource type="Texture2D" uid="uid://xy3t20nn3cxe" path="res://assets/images/items/home_key.png" id="8_w73y8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
@@ -132,26 +131,11 @@ interact_dialog_label = "kitchen_box_start"
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("7_jhd8e")
 
-[node name="HomeKey" parent="Sortables" index="3" instance=ExtResource("6_rffjy")]
-position = Vector2(659, 388)
-item_id = "9"
-oneshot = true
-interact_dialog_chapter = "chapter1"
-interact_dialog_label = "get_key"
-
-[node name="Sprite2D" parent="Sortables/HomeKey" index="1"]
-position = Vector2(0, 6)
-rotation = 0.811578
-scale = Vector2(0.01, 0.01)
-texture = ExtResource("8_w73y8")
-
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(320, 378)
-limit_right = 2260
+position = Vector2(999, 378)
 
 [node name="KitchenDirector" type="Node" parent="." index="5"]
 script = ExtResource("7_0wulh")
 
 [editable path="Sortables/LivingRoomDoor"]
 [editable path="Sortables/LockedBox"]
-[editable path="Sortables/HomeKey"]

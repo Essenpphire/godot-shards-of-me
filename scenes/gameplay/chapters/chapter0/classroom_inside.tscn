@@ -231,7 +231,6 @@ texture = ExtResource("14_s0prt")
 [node name="Camera2D" parent="." index="5"]
 unique_name_in_owner = false
 position = Vector2(416, 378)
-limit_right = 2260
 
 [editable path="Sortables/DoorProp"]
 [editable path="Sortables/Player"]

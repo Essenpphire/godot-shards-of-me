@@ -5,5 +5,4 @@
 
 [node name="easy_01" instance=ExtResource("1_board")]
 puzzle_data = ExtResource("2_puzzle")
-pause_world_while_open = false
 open_on_ready = true

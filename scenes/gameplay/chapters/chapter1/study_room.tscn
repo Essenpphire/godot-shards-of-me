@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cvlbfmcthnr7j" path="res://assets/images/backgrounds/浴室/wall_bathroom.png" id="4_x4ua1"]
 [ext_resource type="PackedScene" uid="uid://bulewp0xprism" path="res://scenes/gameplay/puzzles/prism/prism_reveal.tscn" id="5_lfnu8"]
 [ext_resource type="Texture2D" uid="uid://dna58ulvc15n1" path="res://assets/images/backgrounds/书房/phrase1.png" id="6_hja1m"]
-[ext_resource type="Script" uid="uid://bds0e02lij35t" path="res://scenes/gameplay/chapters/chapter1/prism_hint.gd" id="8_bwwqp"]
+[ext_resource type="Script" path="res://scenes/gameplay/chapters/chapter1/prism_hint.gd" id="8_bwwqp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
@@ -97,9 +97,6 @@ position = Vector2(-13.4286, 0)
 [node name="Label" parent="Sortables/BedRoomDoor/RoomHint" index="0"]
 layout_mode = 1
 anchors_preset = 15
-
-[node name="Camera2D" parent="." index="4"]
-position = Vector2(320, 378)
 
 [node name="PrismHint" type="Area2D" parent="." index="5"]
 position = Vector2(304, -39)

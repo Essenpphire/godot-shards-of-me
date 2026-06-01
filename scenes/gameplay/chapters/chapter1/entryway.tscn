@@ -75,8 +75,5 @@ room_name = "客厅"
 [node name="Sprite2D" parent="Sortables/LivingRoomDOor" index="1"]
 modulate = Color(1, 1, 1, 0)
 
-[node name="Camera2D" parent="." index="4"]
-position = Vector2(320, 378)
-
 [editable path="Sortables/ExitDoor"]
 [editable path="Sortables/LivingRoomDOor"]

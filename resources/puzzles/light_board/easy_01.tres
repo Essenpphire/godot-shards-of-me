@@ -365,8 +365,8 @@ requires_exact_color = true
 
 [resource]
 script = ExtResource("4_gqwkc")
-puzzle_id = "new_light_puzzle"
-title = "新建光板谜题"
+puzzle_id = "easy_01"
+title = "厨房机关盒"
 board_size = Vector2i(5, 5)
 sources = Array[ExtResource("1_ve18b")]([SubResource("Resource_si2vj")])
 exits = Array[ExtResource("1_ve18b")]([SubResource("Resource_v6opy")])

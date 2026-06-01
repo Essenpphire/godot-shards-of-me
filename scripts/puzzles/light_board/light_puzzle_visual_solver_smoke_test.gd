@@ -9,6 +9,7 @@ func _init() -> void:
 	_expect_decoy_pieces_do_not_inflate_optical_count(failures)
 	_expect_duplicate_roles_do_not_inflate_optical_count(failures)
 	_expect_no_safe_parking_rejects_layout(failures)
+	_expect_enclosed_swap_is_rejected(failures)
 
 	if failures.is_empty():
 		print("Light puzzle visual solver smoke test passed.")
@@ -103,6 +104,34 @@ func _expect_no_safe_parking_rejects_layout(failures: Array[String]) -> void:
 		failures.append("no safe parking expected 0 layout solutions, got %d" % int(result.get("layout_solution_count", 0)))
 
 
+func _expect_enclosed_swap_is_rejected(failures: Array[String]) -> void:
+	var puzzle := LightPuzzleData.new()
+	puzzle.puzzle_id = "enclosed_swap_test"
+	puzzle.title = "Enclosed Swap Test"
+	puzzle.board_size = Vector2i(2, 2)
+	puzzle.max_beam_steps = 16
+	puzzle.sources = [_port("source_left_y1", LightPuzzleConstants.PortKind.SOURCE, Vector2i(0, 1), LightPuzzleConstants.Direction.E, LightPuzzleConstants.COLOR_WHITE)]
+	puzzle.exits = [_port("exit_top_x1", LightPuzzleConstants.PortKind.EXIT, Vector2i(1, 0), LightPuzzleConstants.Direction.N, LightPuzzleConstants.COLOR_RED)]
+	puzzle.placements = [
+		_placement("mirror_left", LightPuzzleConstants.PieceType.MIRROR_SLASH, Vector2i(0, 1), true),
+		_placement("red_right", LightPuzzleConstants.PieceType.FILTER_RED, Vector2i(1, 1), true),
+		_placement("lock_0_0", LightPuzzleConstants.PieceType.GLASS_BLOCK, Vector2i(0, 0), false),
+		_placement("lock_1_0", LightPuzzleConstants.PieceType.GLASS_BLOCK, Vector2i(1, 0), false),
+	]
+	var result := LightPuzzleVisualSolver.solve_visual(puzzle, 8, 5.0)
+	if int(result.get("layout_solution_count", 0)) != 0:
+		failures.append("enclosed swap expected 0 reachable visual layouts, got %d" % int(result.get("layout_solution_count", 0)))
+
+	var target_positions := []
+	for placement in puzzle.placements:
+		target_positions.append(placement.grid_position)
+	target_positions[0] = Vector2i(1, 1)
+	target_positions[1] = Vector2i(0, 1)
+	var reachability := LightPuzzleStateSolver.solve_to_positions(puzzle, target_positions, 64, 2.0)
+	if bool(reachability.get("target_reached", false)):
+		failures.append("enclosed swap target should not be reachable")
+
+
 func _expect_solution(label: String, result: Dictionary, failures: Array[String]) -> void:
 	if bool(result.get("truncated", false)):
 		failures.append("%s truncated: %s" % [label, str(result.get("truncated_reason", ""))])
@@ -114,14 +143,19 @@ func _expect_solution(label: String, result: Dictionary, failures: Array[String]
 		failures.append("%s expected first solution positions" % label)
 
 
-func _new_line_puzzle(placements: Array[LightPiecePlacement], board_size: Vector2i) -> LightPuzzleData:
+func _new_line_puzzle(
+	placements: Array[LightPiecePlacement],
+	board_size: Vector2i,
+	exit_color: int = LightPuzzleConstants.COLOR_GREEN,
+	row: int = 0
+) -> LightPuzzleData:
 	var puzzle := LightPuzzleData.new()
 	puzzle.puzzle_id = "visual_solver_test"
 	puzzle.title = "Visual Solver Test"
 	puzzle.board_size = board_size
 	puzzle.max_beam_steps = 32
-	puzzle.sources = [_port("source_left_y0", LightPuzzleConstants.PortKind.SOURCE, Vector2i(0, 0), LightPuzzleConstants.Direction.E, LightPuzzleConstants.COLOR_WHITE)]
-	puzzle.exits = [_port("exit_right_y0", LightPuzzleConstants.PortKind.EXIT, Vector2i(board_size.x - 1, 0), LightPuzzleConstants.Direction.E, LightPuzzleConstants.COLOR_GREEN)]
+	puzzle.sources = [_port("source_left_y%d" % row, LightPuzzleConstants.PortKind.SOURCE, Vector2i(0, row), LightPuzzleConstants.Direction.E, LightPuzzleConstants.COLOR_WHITE)]
+	puzzle.exits = [_port("exit_right_y%d" % row, LightPuzzleConstants.PortKind.EXIT, Vector2i(board_size.x - 1, row), LightPuzzleConstants.Direction.E, exit_color)]
 	puzzle.placements = placements
 	return puzzle
 

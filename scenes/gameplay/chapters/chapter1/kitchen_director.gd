@@ -1,6 +1,6 @@
 extends Node
 
-const HARD_02_PUZZLE_ID: String = "hard_02"
+const HARD_02_PUZZLE_ID: String = "easy_01"
 const SOLVED_HOLD_SECONDS: float = 2.0
 const COMPLETE_CLUE_ID: String = "10"
 const LOCKED_BOX_ITEM_ID: String = "8"

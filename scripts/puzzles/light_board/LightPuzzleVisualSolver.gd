@@ -4,6 +4,7 @@ extends RefCounted
 const DEFAULT_ROUTE_STATE_LIMIT: int = 50000
 const DEFAULT_ROUTE_CANDIDATE_LIMIT: int = 48
 const DEFAULT_LAYOUT_ATTEMPT_LIMIT: int = 256
+const DEFAULT_REACHABILITY_STATE_LIMIT: int = 250000
 const EMPTY_ROLE_KEY: String = "empty"
 
 
@@ -50,6 +51,7 @@ static func solve_visual(
 		var accumulator := {
 			"optical_keys": {},
 			"layout_keys": {},
+			"checked_layout_keys": {},
 			"sample_limit": max(1, max_solutions),
 			"layout_attempts": 0,
 		}
@@ -81,6 +83,7 @@ static func _default_result() -> Dictionary:
 		"optical_solution_count": 0,
 		"layout_solution_count": 0,
 		"first_solution_positions": [],
+		"first_solution_moves": [],
 		"first_solution_segments": [],
 		"active_piece_indices": [],
 		"unused_piece_indices": [],
@@ -889,11 +892,28 @@ static func _backtrack_parking(
 	if parking_index >= unused_indices.size():
 		accumulator["layout_attempts"] = int(accumulator.get("layout_attempts", 0)) + 1
 		var positions: Array = (state["positions"] as Array).duplicate()
+		var layout_key := _layout_solution_key(puzzle_data.placements, positions)
+		var checked_layout_keys: Dictionary = accumulator.get("checked_layout_keys", {})
+		if checked_layout_keys.has(layout_key):
+			return
+		checked_layout_keys[layout_key] = true
 		var runtime := _runtime_for_positions(puzzle_data.placements, positions)
 		var solved := LightBeamSolver.solve(puzzle_data, runtime)
 		if not bool(solved.get("solved", false)):
 			return
-		var layout_key := _layout_solution_key(puzzle_data.placements, positions)
+		var reachability := _verify_layout_reachable(puzzle_data, positions, started_msec, max_msec, result)
+		if bool(result.get("truncated", false)):
+			return
+		if not bool(reachability.get("target_reached", false)):
+			return
+		var output_positions: Array = reachability.get("first_solution_positions", [])
+		if output_positions.is_empty():
+			output_positions = positions
+		if output_positions != positions:
+			runtime = _runtime_for_positions(puzzle_data.placements, output_positions)
+			solved = LightBeamSolver.solve(puzzle_data, runtime)
+			if not bool(solved.get("solved", false)):
+				return
 		var layout_keys: Dictionary = accumulator["layout_keys"]
 		if layout_keys.has(layout_key):
 			return
@@ -904,14 +924,16 @@ static func _backtrack_parking(
 		var unused_copy := unused_indices.duplicate()
 		unused_copy.sort()
 		if (result.get("first_solution_positions", []) as Array).is_empty():
-			result["first_solution_positions"] = positions
+			result["first_solution_positions"] = output_positions
+			result["first_solution_moves"] = reachability.get("first_solution_moves", [])
 			result["first_solution_segments"] = solved.get("segments", [])
 			result["active_piece_indices"] = active_indices
 			result["unused_piece_indices"] = unused_copy
 			result["reasoning_steps"] = _reasoning_steps_for_routes(routes)
 		if (result.get("sample_solutions", []) as Array).size() < int(accumulator.get("sample_limit", 1)):
 			(result["sample_solutions"] as Array).append({
-				"positions": positions,
+				"positions": output_positions,
+				"moves": reachability.get("first_solution_moves", []),
 				"segments": solved.get("segments", []),
 				"active_piece_indices": active_indices,
 				"unused_piece_indices": unused_copy,
@@ -1333,6 +1355,35 @@ static func _runtime_for_positions(placements: Array, positions: Array) -> Array
 	return runtime
 
 
+static func _verify_layout_reachable(
+	puzzle_data: LightPuzzleData,
+	positions: Array,
+	started_msec: int,
+	max_msec: int,
+	result: Dictionary
+) -> Dictionary:
+	var remaining_seconds := 0.0
+	if max_msec > 0:
+		var elapsed_msec := Time.get_ticks_msec() - started_msec
+		var remaining_msec := max_msec - elapsed_msec
+		if remaining_msec <= 0:
+			result["truncated"] = true
+			result["truncated_reason"] = "time_limit"
+			return {"target_reached": false}
+		remaining_seconds = float(remaining_msec) / 1000.0
+	var reachability := LightPuzzleStateSolver.solve_to_positions(
+		puzzle_data,
+		positions,
+		DEFAULT_REACHABILITY_STATE_LIMIT,
+		remaining_seconds,
+		true
+	)
+	if bool(reachability.get("truncated", false)):
+		result["truncated"] = true
+		result["truncated_reason"] = "reachability_%s" % str(reachability.get("truncated_reason", "limit"))
+	return reachability
+
+
 static func _initial_positions(placements: Array) -> Array:
 	var positions: Array = []
 	for placement in placements:
@@ -1621,13 +1672,13 @@ static func _build_message(result: Dictionary) -> String:
 	if optical == 0:
 		return "No visual route found after visiting %d route states." % visited
 	if layouts == 0:
-		return "%d optical route(s) found, but no full layout can park the unused pieces safely." % optical
+		return "%d optical route(s) found, but no reachable full layout can park the unused pieces safely." % optical
 	if optical == 1:
-		return "Unique optical solution found with %d full layout(s) after visiting %d route states." % [
+		return "Unique optical solution found with %d reachable full layout(s) after visiting %d route states." % [
 			layouts,
 			visited,
 		]
-	return "%d optical solutions and %d full layout(s) found after visiting %d route states." % [
+	return "%d optical solutions and %d reachable full layout(s) found after visiting %d route states." % [
 		optical,
 		layouts,
 		visited,

@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dbkvbqfuk8n3f" path="res://assets/images/backgrounds/bg_hallway_inside.png" id="6_k5soo"]
 [ext_resource type="Texture2D" uid="uid://dvt4gdpa7vl3v" path="res://assets/images/backgrounds/wall_hl_3.png" id="7_re5nv"]
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="8_oxbub"]
-[ext_resource type="PackedScene" path="res://scenes/gameplay/npc/pang.tscn" id="9_ggxsu"]
+[ext_resource type="PackedScene" uid="uid://du4m0sm073id5" path="res://scenes/gameplay/npc/pang.tscn" id="9_ggxsu"]
 [ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="10_1j0il"]
 [ext_resource type="Script" uid="uid://cwdwbl7weyufp" path="res://scenes/gameplay/chapters/chapter2/pang_interact.gd" id="11_augl2"]
 

@@ -48,6 +48,6 @@ ye_li: ……
 我不知道，但，继续走下去吧，总有一天，总有一天……
 有些什么，会变得不同。
 [clear time="1.0" portraits="false" music="false" background="false" positions="false" style="false"]
-do Data.delete_save()
-do GameManager.back_to_menu()
+[background arg="#000000ff" fade="0.0"]
+do GGT.change_scene("res://scenes/arigato.tscn")
 [end_timeline]

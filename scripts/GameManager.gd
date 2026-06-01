@@ -8,6 +8,7 @@ const ChapterScenePath : String = "res://scenes/gameplay/chapters/"
 
 var player_control_locked: bool = false
 
+
 func wait(seconds: float) -> Signal:
 	return get_tree().create_timer(seconds).timeout
 
@@ -32,3 +33,15 @@ func lock_player_control(stat : bool = true) -> void:
 
 func is_player_control_locked() -> bool:
 	return player_control_locked
+
+# 全屏
+func _input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F11:
+		toggle_fullscreen()
+
+func toggle_fullscreen():
+	var window = get_window()
+	if window.mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+		window.mode = Window.MODE_WINDOWED
+	else:
+		window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN

@@ -5,9 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://guxc01xptmxd" path="res://assets/images/backgrounds/次卧/wall_bedroom.png" id="3_5wjsr"]
 [ext_resource type="Texture2D" uid="uid://ptrj13eks1g3" path="res://assets/images/backgrounds/次卧/Gemini_Generated_Image_dnssj3dnssj3dnss.png" id="3_ud4ay"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="4_f7fd0"]
-[ext_resource type="PackedScene" path="res://scenes/props/prop_locked_door.tscn" id="5_a0hpe"]
+[ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="5_sbnph"]
 [ext_resource type="Texture2D" uid="uid://blirxb7xn2luq" path="res://assets/images/backgrounds/bg_hallway_2_door.png" id="5_sy1jl"]
-[ext_resource type="Script" path="res://scenes/props/prop_locked_door.gd" id="6_6ybea"]
 [ext_resource type="Script" uid="uid://de0b3drivxfqd" path="res://scenes/gameplay/chapters/chapter1/scene_director_bedrpp,.gd" id="6_l17rv"]
 [ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="6_rhvxx"]
 [ext_resource type="Texture2D" uid="uid://cddw7wmbkxkrn" path="res://assets/images/items/note_1.png" id="7_04lje"]
@@ -19,13 +18,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2av"]
+size = Vector2(38, 410)
+
 [sub_resource type="Resource" id="Resource_bed_intro"]
 script = ExtResource("12_tween")
 duration = 0.0
 transition = 0
 ease = 2
 
-[node name="Gameplay3" instance=ExtResource("1_vtnsi")]
+[node name="Gameplay" instance=ExtResource("1_vtnsi")]
 
 [node name="FloorTile" parent="Background" index="0"]
 tile_map_data = PackedByteArray("AAAEAA4AAwAAAAUAAAADAA0AAwAAAAUAAAACAAwAAwAAAAUAAAABAAsAAwAAAAUAAAAAAAoAAwAAAAUAAAD//wkAAwAAAAUAAAD+/wgAAwAAAAUAAAD9/wcAAwAAAAUAAAD8/wcAAwAAAAUAAAD9/wgAAwAAAAUAAAD+/wkAAwAAAAUAAAD//woAAwAAAAUAAAAAAAsAAwAAAAUAAAABAAwAAwAAAAUAAAACAA0AAwAAAAUAAAADAA4AAwAAAAUAAAACAA4AAwAAAAUAAAABAA0AAwAAAAUAAAAAAAwAAwAAAAUAAAD//wsAAwAAAAUAAAD+/woAAwAAAAUAAAD9/wkAAwAAAAUAAAD8/wgAAwAAAAUAAAD7/wcAAwAAAAUAAAD6/wcAAwAAAAUAAAD7/wgAAwAAAAUAAAD8/wkAAwAAAAUAAAD9/woAAwAAAAUAAAD+/wsAAwAAAAUAAAD//wwAAwAAAAUAAAAAAA0AAwAAAAUAAAABAA4AAwAAAAUAAAAAAA4AAwAAAAUAAAD//w0AAwAAAAUAAAD+/wwAAwAAAAUAAAD9/wsAAwAAAAUAAAD8/woAAwAAAAUAAAD7/wkAAwAAAAUAAAD6/wgAAwAAAAUAAAD5/wcAAwAAAAUAAAD4/wcAAwAAAAUAAAD5/wgAAwAAAAUAAAD6/wkAAwAAAAUAAAD7/woAAwAAAAUAAAD8/wsAAwAAAAUAAAD9/wwAAwAAAAUAAAD+/w0AAwAAAAUAAAD//w4AAwAAAAUAAAD+/w4AAwAAAAUAAAD9/w0AAwAAAAUAAAD8/wwAAwAAAAUAAAD7/wsAAwAAAAUAAAD6/woAAwAAAAUAAAD5/wkAAwAAAAUAAAD4/wgAAwAAAAUAAAD3/wcAAwAAAAUAAAD//w8AAwAAAAUAAAAAAA8AAwAAAAUAAAABAA8AAwAAAAUAAAACAA8AAwAAAAUAAAADAA8AAwAAAAUAAAAEAA8AAwAAAAUAAAAFAA8AAwAAAAUAAAAGABAAAwAAAAUAAAAFABAAAwAAAAUAAAAEABAAAwAAAAUAAAADABAAAwAAAAUAAAACABAAAwAAAAUAAAABABAAAwAAAAUAAAAAABAAAwAAAAUAAAABABEAAwAAAAUAAAACABEAAwAAAAUAAAADABEAAwAAAAUAAAAEABEAAwAAAAUAAAAFABEAAwAAAAUAAAAGABEAAwAAAAUAAAAHABEAAwAAAAUAAAACABIAAwAAAAUAAAADABIAAwAAAAUAAAAEABIAAwAAAAUAAAAFABIAAwAAAAUAAAAGABIAAwAAAAUAAAAHABIAAwAAAAUAAAAIABIAAwAAAAUAAAAJABMAAwAAAAUAAAAIABMAAwAAAAUAAAAHABMAAwAAAAUAAAAGABMAAwAAAAUAAAAFABMAAwAAAAUAAAAEABMAAwAAAAUAAAADABMAAwAAAAUAAAAEABQAAwAAAAUAAAAFABQAAwAAAAUAAAAGABQAAwAAAAUAAAAHABQAAwAAAAUAAAAIABQAAwAAAAUAAAAJABQAAwAAAAUAAAAKABQAAwAAAAUAAAAFABUAAwAAAAUAAAAGABUAAwAAAAUAAAAHABUAAwAAAAUAAAAIABUAAwAAAAUAAAAJABUAAwAAAAUAAAAKABUAAwAAAAUAAAALABUAAwAAAAUAAAAGABYAAwAAAAUAAAAHABYAAwAAAAUAAAAIABYAAwAAAAUAAAAJABYAAwAAAAUAAAAKABYAAwAAAAUAAAALABYAAwAAAAUAAAAMABYAAwAAAAUAAAA=")
@@ -54,6 +56,10 @@ position = Vector2(1288, 272)
 position = Vector2(21, 435)
 shape = SubResource("RectangleShape2D_lrrqo")
 
+[node name="WallLeftCollidor2" parent="Background" index="7" instance=ExtResource("5_sbnph")]
+position = Vector2(1579, 476)
+shape = SubResource("RectangleShape2D_rt2av")
+
 [node name="IntroPanPcam" type="Node2D" parent="Cameras" index="0" node_paths=PackedStringArray("follow_target") groups=["Pcam"]]
 top_level = true
 position = Vector2(450, 378)
@@ -69,20 +75,7 @@ limit_top = 0
 limit_bottom = 648
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="LockedLivingDoorProp" parent="Sortables" index="0" instance=ExtResource("5_a0hpe")]
-modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(852, 550)
-scale = Vector2(1.4, 1.4)
-script = ExtResource("6_6ybea")
-required_key_id = "6"
-next_scene = "chapter1/livingroom"
-next_pos = Vector2(0, 0)
-room_name = "测试"
-required_clue_id = "3"
-required_clue_dialog_chapter = "chapter1"
-required_clue_dialog_label = "start"
-
-[node name="LivingRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_f7fd0")]
+[node name="LivingRoomDoor" parent="Sortables" index="0" instance=ExtResource("4_f7fd0")]
 modulate = Color(1, 1, 1, 0.588235)
 position = Vector2(446, 550)
 scale = Vector2(1.4, 1.4)
@@ -100,7 +93,7 @@ texture = ExtResource("5_sy1jl")
 layout_mode = 1
 anchors_preset = 15
 
-[node name="StudyRoomDoor" parent="Sortables" index="2" instance=ExtResource("4_f7fd0")]
+[node name="StudyRoomDoor" parent="Sortables" index="1" instance=ExtResource("4_f7fd0")]
 modulate = Color(1, 1, 1, 0.588235)
 position = Vector2(1328, 550)
 scale = Vector2(1.4, 1.4)
@@ -111,10 +104,10 @@ required_clue_id = "3"
 required_clue_dialog_chapter = "chapter1"
 required_clue_dialog_label = "start"
 
-[node name="Player" parent="Sortables" index="3"]
+[node name="Player" parent="Sortables" index="2"]
 position = Vector2(999, 384)
 
-[node name="NoteItem" parent="Sortables" index="4" instance=ExtResource("6_rhvxx")]
+[node name="NoteItem" parent="Sortables" index="3" instance=ExtResource("6_rhvxx")]
 position = Vector2(1093, 284)
 item_id = "3"
 oneshot = true
@@ -125,7 +118,7 @@ interact_dialog_label = "read_note"
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("7_04lje")
 
-[node name="PillItem" parent="Sortables" index="5" instance=ExtResource("6_rhvxx")]
+[node name="PillItem" parent="Sortables" index="4" instance=ExtResource("6_rhvxx")]
 position = Vector2(653, 355)
 item_id = "4"
 oneshot = true
@@ -148,22 +141,24 @@ rotation = -1.16937
 scale = Vector2(0.005, 0.005)
 texture = ExtResource("9_bw71u")
 
-[node name="PillInstructionItem" parent="Sortables" index="6" instance=ExtResource("6_rhvxx")]
-position = Vector2(157, 520)
+[node name="PillInstructionItem" parent="Sortables" index="5" instance=ExtResource("6_rhvxx")]
+position = Vector2(108, 537)
 item_id = "5"
 oneshot = true
 interact_dialog_chapter = "chapter1"
 interact_dialog_label = "read_instruction"
 required_clue_id = "4"
 required_clue_dialog_chapter = "chapter1"
-required_clue_dialog_label = "get_medicine"
+required_clue_dialog_label = "get_pill_first"
 
 [node name="Sprite2D" parent="Sortables/PillInstructionItem" index="1"]
-scale = Vector2(0.01, 0.01)
+rotation = -1.22173
+scale = Vector2(0.005, 0.005)
 texture = ExtResource("10_a0hpe")
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(999, 378)
+limit_right = 2260
 
 [node name="SceneDirector" type="Node" parent="." index="5"]
 script = ExtResource("6_l17rv")

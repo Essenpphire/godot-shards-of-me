@@ -180,9 +180,8 @@ func _collect_clue() -> void:
 	if _collected or revealed_clue_id.is_empty():
 		return
 
-	var clue_manager := get_node_or_null("/root/ClueManager")
-	if clue_manager != null and not clue_manager.get_clues().has(revealed_clue_id):
-		clue_manager.add_clue(revealed_clue_id)
+	ClueManager.add_clue(revealed_clue_id)
+	Dialogic.start("chapter1", "bathroom_clue_found")
 
 	_collected = true
 	_update_collect_hint()

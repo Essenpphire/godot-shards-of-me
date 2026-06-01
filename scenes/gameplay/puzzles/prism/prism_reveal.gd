@@ -9,6 +9,10 @@ enum InteractionMode {
 @export_group("Chapter")
 @export var san_loss_per_turn: int = 5
 
+@export_group("Dialog")
+@export var timeline : String = "chapter1"
+@export var diag_label : String = "study_clue_found"
+
 @export_group("Rotation")
 @export_range(0.0, 360.0, 0.1) var target_rotation_deg: float = 0.0:
 	set(value):
@@ -75,6 +79,13 @@ var _collect_hint_active: bool = false
 
 
 func _ready() -> void:
+	if Dialogic.VAR.get_variable("chapter1.read_pill_instruction"):
+		show()
+	else:
+		hide()
+	Dialogic.signal_event.connect(func(argument):
+		if argument == "show_prism": show()
+	)
 	_configure_viewport()
 	_configure_prism_render()
 	prism_sprite.texture = viewport.get_texture()
@@ -227,15 +238,13 @@ func _try_collect_revealed_clue() -> void:
 	if _revealed_clue_collected or not _can_collect_revealed_clue():
 		return
 
-	var clue_manager := get_node_or_null("/root/ClueManager")
-	if clue_manager == null:
-		return
-	if clue_manager.get_clues().has(revealed_clue_id):
+	if ClueManager.get_clues().has(revealed_clue_id):
 		_revealed_clue_collected = true
 		_update_collect_hint()
 		return
 
-	clue_manager.add_clue(revealed_clue_id)
+	ClueManager.add_clue(revealed_clue_id)
+	Dialogic.start(timeline, diag_label)
 	_revealed_clue_collected = true
 	_update_collect_hint()
 
@@ -263,6 +272,8 @@ func _update_collect_hint() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not visible:
+		return
 	if event.is_action_pressed("互动"):
 		if collect_revealed_clue_with_interact and _player_in_collect_range and _can_collect_revealed_clue():
 			_try_collect_revealed_clue()
@@ -302,10 +313,9 @@ func _apply_click_step() -> void:
 func _reduce_san_for_turn() -> void:
 	if Engine.is_editor_hint():
 		return
-	var chapter := get_node_or_null("/root/Chapter")
-	if chapter == null:
-		return
-	chapter.san -= san_loss_per_turn
+	# @todo 神秘BUG san_loss_per_turn失效，只能-1
+	#Chapter.san -= san_loss_per_turn
+	Chapter.san -= 5
 
 
 func _is_pointer_over_prism() -> bool:

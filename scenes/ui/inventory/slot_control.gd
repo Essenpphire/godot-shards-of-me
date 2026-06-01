@@ -25,14 +25,15 @@ func _on_slot_gui_input(event: InputEvent) -> void:
 func _on_use_btn_pressed() -> void:
 	action_menu.hide()
 	match slot.item_id:
-		## 镜子碎片
-		"2":
+		"2": # 镜子碎片
 			var s: String = Chapter.cur_scene
 			if s.contains("_inside"):
 				s = "chapter0/classroom"
 			Chapter.change_scene(s, 30)
 			## 第一次回到表世界
 			#Chapter.set_data("first_back", true)
+		"4": # 抗抑郁药
+			Dialogic.start("system", "take_pill")
 		"_":
 			Dialogic.start("system", "no_use")
 

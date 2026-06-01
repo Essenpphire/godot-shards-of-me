@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bs6ahl02s1hmu" path="res://scenes/items/item_template.tscn" id="6_rffjy"]
 [ext_resource type="Script" uid="uid://t0kd8bkuh4ye" path="res://scenes/gameplay/chapters/chapter1/kitchen_director.gd" id="7_0wulh"]
 [ext_resource type="Texture2D" uid="uid://bva0mwi4mpjrf" path="res://assets/images/items/lockedbox.png" id="7_jhd8e"]
-[ext_resource type="Texture2D" uid="uid://bsbpfm8urh13c" path="res://assets/images/items/key.png" id="8_jhd8e"]
+[ext_resource type="Texture2D" uid="uid://xy3t20nn3cxe" path="res://assets/images/items/home_key.png" id="8_w73y8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
@@ -140,12 +140,14 @@ interact_dialog_chapter = "chapter1"
 interact_dialog_label = "get_key"
 
 [node name="Sprite2D" parent="Sortables/HomeKey" index="1"]
-rotation = 1.5708
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("8_jhd8e")
+position = Vector2(0, 6)
+rotation = 0.811578
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("8_w73y8")
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)
+limit_right = 2260
 
 [node name="KitchenDirector" type="Node" parent="." index="5"]
 script = ExtResource("7_0wulh")

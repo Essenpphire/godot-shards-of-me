@@ -58,6 +58,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		info.show()
 		get_viewport().set_input_as_handled()
 
+func handle_inspect(item_id) -> void:
+	UiLayer.get_node("ItemLayer/ContentFull").hide()
+	UiLayer.get_node("ItemLayer/Content").show()
+	action_menu.hide()
+	info.show()
+	EventBus.clue_inspect_item.emit(item_id)
+
 func _on_inspect_btn_pressed() -> void:
 	print("仔细查看: ", item_id)
 	UiLayer.get_node("ClueBook").hide()
@@ -70,18 +77,18 @@ func _on_inspect_btn_pressed() -> void:
 		"1":
 			UiLayer.get_node("ItemLayer").hide()
 			PuzzleLayer.get_node("PasswordLock").show()
+		"5": # 药品说明书
+			handle_inspect(item_id)
+			Dialogic.start("chapter1", "inspect_instruction")
 		"8":
 			# 机关小盒的“仔细查看”进入厨房光路谜题。
-			UiLayer.get_node("ItemLayer").hide()
 			action_menu.hide()
 			info.show()
+			UiLayer.get_node("ItemLayer").hide()
 			PuzzleLayer.open_hard_02()
 		_:	
-			UiLayer.get_node("ItemLayer/ContentFull").hide()
-			UiLayer.get_node("ItemLayer/Content").show()
-			action_menu.hide()
-			info.show()
-			EventBus.clue_inspect_item.emit(item_id)
+			handle_inspect(item_id)
+			
 
 ## "拿到手上"：把线索转移到物品栏
 func _on_slot_btn_pressed() -> void:

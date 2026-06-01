@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://ckjelnlepu7js"]
+[gd_scene load_steps=12 format=4 uid="uid://ckjelnlepu7js"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_g1ev2"]
 [ext_resource type="Texture2D" uid="uid://cgykmpwyctdbt" path="res://assets/images/backgrounds/书房/study_room_flat_background_v2.png" id="2_1q3eu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cvlbfmcthnr7j" path="res://assets/images/backgrounds/浴室/wall_bathroom.png" id="4_x4ua1"]
 [ext_resource type="PackedScene" uid="uid://bulewp0xprism" path="res://scenes/gameplay/puzzles/prism/prism_reveal.tscn" id="5_lfnu8"]
 [ext_resource type="Texture2D" uid="uid://dna58ulvc15n1" path="res://assets/images/backgrounds/书房/phrase1.png" id="6_hja1m"]
+[ext_resource type="Script" uid="uid://bds0e02lij35t" path="res://scenes/gameplay/chapters/chapter1/prism_hint.gd" id="8_bwwqp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrrqo"]
 size = Vector2(36.5486, 712.072)
@@ -14,7 +15,10 @@ size = Vector2(36.5486, 712.072)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hja1m"]
 size = Vector2(36.5486, 712.072)
 
-[node name="Gameplay3" instance=ExtResource("1_g1ev2")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hja1m"]
+radius = 245.898
+
+[node name="Gameplay" instance=ExtResource("1_g1ev2")]
 
 [node name="StudyRoomFlatBackgroundV3" type="Sprite2D" parent="Background" index="0"]
 position = Vector2(1829.61, 137.04)
@@ -50,7 +54,7 @@ shape = SubResource("RectangleShape2D_hja1m")
 
 [node name="WallLeft2" type="Sprite2D" parent="Background" index="9"]
 z_index = -2
-position = Vector2(91, 88)
+position = Vector2(91, 89)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_x4ua1")
 offset = Vector2(-43.3333, 318.333)
@@ -66,7 +70,7 @@ region_enabled = true
 region_rect = Rect2(648.699, 235.711, 259.374, 381.988)
 
 [node name="PrismReveal" parent="Background" index="11" instance=ExtResource("5_lfnu8")]
-position = Vector2(1383, 199)
+position = Vector2(1393, 201)
 scale = Vector2(0.4, 0.4)
 san_loss_per_turn = 1
 turn_speed_deg_per_sec = 30.0
@@ -96,5 +100,13 @@ anchors_preset = 15
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(320, 378)
+
+[node name="PrismHint" type="Area2D" parent="." index="5"]
+position = Vector2(304, -39)
+script = ExtResource("8_bwwqp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PrismHint" index="0"]
+position = Vector2(947, 493)
+shape = SubResource("CircleShape2D_hja1m")
 
 [editable path="Sortables/BedRoomDoor"]

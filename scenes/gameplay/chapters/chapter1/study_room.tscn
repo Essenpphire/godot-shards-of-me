@@ -95,6 +95,6 @@ layout_mode = 1
 anchors_preset = 15
 
 [node name="Camera2D" parent="." index="4"]
-position = Vector2(197.333, 233.1)
+position = Vector2(320, 378)
 
 [editable path="Sortables/BedRoomDoor"]

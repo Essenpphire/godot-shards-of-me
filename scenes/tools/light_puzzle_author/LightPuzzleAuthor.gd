@@ -193,7 +193,7 @@ func solve_current_puzzle() -> void:
 
 	_set_status("正在求解...")
 	solver_result = LightPuzzleVisualSolver.solve_visual(draft_puzzle, 1, 5.0)
-	if int(solver_result.get("layout_solution_count", 0)) == 0 and not bool(solver_result.get("truncated", false)):
+	if int(solver_result.get("layout_solution_count", 0)) == 0:
 		var visual_result := solver_result
 		solver_result = LightPuzzleStateSolver.solve_reachable(draft_puzzle, 1, 250000, 10.0)
 		solver_result["visual_solver_result"] = visual_result

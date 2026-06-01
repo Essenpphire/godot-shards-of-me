@@ -103,6 +103,114 @@ static func solve_reachable(
 	return result
 
 
+static func solve_to_positions(
+	puzzle_data: LightPuzzleData,
+	target_positions: Array,
+	max_states: int = DEFAULT_MAX_STATES,
+	max_seconds: float = DEFAULT_MAX_SECONDS,
+	match_visual_equivalence: bool = false
+) -> Dictionary:
+	var result := {
+		"completed": false,
+		"truncated": false,
+		"truncated_reason": "",
+		"visited_states": 0,
+		"expanded_states": 0,
+		"labelled_solution_count": 0,
+		"visual_solution_count": 0,
+		"target_reached": false,
+		"first_solution_positions": [],
+		"first_solution_moves": [],
+		"first_solution_segments": [],
+		"sample_solutions": [],
+		"message": "",
+	}
+	if puzzle_data == null:
+		result["message"] = "missing puzzle data"
+		return result
+
+	var placements: Array = puzzle_data.placements
+	var movable_indices := _movable_indices(placements)
+	var target_info := _target_state_for_positions(puzzle_data, placements, movable_indices, target_positions)
+	if not bool(target_info.get("ok", false)):
+		result["message"] = str(target_info.get("message", "invalid target positions"))
+		return result
+
+	var initial_state := _initial_state(placements, movable_indices)
+	var initial_key := _state_key(initial_state)
+	var target_state: Array = target_info.get("state", [])
+	var target_key := _state_key(target_state)
+	var target_visual_key := ""
+	if match_visual_equivalence:
+		target_visual_key = _visual_solution_key(placements, target_positions)
+	var fixed_occupancy := _fixed_occupancy(placements, movable_indices)
+	var started_msec := Time.get_ticks_msec()
+	var max_msec := int(max_seconds * 1000.0)
+
+	var queue: Array = [initial_state]
+	var cursor := 0
+	var seen: Dictionary = {}
+	seen[initial_key] = true
+	var parents: Dictionary = {}
+	parents[initial_key] = {
+		"parent": "",
+		"move": {},
+	}
+
+	while cursor < queue.size():
+		if max_msec > 0 and Time.get_ticks_msec() - started_msec >= max_msec:
+			result["truncated"] = true
+			result["truncated_reason"] = "time_limit"
+			break
+
+		var state: Array = queue[cursor]
+		cursor += 1
+		result["expanded_states"] = int(result["expanded_states"]) + 1
+		var current_key := _state_key(state)
+		var full_positions: Array = []
+		var target_matched := current_key == target_key
+		if match_visual_equivalence:
+			full_positions = _full_positions_for_state(placements, movable_indices, state)
+			target_matched = _visual_solution_key(placements, full_positions) == target_visual_key
+
+		if target_matched:
+			if full_positions.is_empty():
+				full_positions = _full_positions_for_state(placements, movable_indices, state)
+			var solution := LightBeamSolver.solve(puzzle_data, _runtime_for_state(placements, movable_indices, state))
+			result["target_reached"] = true
+			result["labelled_solution_count"] = 1 if bool(solution.get("solved", false)) else 0
+			result["visual_solution_count"] = 1
+			result["first_solution_positions"] = full_positions
+			result["first_solution_moves"] = _reconstruct_moves(current_key, parents)
+			result["first_solution_segments"] = solution.get("segments", [])
+			(result["sample_solutions"] as Array).append(full_positions)
+			break
+
+		var occupancy := _occupancy_for_state(placements, movable_indices, state, fixed_occupancy)
+		for move in _legal_moves(puzzle_data, placements, movable_indices, state, occupancy):
+			var next_state: Array = move["state"]
+			var next_key := _state_key(next_state)
+			if seen.has(next_key):
+				continue
+			if max_states > 0 and seen.size() >= max_states:
+				result["truncated"] = true
+				result["truncated_reason"] = "state_limit"
+				break
+			seen[next_key] = true
+			parents[next_key] = {
+				"parent": current_key,
+				"move": move["move"],
+			}
+			queue.append(next_state)
+		if bool(result["truncated"]):
+			break
+
+	result["visited_states"] = seen.size()
+	result["completed"] = not bool(result["truncated"])
+	result["message"] = _build_target_message(result)
+	return result
+
+
 static func _movable_indices(placements: Array) -> Array[int]:
 	var indices: Array[int] = []
 	for index in range(placements.size()):
@@ -258,6 +366,84 @@ static func _position_is_valid(
 	return true
 
 
+static func _target_state_for_positions(
+	puzzle_data: LightPuzzleData,
+	placements: Array,
+	movable_indices: Array[int],
+	target_positions: Array
+) -> Dictionary:
+	if target_positions.size() < placements.size():
+		return {
+			"ok": false,
+			"message": "target positions do not cover every placement",
+			"state": [],
+		}
+
+	var movable_lookup := {}
+	for placement_index in movable_indices:
+		movable_lookup[placement_index] = true
+
+	var target_state: Array = []
+	var occupancy := {}
+	for index in range(placements.size()):
+		var placement := placements[index] as LightPiecePlacement
+		if placement == null or placement.piece == null:
+			continue
+		if not (target_positions[index] is Vector2i):
+			return {
+				"ok": false,
+				"message": "target position %d is not a Vector2i" % index,
+				"state": [],
+			}
+		var target_cell: Vector2i = target_positions[index]
+		if not movable_lookup.has(index) and target_cell != placement.grid_position:
+			return {
+				"ok": false,
+				"message": "target moves fixed placement %s" % placement.placement_id,
+				"state": [],
+			}
+		if not _target_position_is_valid(puzzle_data, placement, target_cell):
+			return {
+				"ok": false,
+				"message": "target position is invalid for %s" % placement.placement_id,
+				"state": [],
+			}
+		for y in range(placement.piece.size.y):
+			for x in range(placement.piece.size.x):
+				var key := _cell_key(target_cell + Vector2i(x, y))
+				if occupancy.has(key):
+					return {
+						"ok": false,
+						"message": "target positions overlap at %s" % key,
+						"state": [],
+					}
+				occupancy[key] = index
+
+	for placement_index in movable_indices:
+		target_state.append(target_positions[placement_index])
+	return {
+		"ok": true,
+		"message": "",
+		"state": target_state,
+	}
+
+
+static func _target_position_is_valid(
+	puzzle_data: LightPuzzleData,
+	placement: LightPiecePlacement,
+	target_cell: Vector2i
+) -> bool:
+	if placement == null or placement.piece == null:
+		return false
+	if target_cell.x < 0 or target_cell.y < 0:
+		return false
+	if target_cell.x + placement.piece.size.x > puzzle_data.board_size.x:
+		return false
+	if target_cell.y + placement.piece.size.y > puzzle_data.board_size.y:
+		return false
+	return placement.allowed_cells.is_empty() or placement.allowed_cells.has(target_cell)
+
+
 static func _add_piece_cells(occupancy: Dictionary, placement_index: int, position: Vector2i, size: Vector2i) -> void:
 	for y in range(size.y):
 		for x in range(size.x):
@@ -348,6 +534,17 @@ static func _build_message(result: Dictionary) -> String:
 		labelled_count,
 		int(result.get("visited_states", 0)),
 	]
+
+
+static func _build_target_message(result: Dictionary) -> String:
+	if bool(result.get("truncated", false)):
+		return "Target search truncated by %s after visiting %d states." % [
+			str(result.get("truncated_reason", "")),
+			int(result.get("visited_states", 0)),
+		]
+	if bool(result.get("target_reached", false)):
+		return "Target layout is reachable after visiting %d states." % int(result.get("visited_states", 0))
+	return "Target layout is not reachable after visiting %d states." % int(result.get("visited_states", 0))
 
 
 static func _cell_key(cell: Vector2i) -> String:

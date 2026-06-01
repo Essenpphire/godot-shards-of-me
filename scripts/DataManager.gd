@@ -66,6 +66,8 @@ func load_persistent_data() -> bool:
 ## [b][return][/b]: 是否保存成功
 func save_persistent_data() -> bool:
 	await _wait_dialogic_ready()
+	if is_instance_valid(PuzzleLayer):
+		PuzzleLayer.flush_active_puzzle_state()
 
 	# 收集所有 Persist 分组节点的数据
 	var output_dict := {}

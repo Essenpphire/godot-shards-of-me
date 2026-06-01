@@ -253,3 +253,4 @@ texture = ExtResource("10_aoln1")
 physics_interpolation_mode = 0
 position = Vector2(1357, 408)
 zoom = Vector2(1.35, 1.35)
+limit_right = 2260

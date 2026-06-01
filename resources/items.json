@@ -58,5 +58,11 @@
 		"name": "家门钥匙",
 		"type": 0,
 		"description": "一把普通的门钥匙，可以打开家的大门"
+	},
+	"10": {
+		"texture": "note_1.png",
+		"name": "完整线索",
+		"type": 1,
+		"description": "一条已经拼完整的线索，指向厨房壁橱里的东西。"
 	}
 }

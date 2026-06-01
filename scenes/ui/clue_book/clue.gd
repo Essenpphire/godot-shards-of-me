@@ -85,7 +85,7 @@ func _on_inspect_btn_pressed() -> void:
 			action_menu.hide()
 			info.show()
 			UiLayer.get_node("ItemLayer").hide()
-			PuzzleLayer.open_hard_02()
+			PuzzleLayer.open_kitchen_puzzle()
 		_:	
 			handle_inspect(item_id)
 			

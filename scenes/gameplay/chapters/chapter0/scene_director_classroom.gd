@@ -17,6 +17,7 @@ const WINDOWS_ZOOM := Vector2(2.2, 2.2)
 # 对应 res://dialogs/chapter0.dtl 里的 "label cut_in"。
 const CUT_IN_TIMELINE := "res://dialogs/chapter0.dtl"
 const CUT_IN_LABEL := "cut_in"
+const RETURN_DIALOG_PLAYED_KEY := "chapter0_return_dialog_played"
 
 # NPC 群组淡出后的透明度。
 # 0.0 是完全透明，1.0 是完全不透明。
@@ -68,7 +69,9 @@ func _ready() -> void:
 	if _played:
 		npc_group.hide()
 		## 第二次回来欧阳夜出来对话
-		Dialogic.start("chapter0", "diag1")
+		if not Chapter.get_data(RETURN_DIALOG_PLAYED_KEY, false):
+			Chapter.set_data(RETURN_DIALOG_PLAYED_KEY, true)
+			Dialogic.start("chapter0", "diag1")
 	else:
 		play_intro_to_windows()
 		Chapter.set_data("is_intro_played", true)

@@ -25,7 +25,6 @@ var _is_camera_input_blocked: bool = false
 
 
 func _ready() -> void:
-	can_interact = true
 	super._ready()
 
 

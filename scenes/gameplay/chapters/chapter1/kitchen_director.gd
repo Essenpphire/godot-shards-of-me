@@ -1,11 +1,11 @@
 extends Node
 
-const HARD_02_PUZZLE_ID: String = "easy_01"
+const EASY_01_PUZZLE_ID: String = "easy_01"
 const SOLVED_HOLD_SECONDS: float = 2.0
 const COMPLETE_CLUE_ID: String = "10"
 const LOCKED_BOX_ITEM_ID: String = "8"
+const HOME_KEY_ITEM_ID: String = "9"
 
-@onready var home_key: Node = $"../Sortables/HomeKey"
 @onready var locked_box: Prop = $"../Sortables/LockedBox"
 
 var _finishing_puzzle: bool = false
@@ -15,16 +15,7 @@ func _ready() -> void:
 	EventBus.puzzle_light_solved.connect(_on_puzzle_light_solved)
 	EventBus.clue_add_item.connect(_on_clue_state_changed)
 	EventBus.clue_update_book.connect(_on_clue_state_changed)
-	_refresh_key_visibility()
 	_refresh_locked_box_visibility()
-
-
-## 厨房钥匙只有在机关盒谜题解开后才出现。
-func _refresh_key_visibility() -> void:
-	var solved: bool = Chapter.get_data("chapter1_kitchen_box_solved", false)
-	if is_instance_valid(home_key):
-		home_key.visible = solved
-		home_key.can_interact = solved
 
 
 func _refresh_locked_box_visibility(_unused = null) -> void:
@@ -56,7 +47,10 @@ func _refresh_locked_box_visibility(_unused = null) -> void:
 
 
 func _has_complete_clue() -> bool:
-	return ClueManager.get_clues().has(COMPLETE_CLUE_ID)
+	return (
+		ClueManager.get_clues().has(COMPLETE_CLUE_ID)
+		or ClueManager.has_in_inventory(COMPLETE_CLUE_ID)
+	)
 
 
 func _has_collected_locked_box() -> bool:
@@ -71,7 +65,7 @@ func _on_clue_state_changed(_unused = null) -> void:
 
 
 func _on_puzzle_light_solved(puzzle_id: String) -> void:
-	if puzzle_id != HARD_02_PUZZLE_ID or _finishing_puzzle:
+	if puzzle_id != EASY_01_PUZZLE_ID or _finishing_puzzle:
 		return
 	if Chapter.get_data("chapter1_kitchen_box_solved", false):
 		return
@@ -80,6 +74,15 @@ func _on_puzzle_light_solved(puzzle_id: String) -> void:
 	# 解谜成功后先停留在当前界面，让玩家看清完成状态。
 	await get_tree().create_timer(SOLVED_HOLD_SECONDS).timeout
 	PuzzleLayer.close_active_puzzle()
-	_refresh_key_visibility()
+	_grant_home_key()
 	Dialogic.start("chapter1", "kitchen_box_solve")
 	_finishing_puzzle = false
+
+
+func _grant_home_key() -> void:
+	if ClueManager.has_in_inventory(HOME_KEY_ITEM_ID):
+		return
+	if ClueManager.get_clues().has(HOME_KEY_ITEM_ID):
+		ClueManager.move_clues_to_inventory(HOME_KEY_ITEM_ID)
+		return
+	ClueManager.add_to_inventory(HOME_KEY_ITEM_ID)

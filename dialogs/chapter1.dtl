@@ -88,23 +88,21 @@ ye_li: 机关？
 ye_li: ……让我检查一下。
 set {chapter1.box_taken} = true
 [end_timeline]
+
 label kitchen_box_solve
-ye_li: 呼，终于打开了
-[end_timeline]
-
-label door_without_key
-ye_li: ……我出不去。
-[end_timeline]
-
-label get_key
-do GameManager.lock_player_control(true)
 join ye_li center
+ye_li: 呼，终于打开了
+do GameManager.lock_player_control(true)
 ye_li: 走吧。
 ye_li: 我该走了……
 ye_li: 该走了。
 leave ye_li
 do GameManager.lock_player_control(false)
 set {chapter1.key_taken} = true
+[end_timeline]
+
+label door_without_key
+ye_li: ……我出不去。
 [end_timeline]
 
 label door_with_key

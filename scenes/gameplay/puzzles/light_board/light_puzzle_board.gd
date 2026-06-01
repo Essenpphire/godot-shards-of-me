@@ -241,8 +241,7 @@ func _recompute_solution() -> void:
 			_solved_emitted = true
 			_play_solved_flash()
 			save_current_state()
-			puzzle_solved.emit(puzzle_data.puzzle_id)
-			EventBus.puzzle_light_solved.emit(puzzle_data.puzzle_id)
+			puzzle_solved.emit(get_state_key())
 	else:
 		_status_label.text = "Tracing"
 		_status_label.add_theme_color_override("font_color", Color(0.88, 0.9, 0.96))

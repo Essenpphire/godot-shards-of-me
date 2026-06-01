@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://4ofs8dtr728e"]
+[gd_scene load_steps=9 format=4 uid="uid://4ofs8dtr728e"]
 
 [ext_resource type="PackedScene" uid="uid://0dofuqx88eef" path="res://scenes/gameplay/chapters/chapter0/toilet.tscn" id="1_hqhay"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_4isnv"]
 [ext_resource type="Texture2D" uid="uid://dk4ir7cregfvg" path="res://assets/images/backgrounds/bg_toilet_inside.png" id="3_88ihn"]
 [ext_resource type="Texture2D" uid="uid://jeawsikhq468" path="res://assets/images/backgrounds/wall_2.png" id="4_v6x4d"]
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="5_v6x4d"]
+[ext_resource type="Script" uid="uid://de04i67drxyan" path="res://scenes/props/prop_door.gd" id="6_door"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1d20"]
 size = Vector2(2000, 30)
@@ -12,7 +13,7 @@ size = Vector2(2000, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7bg35"]
 size = Vector2(54.3651, 742.61)
 
-[node name="Gameplay" instance=ExtResource("1_hqhay")]
+[node name="Gameplay3" instance=ExtResource("1_hqhay")]
 
 [node name="Background" parent="." index="1"]
 visible = false
@@ -41,6 +42,7 @@ shape = SubResource("RectangleShape2D_m1d20")
 [node name="WallLeftCollidor" parent="Background2" index="4" instance=ExtResource("5_v6x4d")]
 position = Vector2(21, 398)
 rotation = 1.02974
+scale = Vector2(1.0648, 0.984286)
 shape = SubResource("RectangleShape2D_7bg35")
 
 [node name="FloorCollidor" parent="Background2" index="5" instance=ExtResource("5_v6x4d")]
@@ -62,16 +64,22 @@ shape = SubResource("RectangleShape2D_7bg35")
 
 [node name="mirror" parent="." index="3"]
 visible = false
+can_interact = false
+
+[node name="Detection" parent="mirror" index="3"]
+monitoring = false
+monitorable = false
 
 [node name="DoorHw" parent="." index="4"]
+script = ExtResource("6_door")
 next_scene = "chapter0/hallway_inside"
 next_pos = Vector2(1889, 456)
 
 [node name="Camera2D" parent="." index="7"]
 unique_name_in_owner = false
-limit_left = -10000000
-limit_top = -10000000
-limit_bottom = 10000000
+limit_left = -160
+limit_top = 0
+limit_right = 10000000
 
 [editable path="mirror"]
 [editable path="DoorHw"]

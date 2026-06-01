@@ -89,7 +89,6 @@ tween_resource = SubResource("Resource_80haw")
 
 [node name="Camera2D" parent="." index="6"]
 top_level = true
-position = Vector2(252.5, 424.5)
 
 [node name="CameraTargets" type="Node2D" parent="." index="7"]
 

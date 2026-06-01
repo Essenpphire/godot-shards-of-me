@@ -17,13 +17,13 @@ do Data.delete_save()
 do GameManager.back_to_menu()
 [end_timeline]
 label normal_end
-[background arg="res://assets/images/backgrounds/background_classroom_1.png" fade="0.0"]
+[background arg="res://assets/images/backgrounds/background_classroom_1.png" fade="1.0" wait="true"]
 join pang left [animation="Fade In" wait="true"]
-join ye_li right [animation="Fade In" wait="true"]
+join ouyang_ye (stage2) right [animation="Fade In" wait="true"]
 pang: 离，你咋了
 leave ye_li [animation="Fade Out" length="0.0" wait="true"]
-join ouyang_ye right [animation="Fade In" wait="true"]
-ouyang_ye (stage1): ……
+join ouyang_ye (stage1) right [animation="Fade In" wait="true"]
+ouyang_ye: ……
 ouyang_ye: 老毛病了……
 pang: 药呢
 ouyang_ye: 吃着呢
@@ -31,14 +31,23 @@ ouyang_ye: 哎……
 pang: 走
 ouyang_ye: ？
 pang: 请你喝水
-ouyang_ye (stand): 行，走吧
+join ouyang_ye (stand) right [animation="Fade In" length="1.0" wait="true"]
+[wait time="1.0"]
+ouyang_ye: 行，走吧
+[wait time="2.0"]
 ye_li: ……
-[clear time="1.0"]
+[clear time="1.0" text="false"]
+[background arg="res://assets/images/cg/cg_bird_1.png" fade="1.0" wait="true"]
+[clear time="1.0" portraits="false" music="false" background="false" positions="false" style="false"]
+[background arg="res://assets/images/cg/cg_bird_2.png" fade="1.0" wait="true"]
+[background arg="res://assets/images/cg/cg_bird_3.png" fade="1.0" wait="true"]
+[background arg="res://assets/images/cg/cg_bird_1.png" fade="1.0" wait="true"]
 [background arg="res://assets/images/cg/bg_bird_4.png" fade="1.0" wait="true"]
-没人知道明天会怎样
+没人知道明天会怎样。
 也许明天会更好？也许明天会更坏？也许明天就是故事的终章？
-我不知道，但，继续走下去吧，总有一天，总有一天
-有些什么，会变得不同
+我不知道，但，继续走下去吧，总有一天，总有一天……
+有些什么，会变得不同。
+[clear time="1.0" portraits="false" music="false" background="false" positions="false" style="false"]
 do Data.delete_save()
 do GameManager.back_to_menu()
 [end_timeline]

@@ -158,6 +158,7 @@ texture = ExtResource("10_a0hpe")
 
 [node name="Camera2D" parent="." index="4"]
 position = Vector2(999, 378)
+limit_right = 2260
 
 [node name="SceneDirector" type="Node" parent="." index="5"]
 script = ExtResource("6_l17rv")

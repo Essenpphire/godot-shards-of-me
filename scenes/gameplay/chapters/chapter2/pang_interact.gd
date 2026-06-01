@@ -37,7 +37,7 @@ func _play_start_dialogue() -> void:
 	if not Dialogic.is_node_ready():
 		await Dialogic.ready
 
-	Dialogic.start("chapter2", "start")
+	Dialogic.start("endings", "normal_end")
 	await Dialogic.timeline_ended
 	GameManager.lock_player_control(false)
 

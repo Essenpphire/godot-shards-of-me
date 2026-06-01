@@ -59,10 +59,4 @@
 		"type": 0,
 		"description": "一把普通的门钥匙，可以打开家的大门"
 	},
-	"10": {
-		"texture": "phrase_full.png",
-		"name": "最后的线索",
-		"type": 0,
-		"description": "融合之后的线索：「在厨房的壁橱里」……会是什么东西在里面呢？"
-	}
 }

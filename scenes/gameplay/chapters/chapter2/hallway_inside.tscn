@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=4 uid="uid://wc0gudrok6fs"]
+[gd_scene load_steps=21 format=4 uid="uid://dtvnm8i85gjyi"]
 
+[ext_resource type="PackedScene" uid="uid://barl4q1kugrmm" path="res://scenes/ui/pause-layer/pause_layer.tscn" id="1_dof2o"]
 [ext_resource type="Script" uid="uid://bje8skpsorpve" path="res://scenes/gameplay/chapters/chapter2/hallway_director.gd" id="1_qjjvg"]
 [ext_resource type="Texture2D" uid="uid://bxe6l41mtwhpd" path="res://assets/images/backgrounds/bg_hallway_1.png" id="2_dof2o"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="3_yovw3"]
@@ -8,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dbkvbqfuk8n3f" path="res://assets/images/backgrounds/bg_hallway_inside.png" id="6_k5soo"]
 [ext_resource type="Texture2D" uid="uid://dvt4gdpa7vl3v" path="res://assets/images/backgrounds/wall_hl_3.png" id="7_re5nv"]
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="8_oxbub"]
-[ext_resource type="PackedScene" uid="uid://du4m0sm073id5" path="res://scenes/gameplay/npc/pang.tscn" id="9_ggxsu"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/npc/pang.tscn" id="9_ggxsu"]
 [ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="10_1j0il"]
 [ext_resource type="Script" uid="uid://cwdwbl7weyufp" path="res://scenes/gameplay/chapters/chapter2/pang_interact.gd" id="11_augl2"]
 
@@ -38,6 +39,8 @@ size = Vector2(41.5, 369)
 radius = 80.0
 
 [node name="Hallway" type="Node"]
+
+[node name="PauseLayer" parent="." instance=ExtResource("1_dof2o")]
 
 [node name="SceneDirector" type="Node" parent="."]
 script = ExtResource("1_qjjvg")
@@ -145,7 +148,7 @@ scale = Vector2(0.392716, 0.296969)
 texture = ExtResource("6_k5soo")
 
 [node name="WallRightCollidor" parent="Background2" instance=ExtResource("5_kmnjr")]
-position = Vector2(2277.25, 467.5)
+position = Vector2(1006, 467.5)
 shape = SubResource("RectangleShape2D_ppuvr")
 
 [node name="Sortables" type="Node2D" parent="."]
@@ -160,9 +163,9 @@ position = Vector2(684, 497)
 scale = Vector2(2, 2)
 
 [node name="Hint" parent="Sortables/Pang" instance=ExtResource("10_1j0il")]
-offset_left = -20.0
+offset_left = -10.0
 offset_top = -95.0
-offset_right = 20.0
+offset_right = 30.0
 offset_bottom = -55.0
 scale = Vector2(0.5, 0.5)
 

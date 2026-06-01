@@ -168,6 +168,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Player" parent="Sortables" index="0"]
 position = Vector2(290, 415)
+scale = Vector2(1.4, 1.4)
 
 [node name="Desks" type="Node2D" parent="Sortables" index="1"]
 y_sort_enabled = true

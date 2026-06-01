@@ -36,6 +36,9 @@ func _ready() -> void:
 ## 重置为新游戏初始状态。仅清字段 + 设默认起点，不做场景跳转。
 ## 跳转由调用方（如 menu.gd）使用 [method change_scene] 完成。
 func new_game() -> void:
+	if Dialogic.is_node_ready():
+		Dialogic.VAR.reset()
+	ClueManager.reset_runtime_data()
 	chapter_data.clear()
 	cur_scene = "chapter0/classroom"
 	player_pos = Vector2(246, 476)
@@ -45,6 +48,13 @@ func new_game() -> void:
 		"player_pos": player_pos
 	}
 	change_scene(cur_scene, 0, params)
+
+
+func reset_runtime_state() -> void:
+	chapter_data.clear()
+	cur_scene = ""
+	player_pos = Vector2.ZERO
+	san = 100
 
 ## 继续游戏
 ## 注意要显示调用Data.load_persistent_data
@@ -164,12 +174,15 @@ func change_scene(scene_name: String, san_cost: int = 0, params: Dictionary = {}
 		push_error("[Chapter.change_scene] 场景不存在: ", full_path)
 		return
 
-	Audio.stop_music()
 	if san_cost != 0:
 		san -= san_cost
 
 	cur_scene = scene_name
 	GGT.change_scene(full_path, params)
+
+
+func change_scene_to_pos(scene_name: String, x: float, y: float, san_cost: int = 0) -> void:
+	change_scene(scene_name, san_cost, {"player_pos": Vector2(x, y)})
 
 # ============================================================
 # 持久化协议（DataManager）

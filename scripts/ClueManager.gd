@@ -39,6 +39,7 @@ static func _to_str_array(src) -> Array[String]:
 func clear_clues() -> void:
 	print("已清除！")
 	clues.clear()
+	_sync_collected_clues_state()
 	EventBus.clue_update_book.emit()
 
 func add_clue(new_clue : String) -> void:
@@ -46,13 +47,14 @@ func add_clue(new_clue : String) -> void:
 	if new_clue == "" or clues.has(new_clue):
 		return
 	clues.append(new_clue)
-	Chapter.set_data("collected_clues", new_clue, true)
+	_sync_collected_clues_state()
 	EventBus.clue_add_item.emit(new_clue)
 	EventBus.clue_update_book.emit()
 
 func remove_clue(clue : String) -> void:
 	print("尝试移除线索: ", clue)
 	clues.erase(clue)
+	_sync_collected_clues_state()
 	EventBus.clue_update_book.emit()
 
 func get_clues() -> Array[String]:
@@ -90,6 +92,7 @@ func move_inventory_to_clues(item_id : String) -> bool:
 	if not clues.has(item_id):
 		clues.append(item_id)
 		EventBus.clue_add_item.emit(item_id)
+	_sync_collected_clues_state()
 	EventBus.inventory_update.emit()
 	EventBus.clue_update_book.emit()
 	return true
@@ -99,8 +102,25 @@ func move_clues_to_inventory(item_id : String) -> bool:
 	if item_id == "" or not clues.has(item_id):
 		return false
 	clues.erase(item_id)
+	_sync_collected_clues_state()
 	if not inventory.has(item_id):
 		inventory.append(item_id)
 	EventBus.clue_update_book.emit()
 	EventBus.inventory_update.emit()
 	return true
+
+
+func reset_runtime_data() -> void:
+	clues.clear()
+	inventory.clear()
+	_sync_collected_clues_state()
+	EventBus.clue_update_book.emit()
+	EventBus.inventory_update.emit()
+
+
+func sync_chapter_state() -> void:
+	_sync_collected_clues_state()
+
+
+func _sync_collected_clues_state() -> void:
+	Chapter.set_data("collected_clues", clues.duplicate())

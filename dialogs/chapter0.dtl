@@ -68,6 +68,7 @@ ouyang_ye: 好，等你
 [end_timeline]
 
 label toilet1
+join ye_li center [wait="true"]
 ye_li: *呼*
 ye_li: 操
 ye_li: （使劲摇头）又来……
@@ -84,7 +85,6 @@ ouyang_ye: ……
 label wash_face
 ouyang_ye: （洗脸）
 [wait time="1.0"]
-join ye_li center [wait="true"]
 ouyang_ye: 拿东西回家吧
 [clear time="1.0"]
 [background arg="#000000ff" fade="1.0" wait="true"]

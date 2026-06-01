@@ -30,6 +30,7 @@ func _ready():
 	_set_alpha(credits_container, 0.0)
 	
 	# 隐藏Layer
+	UiLayer.hide_gameplay_ui()
 	UiLayer.hide()
 	PuzzleLayer.hide()
 
@@ -85,6 +86,7 @@ func _fade_in(node: CanvasItem, duration: float) -> void:
 
 
 func _on_PlayButton_pressed() -> void:
+	UiLayer.show_gameplay_ui()
 	UiLayer.show()
 	PuzzleLayer.show()
 	Audio.stop_music()
@@ -92,6 +94,7 @@ func _on_PlayButton_pressed() -> void:
 	# Data 内部会等待 Dialogic 就绪，所有持久化数据统一存放在 Dialogic 的 "process" slot
 
 func _on_continue_button_pressed() -> void:
+	UiLayer.show_gameplay_ui()
 	UiLayer.show()
 	PuzzleLayer.show()
 	Audio.stop_music()

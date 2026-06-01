@@ -57,6 +57,9 @@ func load_persistent_data() -> bool:
 		else:
 			push_error("[DataManager] 节点缺少 load_data 方法: ", node.name)
 
+	if is_instance_valid(ClueManager):
+		ClueManager.sync_chapter_state()
+
 	print("[DataManager] 对话数据加载成功，slot: ", SLOT_NAME)
 	return true
 
@@ -108,4 +111,8 @@ func delete_save() -> Error:
 	if not Dialogic.is_node_ready():
 		await Dialogic.ready
 	Dialogic.VAR.reset()
+	if is_instance_valid(Chapter):
+		Chapter.reset_runtime_state()
+	if is_instance_valid(ClueManager):
+		ClueManager.reset_runtime_data()
 	return Dialogic.Save.delete_slot(SLOT_NAME)

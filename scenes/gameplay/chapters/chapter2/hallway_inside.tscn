@@ -1,15 +1,16 @@
-[gd_scene load_steps=21 format=4 uid="uid://dtvnm8i85gjyi"]
+[gd_scene load_steps=22 format=4 uid="uid://dtvnm8i85gjyi"]
 
 [ext_resource type="PackedScene" uid="uid://barl4q1kugrmm" path="res://scenes/ui/pause-layer/pause_layer.tscn" id="1_dof2o"]
 [ext_resource type="Script" uid="uid://bje8skpsorpve" path="res://scenes/gameplay/chapters/chapter2/hallway_director.gd" id="1_qjjvg"]
 [ext_resource type="Texture2D" uid="uid://bxe6l41mtwhpd" path="res://assets/images/backgrounds/bg_hallway_1.png" id="2_dof2o"]
+[ext_resource type="AudioStream" uid="uid://dmxm3bgdaxn48" path="res://assets/audios/BGM02-The Interior.ogg" id="3_hhl4n"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="3_yovw3"]
 [ext_resource type="Texture2D" uid="uid://nk6168nayrp8" path="res://assets/images/backgrounds/wall_hallway_1.png" id="4_hhl4n"]
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="5_kmnjr"]
 [ext_resource type="Texture2D" uid="uid://dbkvbqfuk8n3f" path="res://assets/images/backgrounds/bg_hallway_inside.png" id="6_k5soo"]
 [ext_resource type="Texture2D" uid="uid://dvt4gdpa7vl3v" path="res://assets/images/backgrounds/wall_hl_3.png" id="7_re5nv"]
 [ext_resource type="PackedScene" uid="uid://byr8pun5xyhsv" path="res://scenes/gameplay/player/player.tscn" id="8_oxbub"]
-[ext_resource type="PackedScene" uid="uid://du4m0sm073id5" path="res://scenes/gameplay/npc/pang.tscn" id="9_ggxsu"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/npc/pang.tscn" id="9_ggxsu"]
 [ext_resource type="PackedScene" uid="uid://ct4kg7pxbq8yi" path="res://scenes/ui/key_hint.tscn" id="10_1j0il"]
 [ext_resource type="Script" uid="uid://cwdwbl7weyufp" path="res://scenes/gameplay/chapters/chapter2/pang_interact.gd" id="11_augl2"]
 
@@ -44,6 +45,7 @@ radius = 80.0
 
 [node name="SceneDirector" type="Node" parent="."]
 script = ExtResource("1_qjjvg")
+bgm = ExtResource("3_hhl4n")
 
 [node name="Background" type="StaticBody2D" parent="."]
 visible = false

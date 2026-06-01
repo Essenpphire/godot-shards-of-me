@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://bkco768e84adp"]
+[gd_scene load_steps=20 format=4 uid="uid://c8q07yronkpfb"]
 
 [ext_resource type="Texture2D" uid="uid://bxe6l41mtwhpd" path="res://assets/images/backgrounds/bg_hallway_1.png" id="1_xbcr7"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_k8pcc"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=4 uid="uid://bsrx313k0d3uf"]
+[gd_scene load_steps=12 format=4 uid="uid://bsrx313k0d3uf"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_f0ptu"]
+[ext_resource type="AudioStream" uid="uid://dl38743it1brt" path="res://assets/audios/BGM01-Undefined.ogg" id="2_6mtpa"]
 [ext_resource type="Texture2D" uid="uid://bxe6l41mtwhpd" path="res://assets/images/backgrounds/bg_hallway_1.png" id="2_m24pk"]
 [ext_resource type="Texture2D" uid="uid://nk6168nayrp8" path="res://assets/images/backgrounds/wall_hallway_1.png" id="3_7q1g6"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="4_7q1g6"]
@@ -21,6 +22,7 @@ size = Vector2(256, 400)
 size = Vector2(256, 512)
 
 [node name="Gameplay3" instance=ExtResource("1_f0ptu")]
+bgm = ExtResource("2_6mtpa")
 
 [node name="WallBg3" type="Sprite2D" parent="Background" index="0"]
 position = Vector2(-37, -133)

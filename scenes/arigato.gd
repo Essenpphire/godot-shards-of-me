@@ -12,6 +12,8 @@ extends Control
 @export var line_interval: float = 0.8
 
 func _ready() -> void:
+	if is_instance_valid(UiLayer):
+		UiLayer.hide_gameplay_ui()
 	if bgm:
 		Audio.set_volume(0, 0.1)
 		Audio.play_music(bgm)

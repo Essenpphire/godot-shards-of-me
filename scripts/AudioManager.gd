@@ -46,18 +46,33 @@ func stop_music() -> void:
 	_fade_out_and_stop(current_audio_player)
 		
 ## 音乐播放
-func play_music(_audio:AudioStream)->void:
-	var current_audio_player:=music_players[current_music_player_index]
-	if(current_audio_player==_audio):
-		return
-	var empty_audio_player_index=0 if current_music_player_index==1 else 1
-	var empty_audio_player:=music_players[empty_audio_player_index]
-	#渐出
-	_fade_out_and_stop(current_audio_player)
-	#渐入
-	empty_audio_player.stream=_audio
-	_play_and_fade_in(empty_audio_player)
-	current_music_player_index=empty_audio_player_index
+func play_music(_audio: AudioStream) -> void:
+	var current_player := music_players[current_music_player_index]
+	var current_stream := current_player.stream
+	
+	# 检查是否需要切换
+	var need_switch = true
+	
+	if current_stream != null:
+		if current_stream == _audio or current_stream.resource_path == _audio.resource_path:
+			print("同一首歌，继续播放")
+			return  # 相同，什么都不做
+		else:
+			# 不同歌曲，渐出当前
+			print("切换歌曲: ", _audio.resource_path.get_file())
+			_fade_out_and_stop(current_player)
+	else:
+		# 当前没有播放，直接播放新歌
+		print("首次播放: ", _audio.resource_path.get_file())
+	
+	# 切换到新播放器播放
+	var next_index = 0 if current_music_player_index == 1 else 1
+	var next_player := music_players[next_index]
+	
+	next_player.stream = _audio
+	_play_and_fade_in(next_player)
+	current_music_player_index = next_index
+	
 #音乐淡入
 func _play_and_fade_in(_audio_player:AudioStreamPlayer)->void:
 	#_audio_player.volume_db = -10.0

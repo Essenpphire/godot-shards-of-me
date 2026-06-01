@@ -25,6 +25,7 @@ func _ready() -> void:
 	# 第二次回到卧室时不再接管镜头或启动起床对白。
 	if _is_room_reentry() or _has_intro_played():
 		Chapter.set_data(INTRO_PLAYED_KEY, true)
+		GameManager.lock_player_control(false)
 		return
 
 	await _play_intro_camera()

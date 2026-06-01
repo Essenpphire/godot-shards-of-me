@@ -4,6 +4,8 @@ const REACHED_HALLWAY_KEY: String = "chapter2_reached_inside_hallway"
 const PLAYER_AVATAR_KEY: String = "player_avatar"
 const OUYANG_YE_AVATAR: String = "ouyang_ye"
 
+@export var bgm: AudioStream
+
 @onready var surface_background: Node = $"../Background"
 @onready var inside_background: Node = $"../Background2"
 @onready var player_sprite: AnimatedSprite2D = $"../Sortables/Player/AnimatedSprite2D"
@@ -14,12 +16,22 @@ func _ready() -> void:
 	Chapter.set_data(PLAYER_AVATAR_KEY, OUYANG_YE_AVATAR)
 	_show_inside_world()
 	_apply_ouyang_ye_avatar()
+	await _play_bgm_if_needed()
 	GameManager.lock_player_control(false)
 
 
 func _show_inside_world() -> void:
 	surface_background.visible = false
 	inside_background.visible = true
+
+
+func _play_bgm_if_needed() -> void:
+	if bgm == null:
+		return
+	if GGT.is_changing_scene():
+		await GGT.scene_transition_finished
+	Audio.set_volume(0, 0.1)
+	Audio.play_music(bgm)
 
 
 func _apply_ouyang_ye_avatar() -> void:

@@ -231,7 +231,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "made by: 电弧蛞蝓制作组"
 
 [node name="ClearSaveBtn" type="Button" parent="MarginContainer/Control"]
-visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0

@@ -4,10 +4,10 @@ const INTRO_PLAYED_KEY: String = "chapter2_classroom_intro_played"
 const HALLWAY_SCENE: String = "chapter2/hallway_inside"
 const HALLWAY_PLAYER_POS: Vector2 = Vector2(185, 471)
 const INTRO_PRIORITY: int = 30
-const PAN_DURATION: float =5.0
+const PAN_DURATION: float = 5.0
 const FADE_DURATION: float = 0.7
 const FADE_HOLD: float = 0.3
-const EXIT_WALK_DURATION: float = 3.0
+const EXIT_WALK_DURATION: float = 5.0
 
 @onready var intro_camera: PhantomCamera2D = $"../Cameras/IntroPanPcam"
 @onready var player_follow_camera: PhantomCamera2D = $"../Cameras/PlayerFollowPcam"

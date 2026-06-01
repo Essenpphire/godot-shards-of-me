@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=4 uid="uid://b1il2v3a1shf5"]
+[gd_scene load_steps=12 format=4 uid="uid://b1il2v3a1shf5"]
 
 [ext_resource type="PackedScene" uid="uid://bsrx313k0d3uf" path="res://scenes/gameplay/chapters/chapter0/hallway.tscn" id="1_oe8q4"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_epe8v"]
+[ext_resource type="AudioStream" uid="uid://dmxm3bgdaxn48" path="res://assets/audios/BGM02-The Interior.ogg" id="2_oe8q4"]
 [ext_resource type="Texture2D" uid="uid://dbkvbqfuk8n3f" path="res://assets/images/backgrounds/bg_hallway_inside.png" id="3_0krup"]
 [ext_resource type="Texture2D" uid="uid://dvt4gdpa7vl3v" path="res://assets/images/backgrounds/wall_hl_3.png" id="4_u7uwt"]
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="5_bxwv0"]
@@ -17,7 +18,8 @@ size = Vector2(29, 651)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tvm1"]
 size = Vector2(41.5, 369)
 
-[node name="Gameplay3" instance=ExtResource("1_oe8q4")]
+[node name="Gameplay" instance=ExtResource("1_oe8q4")]
+bgm = ExtResource("2_oe8q4")
 
 [node name="Background" parent="." index="1"]
 visible = false
@@ -115,6 +117,8 @@ limit_right = 2260
 [node name="Camera2D" parent="." index="7"]
 unique_name_in_owner = false
 position = Vector2(653, 378)
+limit_left = -160
+limit_top = 0
 limit_right = 10000000
 
 [editable path="DoorClassroom"]

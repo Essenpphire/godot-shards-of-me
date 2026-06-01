@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=4 uid="uid://ckjelnlepu7js"]
+[gd_scene load_steps=13 format=4 uid="uid://ckjelnlepu7js"]
 
 [ext_resource type="PackedScene" uid="uid://bt8a1pyy0anck" path="res://scenes/gameplay/room/room_template.tscn" id="1_g1ev2"]
 [ext_resource type="Texture2D" uid="uid://cgykmpwyctdbt" path="res://assets/images/backgrounds/书房/study_room_flat_background_v2.png" id="2_1q3eu"]
+[ext_resource type="AudioStream" uid="uid://dl38743it1brt" path="res://assets/audios/BGM01-Undefined.ogg" id="2_gryxr"]
 [ext_resource type="PackedScene" uid="uid://cqmfwv43yen7j" path="res://scenes/props/prop_door.tscn" id="2_nqaxo"]
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="3_x4ua1"]
 [ext_resource type="Texture2D" uid="uid://cvlbfmcthnr7j" path="res://assets/images/backgrounds/浴室/wall_bathroom.png" id="4_x4ua1"]
@@ -19,6 +20,7 @@ size = Vector2(36.5486, 712.072)
 radius = 245.898
 
 [node name="Gameplay" instance=ExtResource("1_g1ev2")]
+bgm = ExtResource("2_gryxr")
 
 [node name="StudyRoomFlatBackgroundV3" type="Sprite2D" parent="Background" index="0"]
 position = Vector2(1829.61, 137.04)
@@ -97,6 +99,9 @@ position = Vector2(-13.4286, 0)
 [node name="Label" parent="Sortables/BedRoomDoor/RoomHint" index="0"]
 layout_mode = 1
 anchors_preset = 15
+
+[node name="Camera2D" parent="." index="4"]
+position = Vector2(320, 378)
 
 [node name="PrismHint" type="Area2D" parent="." index="5"]
 position = Vector2(304, -39)

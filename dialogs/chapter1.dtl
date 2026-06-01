@@ -47,12 +47,10 @@ label find_prism
 if {chapter1.read_pill_instruction} == true:
 	do GameManager.lock_player_control(true)
 	# 给个镜头
-	join ye_li center
 	ye_li: 书桌上怎么会有一块棱镜……
 	[wait time="1.0"]
 	ye_li: 等等，说明书……
 	ye_li: “书房”中的，再加上“红外线”……我知道了。
-	leave ye_li
 	（提示：靠近棱镜，鼠标左键点击进行互动。）
 	do GameManager.lock_player_control(false)
 	set {chapter1.read_prism} = true
@@ -90,13 +88,11 @@ set {chapter1.box_taken} = true
 [end_timeline]
 
 label kitchen_box_solve
-join ye_li center
 ye_li: 呼，终于打开了
 do GameManager.lock_player_control(true)
 ye_li: 走吧。
 ye_li: 我该走了……
 ye_li: 该走了。
-leave ye_li
 do GameManager.lock_player_control(false)
 set {chapter1.key_taken} = true
 [end_timeline]

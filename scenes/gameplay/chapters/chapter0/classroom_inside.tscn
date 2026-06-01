@@ -23,7 +23,7 @@ size = Vector2(2000, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m5dru"]
 size = Vector2(29, 651)
 
-[node name="Gameplay" instance=ExtResource("1_0lwj5")]
+[node name="Gameplay6" instance=ExtResource("1_0lwj5")]
 bgm = ExtResource("2_it5ba")
 
 [node name="Background" parent="." index="1"]
@@ -232,7 +232,6 @@ texture = ExtResource("14_s0prt")
 
 [node name="Camera2D" parent="." index="5"]
 unique_name_in_owner = false
-top_level = true
 position = Vector2(416, 378)
 
 [editable path="Sortables/DoorProp"]

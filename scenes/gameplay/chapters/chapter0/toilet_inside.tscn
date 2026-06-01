@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://4ofs8dtr728e"]
+[gd_scene load_steps=10 format=4 uid="uid://4ofs8dtr728e"]
 
 [ext_resource type="PackedScene" uid="uid://0dofuqx88eef" path="res://scenes/gameplay/chapters/chapter0/toilet.tscn" id="1_hqhay"]
 [ext_resource type="TileSet" uid="uid://bnw2ml60fum5q" path="res://resources/floor_tile.tres" id="2_4isnv"]
+[ext_resource type="AudioStream" uid="uid://dmxm3bgdaxn48" path="res://assets/audios/BGM02-The Interior.ogg" id="2_libor"]
 [ext_resource type="Texture2D" uid="uid://dk4ir7cregfvg" path="res://assets/images/backgrounds/bg_toilet_inside.png" id="3_88ihn"]
 [ext_resource type="Texture2D" uid="uid://jeawsikhq468" path="res://assets/images/backgrounds/wall_2.png" id="4_v6x4d"]
 [ext_resource type="PackedScene" uid="uid://g0q7uumyl35r" path="res://scenes/props/collidor.tscn" id="5_v6x4d"]
@@ -13,7 +14,8 @@ size = Vector2(2000, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7bg35"]
 size = Vector2(54.3651, 742.61)
 
-[node name="Gameplay3" instance=ExtResource("1_hqhay")]
+[node name="Gameplay" instance=ExtResource("1_hqhay")]
+bgm = ExtResource("2_libor")
 
 [node name="Background" parent="." index="1"]
 visible = false
@@ -77,11 +79,11 @@ next_pos = Vector2(1889, 456)
 
 [node name="Camera2D" parent="." index="7"]
 unique_name_in_owner = false
+top_level = false
 limit_left = -160
 limit_top = 0
 limit_right = 10000000
 
 [editable path="mirror"]
 [editable path="DoorHw"]
-[editable path="Sortables/Item"]
 [editable path="Sortables/Player"]

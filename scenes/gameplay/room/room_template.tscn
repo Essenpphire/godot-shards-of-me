@@ -64,6 +64,7 @@ scale = Vector2(2, 2)
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
+top_level = true
 position = Vector2(320, 378)
 zoom = Vector2(1.2, 1.2)
 limit_left = -160

@@ -3,19 +3,21 @@
 
 label start
 do GameManager.lock_player_control(true)
-join ye_li left
+join ouyang_ye left
 join pang right
 pang: 离，你咋了
-ye_li: ……
-ye_li: 老毛病了……
+ouyang_ye: ……
+ouyang_ye: 老毛病了……
 pang: 药呢
-夜: 吃着呢
-夜: 哎……
-胖: 走
-夜: ？
-胖: 请你喝水
-夜: 行，走吧
-离: ……
+ouyang_ye: 吃着呢
+ouyang_ye: 哎……
+pang: 走
+ouyang_ye: ？
+pang: 请你喝水
+ouyang_ye: 行，走吧
+leave ouyang_ye
+join ye_li left
+ye_li: ……
 leave --All--
 旁白: 没人知道明天会怎样
 旁白: 也许明天会更好？也许明天会更坏？也许明天就是故事的终章？

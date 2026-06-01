@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=4 format=3 uid="uid://bvoddkj82rs13"]
+
+[ext_resource type="Script" uid="uid://bwg6yncmh2cml" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_cvsu6"]
+[ext_resource type="Script" uid="uid://dv08k6ljua6fm" path="res://addons/dialogic/Resources/dialogic_style.gd" id="2_rtw36"]
+
+[sub_resource type="Resource" id="Resource_ddpyi"]
+script = ExtResource("1_cvsu6")
+overrides = {}
+
+[resource]
+script = ExtResource("2_rtw36")
+name = "arigato_style"
+layer_list = Array[String]([])
+layer_info = {
+"": SubResource("Resource_ddpyi")
+}
+base_overrides = {}
+layers = Array[ExtResource("1_cvsu6")]([])
+metadata/_latest_layer = ""

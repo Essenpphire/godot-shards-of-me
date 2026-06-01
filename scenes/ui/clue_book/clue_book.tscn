@@ -1,18 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1d5o0v0ws3f3"]
+[gd_scene load_steps=6 format=3 uid="uid://b1d5o0v0ws3f3"]
 
 [ext_resource type="Texture2D" uid="uid://wka1ccjsle1w" path="res://assets/images/ui/clue_book/UI books & more.png" id="1_kmlqy"]
 [ext_resource type="PackedScene" uid="uid://uwyewuxfvwll" path="res://scenes/ui/layer_mask.tscn" id="2_0378a"]
 [ext_resource type="Script" uid="uid://citym6h4x84c2" path="res://scenes/ui/clue_book/clue_book.gd" id="2_cx3gq"]
 [ext_resource type="PackedScene" uid="uid://dx51sjxiso1n2" path="res://scenes/ui/clue_book/clue.tscn" id="2_kwn8p"]
-[ext_resource type="Texture2D" uid="uid://deaecgnbfic8d" path="res://assets/images/ui/clue_book/clues.png" id="5_4r7dp"]
 [ext_resource type="Theme" uid="uid://ducfept6pmkkm" path="res://resources/theme/theme-main.tres" id="5_sehuf"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tvqry"]
-atlas = ExtResource("5_4r7dp")
-region = Rect2(560, 80, 48, 65)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qgm1d"]
-texture = SubResource("AtlasTexture_tvqry")
 
 [node name="ClueBookLayer" type="Control" groups=["Persist"]]
 layout_mode = 3
@@ -58,24 +50,21 @@ columns = 2
 [node name="Clue1" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
 custom_minimum_size = Vector2(48, 65)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_qgm1d")
 
 [node name="Clue2" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
 custom_minimum_size = Vector2(48, 65)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_qgm1d")
 
 [node name="Clue3" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
 custom_minimum_size = Vector2(48, 65)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_qgm1d")
 
 [node name="Clue4" parent="ClueBook/Clues" instance=ExtResource("2_kwn8p")]
 custom_minimum_size = Vector2(48, 65)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_qgm1d")
 
 [node name="debug" type="Button" parent="ClueBook"]
+visible = false
 layout_mode = 2
 offset_left = 248.0
 offset_top = -24.0

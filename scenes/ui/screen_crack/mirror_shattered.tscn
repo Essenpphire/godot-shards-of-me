@@ -34,6 +34,7 @@ grow_vertical = 2
 color = Color(0.152941, 0.152941, 0.152941, 0)
 
 [node name="DebugBtns" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 115.0
 offset_right = 231.0

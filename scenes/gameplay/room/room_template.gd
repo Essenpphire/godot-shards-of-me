@@ -1,6 +1,7 @@
 class_name Room
 extends Node
 
+# @todo 以后把BGM提取出来，作为单独的Component
 @export var bgm : AudioStream
 
 @export var startup_pcam_path: NodePath = ^"Sortables/Player/PlayerPhantomCamera2D"

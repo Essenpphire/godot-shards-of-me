@@ -146,8 +146,8 @@ scale = Vector2(0.01, 0.01)
 texture = ExtResource("8_w73y8")
 
 [node name="Camera2D" parent="." index="4"]
+top_level = false
 position = Vector2(320, 378)
-limit_right = 2260
 
 [node name="KitchenDirector" type="Node" parent="." index="5"]
 script = ExtResource("7_0wulh")

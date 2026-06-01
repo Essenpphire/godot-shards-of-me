@@ -15,6 +15,7 @@ script = ExtResource("1_jqcis")
 [node name="mirror_shattered" parent="." instance=ExtResource("4_3s0y6")]
 
 [node name="San" type="Label" parent="."]
+visible = false
 offset_left = 15.0
 offset_right = 115.0
 offset_bottom = 34.0

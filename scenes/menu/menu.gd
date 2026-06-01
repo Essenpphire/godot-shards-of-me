@@ -105,6 +105,7 @@ func _on_ExitButton_pressed() -> void:
 		})
 		await transitions.anim.animation_finished
 		await get_tree().create_timer(0.3).timeout
+	await Data.save_persistent_data()
 	get_tree().quit()
 
 

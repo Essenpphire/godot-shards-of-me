@@ -7,6 +7,7 @@ signal puzzle_solved(puzzle_id: String)
 signal puzzle_closed(puzzle_id: String)
 
 @export var puzzle_data: LightPuzzleData
+@export var stable_puzzle_id: String = ""
 @export var cell_size: float = 88.0
 @export var pause_world_while_open: bool = true
 @export var open_on_ready: bool = false
@@ -27,6 +28,8 @@ var _drag_origin_cell: Vector2i = Vector2i.ZERO
 var _drag_grab_offset: Vector2 = Vector2.ZERO
 var _was_paused_before_open: bool = false
 var _solved_emitted: bool = false
+var _restoring_state: bool = false
+var _undo_stack: Array = []
 
 
 func _ready() -> void:
@@ -48,8 +51,10 @@ func open_puzzle(new_puzzle_data: LightPuzzleData = null) -> void:
 
 	_runtime_placements = puzzle_data.create_runtime_placements()
 	_solved_emitted = false
+	_undo_stack.clear()
 	_title_label.text = puzzle_data.title if puzzle_data.title != "" else puzzle_data.puzzle_id
 	_status_label.text = ""
+	_apply_saved_state()
 	_configure_surface()
 	_rebuild_piece_views()
 	_recompute_solution()
@@ -63,6 +68,7 @@ func open_puzzle(new_puzzle_data: LightPuzzleData = null) -> void:
 func close_puzzle() -> void:
 	if _drag_index != -1:
 		end_piece_drag()
+	save_current_state()
 	hide()
 	if pause_world_while_open:
 		get_tree().paused = _was_paused_before_open
@@ -73,11 +79,23 @@ func close_puzzle() -> void:
 func reset_puzzle() -> void:
 	if puzzle_data == null:
 		return
+	_push_undo_state()
 	_runtime_placements = puzzle_data.create_runtime_placements()
 	_solved_emitted = false
 	_status_label.text = ""
 	_rebuild_piece_views()
 	_recompute_solution()
+	save_current_state()
+
+
+func undo_last_move() -> void:
+	if _undo_stack.is_empty():
+		return
+	_apply_runtime_snapshot(_undo_stack.pop_back())
+	_solved_emitted = _has_persisted_solved_state()
+	_rebuild_piece_views()
+	_recompute_solution()
+	save_current_state()
 
 
 func begin_piece_drag(index: int, global_mouse_position: Vector2) -> void:
@@ -146,12 +164,15 @@ func _clamp_drag_visual(index: int, cell: Vector2i, anchor_local: Vector2) -> Ve
 func end_piece_drag() -> void:
 	if _drag_index == -1:
 		return
+	var moved: bool = _get_runtime_position(_drag_index) != _drag_origin_cell
 	_set_piece_selected(_drag_index, false)
 	var view: Node = _piece_views[_drag_index] if _drag_index < _piece_views.size() else null
 	if is_instance_valid(view) and view.has_method("clear_drag_position"):
 		view.clear_drag_position()
 	_refresh_piece_view(_drag_index)
 	_drag_index = -1
+	if moved:
+		save_current_state()
 
 
 func is_dragging_piece(index: int) -> bool:
@@ -164,6 +185,12 @@ func _input(event: InputEvent) -> void:
 
 	if event is InputEventKey and event.is_action_pressed("pause"):
 		close_puzzle()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.is_action_pressed("puzzle_reset"):
+		reset_puzzle()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.is_action_pressed("puzzle_undo"):
+		undo_last_move()
 		get_viewport().set_input_as_handled()
 	elif event is InputEventMouseMotion and _drag_index != -1:
 		update_piece_drag(event.global_position)
@@ -213,6 +240,7 @@ func _recompute_solution() -> void:
 		if not _solved_emitted:
 			_solved_emitted = true
 			_play_solved_flash()
+			save_current_state()
 			puzzle_solved.emit(puzzle_data.puzzle_id)
 			EventBus.puzzle_light_solved.emit(puzzle_data.puzzle_id)
 	else:
@@ -413,3 +441,119 @@ func _set_piece_selected(index: int, value: bool) -> void:
 	var view: Node = _piece_views[index]
 	if is_instance_valid(view):
 		view.set_selected(value)
+
+
+func get_state_key() -> String:
+	if stable_puzzle_id != "":
+		return stable_puzzle_id
+	if puzzle_data != null and puzzle_data.puzzle_id != "":
+		return puzzle_data.puzzle_id
+	return ""
+
+
+func get_puzzle_state() -> Dictionary:
+	return {
+		"version": 1,
+		"puzzle_id": get_state_key(),
+		"solved": _solution.get("solved", false),
+		"current_placements": _snapshot_runtime_placements(),
+		"solved_placements": _snapshot_runtime_placements() if _solution.get("solved", false) else _get_saved_solved_placements(),
+	}
+
+
+func save_current_state() -> void:
+	var key := get_state_key()
+	if key == "":
+		return
+	var states: Dictionary = Chapter.get_data("light_puzzle_states", {})
+	if typeof(states) != TYPE_DICTIONARY:
+		states = {}
+	var state := get_puzzle_state()
+	var existing: Dictionary = states.get(key, {})
+	if typeof(existing) == TYPE_DICTIONARY and existing.get("solved", false) and not state.get("solved", false):
+		state["solved"] = true
+		state["solved_placements"] = existing.get("solved_placements", state.get("solved_placements", []))
+	states[key] = state
+	Chapter.set_data("light_puzzle_states", states)
+
+
+func apply_puzzle_state(state: Dictionary) -> void:
+	if typeof(state) != TYPE_DICTIONARY:
+		return
+	var snapshot = state.get("current_placements", [])
+	if state.get("solved", false):
+		var solved_snapshot = state.get("solved_placements", [])
+		if solved_snapshot is Array and not solved_snapshot.is_empty():
+			snapshot = solved_snapshot
+	if snapshot is Array:
+		_apply_runtime_snapshot(snapshot)
+
+
+func _apply_saved_state() -> void:
+	var key := get_state_key()
+	if key == "":
+		return
+	var states: Dictionary = Chapter.get_data("light_puzzle_states", {})
+	if typeof(states) != TYPE_DICTIONARY:
+		return
+	var state = states.get(key, null)
+	if typeof(state) != TYPE_DICTIONARY:
+		return
+	_restoring_state = true
+	apply_puzzle_state(state)
+	_restoring_state = false
+	if state.get("solved", false):
+		_solved_emitted = true
+
+
+func _snapshot_runtime_placements() -> Array:
+	var snapshot: Array = []
+	for placement in _runtime_placements:
+		snapshot.append({
+			"placement_id": placement.get("placement_id", ""),
+			"grid_position": placement.get("grid_position", Vector2i.ZERO),
+		})
+	return snapshot
+
+
+func _apply_runtime_snapshot(snapshot: Array) -> void:
+	var by_id: Dictionary = {}
+	for entry in snapshot:
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		var placement_id: String = str(entry.get("placement_id", ""))
+		if placement_id == "":
+			continue
+		var grid_position: Vector2i = entry.get("grid_position", Vector2i.ZERO)
+		by_id[placement_id] = grid_position
+	for index in range(_runtime_placements.size()):
+		var placement: Dictionary = _runtime_placements[index]
+		var placement_id: String = str(placement.get("placement_id", ""))
+		if by_id.has(placement_id):
+			placement["grid_position"] = by_id[placement_id] as Vector2i
+			_runtime_placements[index] = placement
+
+
+func _push_undo_state() -> void:
+	_undo_stack.append(_snapshot_runtime_placements())
+
+
+func _get_saved_state() -> Dictionary:
+	var key := get_state_key()
+	if key == "":
+		return {}
+	var states: Dictionary = Chapter.get_data("light_puzzle_states", {})
+	if typeof(states) != TYPE_DICTIONARY:
+		return {}
+	var state = states.get(key, {})
+	return state if typeof(state) == TYPE_DICTIONARY else {}
+
+
+func _get_saved_solved_placements() -> Array:
+	var state := _get_saved_state()
+	var solved_snapshot = state.get("solved_placements", [])
+	return solved_snapshot if solved_snapshot is Array else []
+
+
+func _has_persisted_solved_state() -> bool:
+	return _get_saved_state().get("solved", false)

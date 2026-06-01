@@ -13,13 +13,13 @@ if {chapter0.cutin_played} == false:
 
 # 看向窗外
 label cut_in
+…………
 [background arg="res://assets/images/cg/cg_bird_1.png" fade="1.0" wait="true"]
-一只鸟飞过窗外。
+…………
 [clear time="1.0" portraits="false" music="false" background="false" positions="false" style="false"]
 [background arg="res://assets/images/cg/cg_bird_2.png" fade="1.0" wait="true"]
 [background arg="res://assets/images/cg/cg_bird_3.png" fade="1.0" wait="true"]
 [background arg="res://assets/images/cg/cg_bird_1.png" fade="1.0" wait="true"]
-…………
 [background arg="res://assets/images/cg/bg_bird_4.png" fade="1.0"]
 [wait time="0.5"]
 audio "res://assets/audios/mirror_shattered.mp3"

@@ -12,7 +12,7 @@
 ## 游戏截图
 ![cover](./docs/封面.png)
 ![screenshot1](./docs/1.png)
-![screenshot2](./docs/2.png)
+![screenshot2](./docs/10.png)
 ![screenshot3](./docs/3.png)
 ![screenshot5](./docs/5.png)
 ![screenshot7](./docs/7.png)
